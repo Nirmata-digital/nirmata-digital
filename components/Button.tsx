@@ -2,16 +2,15 @@ import Link from "next/link";
 
 type Props = {
   href: string;
-  variant?: "primary" | "dark" | "outline" | "outlineLight";
+  variant?: "primary" | "dark" | "outline";
   children: React.ReactNode;
   className?: string;
 };
 
 const styles = {
   primary: "bg-orange-gradient text-navy hover:brightness-105",
-  dark: "bg-navy text-white hover:bg-navy-mid",
-  outline: "border border-navy/30 text-navy hover:border-navy",
-  outlineLight: "border border-white/40 text-white hover:bg-white/10",
+  dark: "bg-heading text-page hover:opacity-90",
+  outline: "border border-line text-heading hover:border-heading",
 };
 
 export default function Button({ href, variant = "primary", children, className = "" }: Props) {

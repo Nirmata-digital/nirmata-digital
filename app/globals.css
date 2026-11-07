@@ -1,14 +1,44 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --page: #ffffff;
+  --soft: #f4f6fb;
+  --card: #ffffff;
+  --fg: #14213d;
+  --heading: #0a1a3f;
+  --muted: #55627f;
+  --line: rgba(10, 26, 63, 0.12);
+  --header: rgba(255, 255, 255, 0.88);
+  --hero: linear-gradient(180deg, #ffffff 0%, #eaf2fb 60%, #ffffff 100%);
+}
+
+.dark {
+  --page: #060f26;
+  --soft: #0a1a3f;
+  --card: #0f2250;
+  --fg: #e6ebf7;
+  --heading: #ffffff;
+  --muted: #9fb0d3;
+  --line: rgba(255, 255, 255, 0.14);
+  --header: rgba(10, 26, 63, 0.85);
+  --hero: linear-gradient(180deg, #060f26 0%, #10286a 55%, #0a1a3f 100%);
+}
+
 @theme inline {
+  --color-page: var(--page);
+  --color-soft: var(--soft);
+  --color-card: var(--card);
+  --color-fg: var(--fg);
+  --color-heading: var(--heading);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-header: var(--header);
+
   --color-navy: #0a1a3f;
   --color-navy-mid: #1b3a8a;
-  --color-primary: #0a1a3f;
   --color-orange: #ff7a1a;
-  --color-secondary: #f4f6fb;
-  --color-ink: #14213d;
-  --color-muted: #55627f;
-  --color-surface: #ffffff;
   --color-success: #15803d;
   --color-error: #b91c1c;
 
@@ -19,16 +49,21 @@
 
 @layer base {
   body {
-    background: #ffffff;
-    color: var(--color-ink);
+    background: var(--page);
+    color: var(--fg);
     font-family: var(--font-body), system-ui, sans-serif;
+    transition: background-color 0.3s, color 0.3s;
   }
 
   h1, h2, h3, h4 {
     font-family: var(--font-heading), system-ui, sans-serif;
     letter-spacing: -0.02em;
-    color: var(--color-navy);
+    color: var(--heading);
   }
+}
+
+.bg-hero {
+  background: var(--hero);
 }
 
 .bg-navy-gradient {

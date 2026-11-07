@@ -6,7 +6,7 @@ type Props = {
 
 export default function Card({ label, title, children }: Props) {
   return (
-    <div className="overflow-hidden rounded-2xl border border-black/5 bg-white shadow-[0_8px_30px_rgba(10,26,63,0.08)]">
+    <div className="overflow-hidden rounded-2xl border border-line bg-card shadow-[0_8px_30px_rgba(10,26,63,0.08)]">
       <div className="bg-orange-gradient h-1.5" />
       <div className="p-6">
         {label && <p className="font-mono text-xs text-muted">{label}</p>}

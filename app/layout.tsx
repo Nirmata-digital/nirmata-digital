@@ -33,16 +33,25 @@ export const metadata: Metadata = {
   },
 };
 
+const themeScript = `try{if(localStorage.getItem("theme")==="dark"){document.documentElement.classList.add("dark")}}catch(e){}`;
+
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${jakarta.variable} ${jetbrains.variable}`}>
+    <html
+      lang="en"
+      className={`${jakarta.variable} ${jetbrains.variable}`}
+      suppressHydrationWarning
+    >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+      </head>
       <body>
         <Header />
-        <main>{children}</main>
+        <main className="pt-20">{children}</main>
         <Footer />
         <WhatsAppButton />
         <CallButton />
