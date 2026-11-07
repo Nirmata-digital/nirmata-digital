@@ -8,12 +8,12 @@ export const site = {
   address: "Your office address, Mumbai, Maharashtra", // replace
   hours: "Mon to Sat, 10 am to 7 pm", // replace
   whatsappMessage: "Hi Nirmata Digital, I'd like to know more about your services.",
-};
   announcement: {
     text: "New on the blog: how to get more enquiries from your website", // replace
     cta: "Read the blog",
     href: "/blog",
   },
+};
 
 export const navLinks = [
   { href: "/services", label: "Services" },
