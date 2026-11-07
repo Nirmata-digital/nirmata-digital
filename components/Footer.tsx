@@ -48,7 +48,7 @@ export default function Footer() {
         {" · "}
         <Link href="/terms" className="hover:text-white">Terms</Link>
         {" · "}
-        © {new Date().getFullYear()} {site.name}
+        © 2026 {site.name}
       </div>
     </footer>
   );
