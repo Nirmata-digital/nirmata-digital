@@ -1,24 +1,47 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-primary: #0b3d91;
-  --color-secondary: #eef3fb;
-  --color-accent: #ff6b2c;
-  --color-ink: #1a1a1a;
+  --color-navy: #0a1a3f;
+  --color-navy-mid: #1b3a8a;
+  --color-primary: #0a1a3f;
+  --color-orange: #ff7a1a;
+  --color-secondary: #f4f6fb;
+  --color-ink: #14213d;
+  --color-muted: #55627f;
   --color-surface: #ffffff;
   --color-success: #15803d;
   --color-error: #b91c1c;
 
-  --font-heading: var(--font-poppins);
-  --font-body: var(--font-inter);
+  --font-heading: var(--font-jakarta);
+  --font-body: var(--font-jakarta);
+  --font-mono: var(--font-jetbrains);
 }
 
-body {
-  background: var(--color-surface);
-  color: var(--color-ink);
-  font-family: var(--font-body), system-ui, sans-serif;
+@layer base {
+  body {
+    background: #ffffff;
+    color: var(--color-ink);
+    font-family: var(--font-body), system-ui, sans-serif;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-heading), system-ui, sans-serif;
+    letter-spacing: -0.02em;
+    color: var(--color-navy);
+  }
 }
 
-h1, h2, h3, h4 {
-  font-family: var(--font-heading), system-ui, sans-serif;
+.bg-navy-gradient {
+  background: linear-gradient(135deg, #0a1a3f 0%, #14327a 60%, #1b3a8a 100%);
+}
+
+.bg-orange-gradient {
+  background: linear-gradient(135deg, #ffa13a 0%, #ff6a1a 55%, #f2540c 100%);
+}
+
+.text-orange-gradient {
+  background: linear-gradient(135deg, #ffa13a 0%, #ff6a1a 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
