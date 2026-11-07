@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { navLinks, site } from "@/lib/site";
 import ThemeToggle from "@/components/ThemeToggle";
 
-const BAR_HEIGHT = 44;
+const BAR_HEIGHT = 48;
 
 export default function Header() {
   const [open, setOpen] = useState(false);
@@ -35,21 +35,40 @@ export default function Header() {
   return (
     <>
       {barOpen && (
-        <div className="bg-navy-gradient relative z-30 flex h-11 items-center justify-center gap-3 border-b border-white/10 px-4 text-white">
-          <p className="truncate text-xs sm:text-sm">{site.announcement.text}</p>
-          <Link
-            href={site.announcement.href}
-            className="bg-orange-gradient shrink-0 rounded-full px-4 py-1.5 text-xs font-semibold text-navy"
-          >
-            {site.announcement.cta} →
-          </Link>
+        <div className="bg-navy-gradient relative z-30 h-12 border-b border-white/10 text-white">
+          <div className="mx-auto flex h-full max-w-6xl items-center justify-center gap-3 px-12 sm:gap-5">
+            <p className="min-w-0 truncate text-xs sm:text-sm">
+              <span className="font-semibold">{site.announcement.label}</span>
+              <span className="hidden text-white/80 sm:inline">
+                {" "}
+                · {site.announcement.text}
+              </span>
+            </p>
+            <Link
+              href={site.announcement.href}
+              className="bg-orange-gradient shrink-0 whitespace-nowrap rounded-full px-4 py-1.5 text-xs font-semibold text-navy transition hover:brightness-105"
+            >
+              {site.announcement.cta} →
+            </Link>
+          </div>
+
           <button
             type="button"
             onClick={closeBar}
             aria-label="Close announcement"
-            className="shrink-0 px-1 text-xl leading-none text-white/70 hover:text-white"
+            className="absolute right-3 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full text-white/70 transition hover:bg-white/10 hover:text-white"
           >
-            ×
+            <svg
+              className="h-3.5 w-3.5"
+              viewBox="0 0 14 14"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              aria-hidden
+            >
+              <path d="M1 1l12 12M13 1L1 13" />
+            </svg>
           </button>
         </div>
       )}
