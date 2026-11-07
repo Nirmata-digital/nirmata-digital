@@ -1,69 +1,81 @@
-import Image from "next/image";
+import Button from "@/components/Button";
+import Card from "@/components/Card";
 
-export default function Home() {
+const pillars = [
+  { label: "Pillar 01", title: "Growth", text: "Ads, SEO and tracking that show what brings in customers." },
+  { label: "Pillar 02", title: "Web", text: "Fast, mobile-first websites built to turn visitors into enquiries." },
+  { label: "Pillar 03", title: "Content", text: "Videos, reels and posters that keep your brand consistent." },
+  { label: "Pillar 04", title: "Automation and Apps", text: "WhatsApp, CRM and workflow tools that save hours every week." },
+];
+
+export default function HomePage() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
+    <>
+      <section className="bg-navy-gradient relative -mt-20 overflow-hidden pb-24 pt-36 text-white md:pb-32 md:pt-44">
+        <div
+          aria-hidden
+          className="bg-orange-gradient pointer-events-none absolute -right-24 top-10 h-96 w-96 rounded-full opacity-30 blur-3xl"
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+        <div className="relative mx-auto grid max-w-6xl items-center gap-12 px-4 md:grid-cols-2">
+          <div>
+            <p className="inline-block rounded-full border border-white/25 px-4 py-1.5 font-mono text-xs text-white/80">
+              Digital agency · Mumbai
+            </p>
+            <h1 className="mt-6 text-5xl font-semibold leading-[1.05] text-white md:text-7xl">
+              Grow online. <span className="text-orange-gradient">Measure everything.</span>
+            </h1>
+            <p className="mt-6 max-w-lg text-lg leading-relaxed text-white/80">
+              Placeholder: one clear sentence about what you do and who it is for.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Button href="/free-audit">Get a free audit →</Button>
+              <Button href="/work" variant="outlineLight">See our work</Button>
+            </div>
+          </div>
+
+          <div className="rounded-3xl border border-white/15 bg-white/5 p-6 backdrop-blur md:p-8">
+            <p className="font-mono text-xs text-white/70">FOUR PILLARS</p>
+            <p className="mt-4 text-2xl font-semibold text-white md:text-3xl">
+              One team. Every channel. Clear results.
+            </p>
+            <div className="mt-8 grid grid-cols-2 gap-3">
+              {["Growth", "Web", "Content", "Automation"].map((p) => (
+                <div
+                  key={p}
+                  className="rounded-xl border border-white/15 bg-white/5 px-4 py-4 text-sm font-semibold text-white"
+                >
+                  {p}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-4 py-20">
+        <h2 className="max-w-xl text-3xl font-semibold md:text-4xl">What we do</h2>
+        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {pillars.map((p) => (
+            <Card key={p.title} label={p.label} title={p.title}>
+              {p.text}
+            </Card>
+          ))}
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-4 pb-8">
+        <div className="bg-orange-gradient rounded-3xl p-10 text-center md:p-14">
+          <h2 className="text-3xl font-semibold text-navy md:text-4xl">
+            Want to know what is holding your business back online?
+          </h2>
+          <p className="mx-auto mt-3 max-w-xl text-navy/80">
+            Placeholder: describe what the free audit checks.
           </p>
+          <div className="mt-6">
+            <Button href="/free-audit" variant="dark">Get a free audit →</Button>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+      </section>
+    </>
   );
 }
