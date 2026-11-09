@@ -80,3 +80,34 @@
   background-clip: text;
   color: transparent;
 }
+
+/* Grid-line background (use on a decorative absolute div) */
+.bg-grid {
+  background-image:
+    linear-gradient(to right, rgba(10, 26, 63, 0.07) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(10, 26, 63, 0.07) 1px, transparent 1px);
+  background-size: 48px 48px;
+  -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 0%, #000 35%, transparent 80%);
+  mask-image: radial-gradient(ellipse 80% 70% at 50% 0%, #000 35%, transparent 80%);
+}
+.dark .bg-grid {
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.07) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+}
+
+@keyframes nd-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.nd-marquee-track {
+  display: flex;
+  width: max-content;
+  animation: nd-marquee 35s linear infinite;
+}
+.nd-marquee:hover .nd-marquee-track {
+  animation-play-state: paused;
+}
+@media (prefers-reduced-motion: reduce) {
+  .nd-marquee-track { animation: none; }
+}

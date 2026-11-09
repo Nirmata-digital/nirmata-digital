@@ -1,174 +1,127 @@
-import type { Metadata } from "next";
+import Image from "next/image";
 import Button from "@/components/Button";
+import CaseVisual from "@/components/CaseVisual";
+import ClientMarquee from "@/components/ClientMarquee";
+import FaqWithHelp from "@/components/FaqWithHelp";
+import HeroDashboard from "@/components/HeroDashboard";
+import { caseStudies } from "@/content/work";
 import { site } from "@/lib/site";
-
-export const metadata: Metadata = {
-  title: "Services",
-  description:
-    "Websites, SEO, Google Business Profile, social media, video, photography and apps from Nirmata Digital. See what we do and who each service is for.",
-  alternates: { canonical: "/services" },
-  openGraph: {
-    title: "Services | Nirmata Digital",
-    description:
-      "Websites, SEO, Google Business Profile, social media, video, photography and apps from Nirmata Digital.",
-    url: "/services",
-    type: "website",
-  },
-};
+import Link from "next/link";
 
 /* ───────────── CONTENT (edit the words here) ───────────── */
 
-const intro = {
-  badge: "Services",
-  title: "Everything your business needs to grow online.",
-  text: "Four pillars that work together: get found, turn visitors into enquiries, look consistent everywhere, and save time on repeat work. Use one service on its own, or combine them.",
+const hero = {
+  badge: "Digital agency · Mumbai",
+  titleStart: "Grow online.",
+  titleAccent: "Measure everything.",
+  text: "We create the content, ads, websites and follow-up systems that bring Mumbai businesses and overseas clients more enquiries, and we track what each one brings in.",
+  trust: ["Free, no-obligation audit", "Proposal within 24 hours", "Clear monthly reports"],
 };
 
+// Put your own photo at public/images/team.jpg and set this to "/images/team.jpg"
+const aboutPhoto = "";
+
+const about = {
+  eyebrow: "About Nirmata Digital",
+  title: "One team for everything that brings in customers.",
+  paragraphs: [
+    "Nirmata Digital is a digital agency based in Virar, in the Mumbai region. We help growing businesses get found, look consistent and follow up on every enquiry, using content, ads, websites and automation that work together.",
+    "Every project starts with tracking, and every month you get a plain-English report of what worked, what did not and what we will do next. We never promise rankings or sales numbers, because nobody controls them.",
+  ],
+  facts: [
+    { k: "4", v: "Service pillars" },
+    { k: "6", v: "Industries served" },
+    { k: "24h", v: "Proposal after your call" },
+    { k: "Free", v: "Digital audit" },
+  ],
+};
+
+// Order: unique content first, then ads, then website, then follow-up and dashboards
 const pillars = [
   {
-    id: "growth",
-    icon: "growth",
-    label: "Pillar 01",
-    title: "Growth",
-    tagline: "Get found by people who are ready to buy.",
-    audience: "For businesses that want a steady flow of enquiries.",
-    problem:
-      "Good businesses stay invisible when nobody can find them, and money is wasted when nobody knows which channel brings customers.",
-    services: [
-      {
-        name: "Search Engine Optimisation (SEO)",
-        text: "Help your website show up higher in search results for the things your customers look for.",
-      },
-      {
-        name: "Google Business Profile optimisation",
-        text: "Set up and improve your listing so you are easier to find on Google Search and Maps.",
-      },
-      {
-        name: "Social media ad campaigns",
-        text: "Run ads on social platforms to reach more of the right people and bring in enquiries.",
-      },
-      {
-        name: "Tracking and analytics setup",
-        text: "Count calls, forms and clicks, so you know what is working and what is not.",
-      },
-    ],
-    deliverables: [
-      "A written plan before we start",
-      "Tracking switched on from day one",
-      "Monthly report with results, learnings and next steps",
-    ],
-  },
-  {
-    id: "web",
-    icon: "web",
-    label: "Pillar 02",
-    title: "Web",
-    tagline: "A website that works as hard as you do.",
-    audience: "For brands that need a site customers can use easily on a phone.",
-    problem:
-      "A slow or confusing website loses visitors quietly. Most of your customers will see it on a phone first.",
-    services: [
-      {
-        name: "Website design and development",
-        text: "User-friendly websites that look great and work smoothly on every screen size.",
-      },
-      {
-        name: "Landing pages for campaigns",
-        text: "Focused pages built around one offer, so ad clicks turn into calls, forms and WhatsApp chats.",
-      },
-      {
-        name: "E-commerce development",
-        text: "Online stores that make it easy for customers to browse, choose and pay.",
-      },
-      {
-        name: "Speed and mobile optimisation",
-        text: "Faster loading and cleaner layouts for the phone in your customer's hand.",
-      },
-    ],
-    deliverables: [
-      "Designed and tested for phones first",
-      "Contact form, WhatsApp and call buttons connected",
-      "Basic on-page SEO and tracking included",
-    ],
-  },
-  {
-    id: "content",
     icon: "content",
-    label: "Pillar 03",
+    label: "01",
     title: "Content",
-    tagline: "Look consistent everywhere your customers see you.",
-    audience: "For brands that need steady, good-looking content without the stress.",
-    problem:
-      "Inconsistent posts and weak visuals make a good business look smaller than it is.",
-    services: [
-      {
-        name: "Social media handling",
-        text: "Manage your accounts so your brand stays active and engaging.",
-      },
-      {
-        name: "Video editing and UGC video",
-        text: "Turn your footage and ideas into reels and videos that people want to watch.",
-      },
-      {
-        name: "Graphic design",
-        text: "Posters, social creatives and brand visuals that all feel like one brand.",
-      },
-      {
-        name: "Product photography",
-        text: "Quality photos that show your products and business in their best light.",
-      },
-      {
-        name: "Content writing",
-        text: "Clear, interesting writing for your website, posts and blogs.",
-      },
-    ],
-    deliverables: [
-      "A simple content plan before we create",
-      "Brand-consistent files, named and organised",
-      "Formats ready for your website and social platforms",
-    ],
+    tagline: "Organic, original content that is unmistakably yours.",
+    services: ["Reels and short videos", "Posters and social creatives", "Product photography", "Brand kits and templates"],
+    href: "/services#content",
   },
   {
-    id: "automation",
-    icon: "automation",
-    label: "Pillar 04",
-    title: "Automation and Apps",
-    tagline: "Stop losing hours to repeat work.",
-    audience: "For teams that chase leads and build reports by hand.",
-    problem:
-      "Leads go cold when follow-up depends on someone remembering, and hours disappear into reports.",
-    services: [
-      {
-        name: "Application development",
-        text: "Easy-to-use apps and tools built around how your business actually works.",
-      },
-      {
-        name: "WhatsApp follow-up flows",
-        text: "Reply to new enquiries quickly and keep leads warm without manual effort.",
-      },
-      {
-        name: "CRM setup and lead routing",
-        text: "Keep every enquiry in one place and make sure the right person sees it.",
-      },
-      {
-        name: "Reporting dashboards",
-        text: "One simple screen that shows leads, spend and results.",
-      },
-    ],
-    deliverables: [
-      "A map of your current process before we build",
-      "Everything tested before it goes live",
-      "A short guide so your team can use it",
-    ],
+    icon: "target",
+    label: "02",
+    title: "Growth and Ads",
+    tagline: "Ads and SEO that bring the right enquiries, tracked.",
+    services: ["Meta and Google Ads", "SEO and local SEO", "Google Business Profile", "Analytics and tracking"],
+    href: "/services#growth",
+  },
+  {
+    icon: "web",
+    label: "03",
+    title: "Web",
+    tagline: "Fast, mobile-first websites that turn visits into enquiries.",
+    services: ["Business websites", "Landing pages", "E-commerce", "Speed and mobile optimisation"],
+    href: "/services#web",
+  },
+  {
+    icon: "chart",
+    label: "04",
+    title: "Follow-up and Dashboards",
+    tagline: "Reply fast, keep every lead, and see results at a glance.",
+    services: ["WhatsApp follow-up flows", "CRM and lead routing", "Reporting dashboards", "Custom tools and apps"],
+    href: "/services#automation",
   },
 ];
 
-const guide = [
-  { need: "People cannot find us on Google", start: "Growth", href: "#growth", why: "SEO and your Google Business Profile" },
-  { need: "Our website does not bring enquiries", start: "Web", href: "#web", why: "A faster, clearer, mobile-first site" },
-  { need: "Our posts and visuals look inconsistent", start: "Content", href: "#content", why: "One brand across posts, videos and photos" },
-  { need: "We lose time on follow-ups and reports", start: "Automation and Apps", href: "#automation", why: "WhatsApp flows, CRM and dashboards" },
-  { need: "I am not sure where to start", start: "Free audit", href: "/free-audit", why: "We review your site, ads and listing for you" },
+// Starting prices are estimates. Confirm them against your own costs.
+const packages = [
+  {
+    name: "Starter",
+    audience: "For new businesses getting online properly.",
+    price: "₹19,999",
+    unit: "one-time",
+    features: [
+      "Mobile-first website, up to 5 pages",
+      "Google Business Profile setup",
+      "Basic on-page SEO",
+      "GA4 and Tag Manager tracking",
+      "WhatsApp and call buttons",
+      "Contact form that sends leads to you",
+    ],
+    cta: "Start with Starter",
+    highlight: false,
+  },
+  {
+    name: "Growth",
+    audience: "For businesses ready to bring in leads every month.",
+    price: "₹29,999",
+    unit: "per month",
+    features: [
+      "Everything in Starter",
+      "Meta and Google Ads management",
+      "Monthly content plan with reels and posters",
+      "Ongoing SEO improvements",
+      "Conversion tracking and Meta Pixel",
+      "Monthly report and strategy call",
+    ],
+    cta: "Choose Growth",
+    highlight: true,
+  },
+  {
+    name: "Scale",
+    audience: "For teams that want growth running on autopilot.",
+    price: "₹59,999",
+    unit: "per month",
+    features: [
+      "Everything in Growth",
+      "WhatsApp and CRM automation",
+      "Custom reporting dashboard",
+      "Landing pages for each campaign",
+      "Quarterly strategy review",
+      "Priority support",
+    ],
+    cta: "Talk about Scale",
+    highlight: false,
+  },
 ];
 
 const steps = [
@@ -179,92 +132,37 @@ const steps = [
 ];
 
 const faqs = [
-  {
-    q: "Can I buy just one service?",
-    a: "Yes. Every service can be bought on its own. The packages simply bundle the most useful ones at a better value.",
-  },
-  {
-    q: "Do you guarantee rankings or sales?",
-    a: "No. Nobody can honestly promise a ranking or a sales number, because search engines, ad platforms and customers are outside our control. We promise a clear plan, careful work and honest reporting.",
-  },
-  {
-    q: "Do you work with my kind of business?",
-    a: "We work with restaurants, healthcare, real estate, education, manufacturing and entertainment businesses, among others. If your industry is not listed, ask us. We will tell you honestly if we are the right fit.",
-  },
-  {
-    q: "How will I know what you are doing?",
-    a: "You get a monthly report in plain English, and we are on WhatsApp and Google Meet when you need us.",
-  },
-  {
-    q: "Who owns the work?",
-    a: "Ownership, revisions and payment terms are written into your agreement before work starts, so there are no surprises.",
-  },
-  {
-    q: "How much does it cost?",
-    a: "It depends on scope. Our packages show starting prices, and every proposal lists exactly what is included.",
-  },
+  { q: "How much does it cost?", a: "Packages start from the prices shown above. Your final price depends on scope, and every proposal lists exactly what is included. Ad spend is paid directly to the ad platform." },
+  { q: "How long does a project take?", a: "It depends on the scope. Your proposal states the schedule, and we tell you early if anything changes." },
+  { q: "How many revisions are included?", a: "The number of revisions is set in your agreement and listed in the proposal, so there are no surprises." },
+  { q: "How does payment work?", a: "Projects start with a 50% advance. Retainers are paid in advance each month, and you receive an invoice every time." },
+  { q: "Do you work with clients outside Mumbai?", a: "Yes. We work with businesses and agencies elsewhere over Google Meet and WhatsApp." },
+  { q: "What do I get from the free audit?", a: "A short review of your website, ads and Google listing, with the fixes most likely to bring in more enquiries." },
 ];
 
-/* ───────────── SMALL HELPERS (kept in this file) ───────────── */
+/* ───────────── SMALL HELPERS ───────────── */
 
 function Icon({ name, className = "h-6 w-6" }: { name: string; className?: string }) {
-  const paths: Record<string, React.ReactNode> = {
-    growth: (
-      <>
-        <polyline points="3 17 9 11 13 15 21 7" />
-        <polyline points="15 7 21 7 21 13" />
-      </>
-    ),
-    web: (
-      <>
-        <rect x="3" y="4" width="18" height="13" rx="2" />
-        <path d="M8 21h8M12 17v4" />
-      </>
-    ),
-    content: (
-      <>
-        <rect x="3" y="5" width="18" height="14" rx="2" />
-        <path d="M10 9.5v5l4.5-2.5z" />
-      </>
-    ),
-    automation: <path d="M13 2L4 14h7l-1 8 9-12h-7z" />,
+  const p: Record<string, React.ReactNode> = {
+    content: (<><rect x="3" y="5" width="18" height="14" rx="2" /><path d="M10 9.5v5l4.5-2.5z" /></>),
+    target: (<><circle cx="12" cy="12" r="9" /><circle cx="12" cy="12" r="5" /><circle cx="12" cy="12" r="1.5" /></>),
+    web: (<><rect x="3" y="4" width="18" height="13" rx="2" /><path d="M8 21h8M12 17v4" /></>),
+    chart: <path d="M4 20V10M10 20V4M16 20v-8M22 20H2" />,
     check: <path d="M5 12.5l4.5 4.5L19 7.5" />,
     arrow: <path d="M5 12h14M13 6l6 6-6 6" />,
   };
-
   return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.8"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className={className}
-      aria-hidden
-    >
-      {paths[name]}
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden>
+      {p[name]}
     </svg>
   );
 }
 
-function SectionHeading({
-  eyebrow,
-  title,
-  text,
-  center = false,
-}: {
-  eyebrow?: string;
-  title: string;
-  text?: string;
-  center?: boolean;
-}) {
+function SectionHeading({ eyebrow, title, text, center = false }: { eyebrow?: string; title: string; text?: string; center?: boolean }) {
   return (
     <div className={center ? "mx-auto max-w-2xl text-center" : "max-w-2xl"}>
       {eyebrow && (
-        <p className="text-orange-gradient inline-block font-mono text-xs font-semibold uppercase tracking-widest">
-          {eyebrow}
-        </p>
+        <p className="text-orange-gradient inline-block font-mono text-xs font-semibold uppercase tracking-widest">{eyebrow}</p>
       )}
       <h2 className="mt-3 text-3xl font-semibold leading-tight md:text-5xl">{title}</h2>
       {text && <p className="mt-4 text-base leading-relaxed text-muted md:text-lg">{text}</p>}
@@ -272,219 +170,233 @@ function SectionHeading({
   );
 }
 
-/* ───────────── STRUCTURED DATA ───────────── */
-
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "ItemList",
-  name: `${site.name} services`,
-  itemListElement: pillars
-    .flatMap((p) => p.services)
-    .map((s, i) => ({
-      "@type": "ListItem",
-      position: i + 1,
-      item: {
-        "@type": "Service",
-        name: s.name,
-        description: s.text,
-        provider: { "@type": "Organization", name: site.name },
-      },
-    })),
-};
+function GridBackdrop() {
+  return <div aria-hidden className="bg-grid pointer-events-none absolute inset-0" />;
+}
 
 /* ───────────── PAGE ───────────── */
 
-export default function ServicesPage() {
+export default function HomePage() {
   const whatsappHref = `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(site.whatsappMessage)}`;
+  const preview = caseStudies.slice(0, 3);
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
-      />
-
-      {/* 1. INTRO */}
+      {/* 1. HERO + ANIMATION */}
       <section className="bg-hero relative overflow-hidden">
-        <div
-          aria-hidden
-          className="bg-orange-gradient pointer-events-none absolute -right-32 -top-10 h-96 w-96 rounded-full opacity-20 blur-3xl dark:opacity-30"
-        />
-        <div className="relative mx-auto max-w-6xl px-4 pb-20 pt-12 md:pb-28 md:pt-20">
-          <p className="inline-flex rounded-full border border-line bg-card px-4 py-1.5 font-mono text-xs text-muted">
-            {intro.badge}
-          </p>
-          <h1 className="mt-6 max-w-3xl text-5xl font-semibold leading-[1.05] md:text-7xl">
-            Everything your business needs to{" "}
-            <span className="text-orange-gradient">grow online.</span>
-          </h1>
-          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted">{intro.text}</p>
+        <GridBackdrop />
+        <div aria-hidden className="bg-orange-gradient pointer-events-none absolute -right-32 -top-10 h-96 w-96 rounded-full opacity-20 blur-3xl dark:opacity-30" />
+        <div aria-hidden className="pointer-events-none absolute -left-32 top-48 h-96 w-96 rounded-full bg-navy-mid opacity-10 blur-3xl dark:opacity-30" />
 
-          <div className="mt-8 flex flex-wrap gap-3">
-            <Button href="/free-audit">Get a free audit →</Button>
-            <Button href="/packages" variant="outline">See packages</Button>
+        <div className="relative mx-auto grid max-w-6xl items-center gap-14 px-4 pb-24 pt-12 md:pb-28 md:pt-20 lg:grid-cols-[1fr_1fr]">
+          <div>
+            <p className="inline-flex items-center gap-2 rounded-full border border-line bg-card px-4 py-1.5 font-mono text-xs text-muted shadow-sm">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-orange opacity-60" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-orange" />
+              </span>
+              {hero.badge}
+            </p>
+            <h1 className="mt-6 text-5xl font-semibold leading-[1.04] sm:text-6xl lg:text-7xl">
+              {hero.titleStart} <span className="text-orange-gradient">{hero.titleAccent}</span>
+            </h1>
+            <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted">{hero.text}</p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Button href="/free-audit">Get a free audit →</Button>
+              <Button href="/work" variant="outline">See our work</Button>
+            </div>
+            <ul className="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-sm text-muted">
+              {hero.trust.map((t) => (
+                <li key={t} className="flex items-center gap-2">
+                  <span className="text-orange"><Icon name="check" className="h-4 w-4" /></span>
+                  {t}
+                </li>
+              ))}
+            </ul>
           </div>
 
-          <nav aria-label="Jump to a service" className="mt-12 flex flex-wrap gap-3">
-            {pillars.map((p) => (
-              <a
-                key={p.id}
-                href={`#${p.id}`}
-                className="group flex items-center gap-3 rounded-full border border-line bg-card px-5 py-3 text-sm font-semibold text-heading shadow-[0_8px_30px_rgba(10,26,63,0.06)] transition hover:-translate-y-0.5 hover:border-heading"
-              >
-                <span className="bg-navy-gradient flex h-8 w-8 items-center justify-center rounded-full text-white">
-                  <Icon name={p.icon} className="h-4 w-4" />
-                </span>
-                {p.title}
-              </a>
-            ))}
-          </nav>
+          <HeroDashboard />
         </div>
       </section>
 
-      {/* 2. PILLAR BLOCKS */}
-      {pillars.map((p, i) => (
-        <section
-          key={p.id}
-          id={p.id}
-          className={`scroll-mt-24 py-20 md:py-28 ${i % 2 === 0 ? "bg-page" : "bg-soft"}`}
-        >
-          <div className="mx-auto grid max-w-6xl gap-10 px-4 lg:grid-cols-[0.8fr_1.2fr] lg:gap-14">
-            {/* Summary panel */}
-            <div className="lg:sticky lg:top-28 lg:self-start">
-              <div className="bg-navy-gradient relative overflow-hidden rounded-3xl border border-white/10 p-8 text-white shadow-2xl">
-                <div
-                  aria-hidden
-                  className="bg-orange-gradient pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full opacity-30 blur-3xl"
-                />
-                <div className="relative">
-                  <div className="flex items-center justify-between">
-                    <span className="flex h-12 w-12 items-center justify-center rounded-xl border border-white/20 bg-white/10">
-                      <Icon name={p.icon} />
-                    </span>
-                    <span className="font-mono text-xs text-white/70">{p.label}</span>
-                  </div>
-                  <h2 className="mt-6 text-3xl font-semibold text-white md:text-4xl">{p.title}</h2>
-                  <p className="mt-3 text-lg text-white/90">{p.tagline}</p>
-                  <p className="mt-5 border-t border-white/15 pt-5 text-sm text-white/70">{p.audience}</p>
+      {/* 2. CLIENT LOGO SLIDER */}
+      <ClientMarquee />
 
-                  <div className="mt-6 flex flex-wrap gap-3">
-                    <Button href="/free-audit">Start with a free audit</Button>
-                  </div>
+      {/* 3. ABOUT THE COMPANY */}
+      <section className="relative overflow-hidden py-20 md:py-28">
+        <GridBackdrop />
+        <div className="relative mx-auto grid max-w-6xl items-center gap-12 px-4 lg:grid-cols-[1.1fr_0.9fr]">
+          <div>
+            <SectionHeading eyebrow={about.eyebrow} title={about.title} />
+            <div className="mt-6 space-y-4 text-base leading-relaxed text-muted md:text-lg">
+              {about.paragraphs.map((p) => (
+                <p key={p}>{p}</p>
+              ))}
+            </div>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Button href="/about">More about us</Button>
+              <Button href="/contact" variant="outline">Talk to us</Button>
+            </div>
+          </div>
+
+          <div className="relative">
+            <div aria-hidden className="bg-orange-gradient absolute -right-4 -top-4 h-full w-full rounded-3xl opacity-30 blur-2xl" />
+            {aboutPhoto ? (
+              <Image
+                src={aboutPhoto}
+                alt="The Nirmata Digital team"
+                width={640}
+                height={480}
+                className="relative h-72 w-full rounded-3xl border border-line object-cover shadow-[0_24px_60px_rgba(10,26,63,0.25)]"
+              />
+            ) : null}
+            <div className={`relative grid grid-cols-2 gap-4 ${aboutPhoto ? "-mt-10 px-4" : ""}`}>
+              {about.facts.map((f) => (
+                <div key={f.v} className="rounded-2xl border border-line bg-card p-6 shadow-[0_16px_40px_rgba(10,26,63,0.12)]">
+                  <p className="text-orange-gradient font-heading text-4xl font-semibold">{f.k}</p>
+                  <p className="mt-1 text-sm text-muted">{f.v}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 4. PILLARS */}
+      <section className="relative overflow-hidden bg-soft py-20 md:py-28">
+        <GridBackdrop />
+        <div className="relative mx-auto max-w-6xl px-4">
+          <SectionHeading
+            center
+            eyebrow="What we do"
+            title="Four pillars, one connected system"
+            text="Start with content that is truly yours, bring people in with ads, convert them on a fast website, then follow up and measure."
+          />
+          <div className="mt-14 grid gap-6 md:grid-cols-2">
+            {pillars.map((p) => (
+              <Link
+                key={p.title}
+                href={p.href}
+                className="bg-navy-gradient group relative overflow-hidden rounded-3xl border border-white/10 p-8 text-white shadow-[0_24px_60px_rgba(10,26,63,0.28)] transition duration-300 hover:-translate-y-1.5 hover:shadow-[0_32px_80px_rgba(10,26,63,0.4)]"
+              >
+                <div aria-hidden className="bg-orange-gradient pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full opacity-25 blur-3xl transition group-hover:opacity-45" />
+                <div className="relative flex items-center justify-between">
+                  <span className="flex h-14 w-14 items-center justify-center rounded-2xl border border-white/20 bg-white/10">
+                    <Icon name={p.icon} className="h-7 w-7" />
+                  </span>
+                  <span className="font-mono text-3xl font-semibold text-white/20">{p.label}</span>
+                </div>
+                <h3 className="relative mt-6 text-2xl font-semibold text-white">{p.title}</h3>
+                <p className="relative mt-2 text-sm text-white/70">{p.tagline}</p>
+                <ul className="relative mt-6 grid gap-3 sm:grid-cols-2">
+                  {p.services.map((s) => (
+                    <li key={s} className="flex gap-3 text-sm text-white/90">
+                      <span className="mt-0.5 shrink-0 text-orange"><Icon name="check" className="h-4 w-4" /></span>
+                      {s}
+                    </li>
+                  ))}
+                </ul>
+                <p className="relative mt-7 inline-flex items-center gap-2 text-sm font-semibold text-white">
+                  Explore {p.title}
+                  <span className="transition group-hover:translate-x-1"><Icon name="arrow" className="h-4 w-4" /></span>
+                </p>
+              </Link>
+            ))}
+          </div>
+          <div className="mt-10 text-center">
+            <Button href="/services" variant="outline">Explore all services</Button>
+          </div>
+        </div>
+      </section>
+
+      {/* 5. PACKAGES */}
+      <section id="packages" className="relative scroll-mt-28 overflow-hidden py-20 md:py-28">
+        <GridBackdrop />
+        <div className="relative mx-auto max-w-6xl px-4">
+          <SectionHeading
+            center
+            eyebrow="Packages"
+            title="Simple packages that grow with you"
+            text="Start where you are. Move up when you are ready. Prices are starting points, and ad spend is paid directly to the ad platform."
+          />
+          <div className="mt-16 grid items-stretch gap-6 md:grid-cols-3">
+            {packages.map((p) => (
+              <div
+                key={p.name}
+                className={`relative flex flex-col rounded-3xl p-8 ${
+                  p.highlight
+                    ? "bg-navy-gradient border border-white/10 text-white shadow-[0_30px_80px_rgba(10,26,63,0.4)] md:-translate-y-4"
+                    : "border border-line bg-card shadow-[0_16px_40px_rgba(10,26,63,0.1)]"
+                }`}
+              >
+                {p.highlight && (
+                  <span className="bg-orange-gradient absolute -top-3 left-8 rounded-full px-4 py-1 text-xs font-semibold text-navy">Most popular</span>
+                )}
+                <h3 className={`text-xl font-semibold ${p.highlight ? "text-white" : ""}`}>{p.name}</h3>
+                <p className={`mt-1 text-sm ${p.highlight ? "text-white/70" : "text-muted"}`}>{p.audience}</p>
+                <p className="mt-6 flex items-baseline gap-2">
+                  <span className={`text-sm ${p.highlight ? "text-white/70" : "text-muted"}`}>from</span>
+                  <span className={`font-heading text-4xl font-semibold ${p.highlight ? "text-white" : "text-heading"}`}>{p.price}</span>
+                  <span className={`text-sm ${p.highlight ? "text-white/70" : "text-muted"}`}>{p.unit}</span>
+                </p>
+                <ul className="mt-8 flex-1 space-y-3">
+                  {p.features.map((f) => (
+                    <li key={f} className="flex gap-3 text-sm">
+                      <span className="mt-0.5 shrink-0 text-orange"><Icon name="check" className="h-4 w-4" /></span>
+                      <span className={p.highlight ? "text-white/90" : "text-fg"}>{f}</span>
+                    </li>
+                  ))}
+                </ul>
+                <div className="mt-8">
+                  <Button href="/contact" variant={p.highlight ? "primary" : "dark"} className="w-full text-center">{p.cta}</Button>
                 </div>
               </div>
-            </div>
-
-            {/* Details */}
-            <div>
-              <p className="text-base leading-relaxed text-muted md:text-lg">
-                <span className="font-semibold text-heading">The problem: </span>
-                {p.problem}
-              </p>
-
-              <h3 className="mt-10 font-mono text-xs font-semibold uppercase tracking-widest text-muted">
-                What we do
-              </h3>
-              <div className="mt-4 grid gap-4 sm:grid-cols-2">
-                {p.services.map((s) => (
-                  <div
-                    key={s.name}
-                    className="overflow-hidden rounded-2xl border border-line bg-card shadow-[0_8px_30px_rgba(10,26,63,0.06)]"
-                  >
-                    <div className="bg-orange-gradient h-1" />
-                    <div className="p-6">
-                      <h4 className="text-base font-semibold">{s.name}</h4>
-                      <p className="mt-2 text-sm leading-relaxed text-muted">{s.text}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              <h3 className="mt-10 font-mono text-xs font-semibold uppercase tracking-widest text-muted">
-                What you get
-              </h3>
-              <ul className="mt-4 space-y-3">
-                {p.deliverables.map((d) => (
-                  <li key={d} className="flex gap-3 text-sm text-fg">
-                    <span className="mt-0.5 shrink-0 text-orange">
-                      <Icon name="check" className="h-4 w-4" />
-                    </span>
-                    {d}
-                  </li>
-                ))}
-              </ul>
-
-              <a
-                href="/contact"
-                className="group mt-8 inline-flex items-center gap-2 text-sm font-semibold text-heading"
-              >
-                Talk to us about {p.title}
-                <span className="transition group-hover:translate-x-1">
-                  <Icon name="arrow" className="h-4 w-4" />
-                </span>
-              </a>
-            </div>
-          </div>
-        </section>
-      ))}
-
-      {/* 3. WHERE SHOULD I START */}
-      <section className="mx-auto max-w-6xl px-4 py-20 md:py-28">
-        <SectionHeading
-          center
-          eyebrow="Not sure?"
-          title="Where should you start?"
-          text="Match the problem you have today to the pillar that fixes it first."
-        />
-        <div className="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {guide.map((g) => (
-            <a
-              key={g.need}
-              href={g.href}
-              className="group flex flex-col rounded-2xl border border-line bg-card p-6 shadow-[0_8px_30px_rgba(10,26,63,0.06)] transition hover:-translate-y-1 hover:border-heading"
-            >
-              <p className="text-base font-semibold text-heading">“{g.need}”</p>
-              <p className="mt-3 flex-1 text-sm text-muted">{g.why}</p>
-              <p className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-heading">
-                Start with {g.start}
-                <span className="transition group-hover:translate-x-1">
-                  <Icon name="arrow" className="h-4 w-4" />
-                </span>
-              </p>
-            </a>
-          ))}
-        </div>
-      </section>
-
-      {/* 4. INDUSTRIES */}
-      <section className="bg-soft py-16 md:py-20">
-        <div className="mx-auto max-w-6xl px-4 text-center">
-          <p className="text-orange-gradient inline-block font-mono text-xs font-semibold uppercase tracking-widest">
-            Industries
-          </p>
-          <h2 className="mt-3 text-2xl font-semibold md:text-4xl">Built around the way your industry works</h2>
-          <div className="mt-8 flex flex-wrap justify-center gap-3">
-            {site.industries.map((ind) => (
-              <span
-                key={ind}
-                className="rounded-full border border-line bg-card px-5 py-2.5 text-sm font-semibold text-heading"
-              >
-                {ind}
-              </span>
             ))}
           </div>
+          <div className="mt-10 text-center">
+            <Button href="/packages" variant="outline">Compare packages in detail</Button>
+          </div>
         </div>
       </section>
 
-      {/* 5. HOW WE WORK */}
+      {/* 6. WORK PREVIEW */}
+      <section className="relative overflow-hidden bg-soft py-20 md:py-28">
+        <GridBackdrop />
+        <div className="relative mx-auto max-w-6xl px-4">
+          <SectionHeading
+            eyebrow="Our work"
+            title="Sample projects"
+            text="Real case studies will replace these as we finish client work. Each one shows the problem, what we did and a result with a number."
+          />
+          <div className="mt-12 grid gap-6 md:grid-cols-3">
+            {preview.map((c) => (
+              <Link
+                key={c.slug}
+                href={`/work/${c.slug}`}
+                className="group overflow-hidden rounded-3xl border border-line bg-card shadow-[0_16px_40px_rgba(10,26,63,0.1)] transition hover:-translate-y-1.5 hover:shadow-[0_24px_60px_rgba(10,26,63,0.2)]"
+              >
+                <CaseVisual kind={c.kind} sample={c.isSample} />
+                <div className="p-6">
+                  <p className="font-mono text-xs text-muted">{c.pillar} · {c.industry}</p>
+                  <h3 className="mt-2 text-lg font-semibold">{c.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-muted">{c.summary}</p>
+                </div>
+              </Link>
+            ))}
+          </div>
+          <div className="mt-10 text-center">
+            <Button href="/work" variant="outline">View all work</Button>
+          </div>
+        </div>
+      </section>
+
+      {/* 7. HOW WE WORK */}
       <section className="mx-auto max-w-6xl px-4 py-20 md:py-28">
         <SectionHeading center eyebrow="How we work" title="A clear process from first call to monthly results" />
         <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {steps.map((s, i) => (
-            <div key={s.title} className="rounded-3xl border border-line bg-card p-7">
-              <span className="bg-orange-gradient flex h-10 w-10 items-center justify-center rounded-full font-mono text-sm font-bold text-navy">
-                {i + 1}
-              </span>
+            <div key={s.title} className="rounded-3xl border border-line bg-card p-7 shadow-[0_12px_30px_rgba(10,26,63,0.08)]">
+              <span className="bg-orange-gradient flex h-10 w-10 items-center justify-center rounded-full font-mono text-sm font-bold text-navy">{i + 1}</span>
               <h3 className="mt-5 text-lg font-semibold">{s.title}</h3>
               <p className="mt-2 text-sm leading-relaxed text-muted">{s.text}</p>
             </div>
@@ -492,48 +404,18 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* 6. FAQ */}
-      <section className="bg-soft py-20 md:py-28">
-        <div className="mx-auto max-w-6xl px-4">
-          <SectionHeading center eyebrow="FAQ" title="Questions about our services" />
-          <div className="mx-auto mt-12 max-w-3xl divide-y divide-line overflow-hidden rounded-2xl border border-line bg-card">
-            {faqs.map((item) => (
-              <details key={item.q} className="group px-6 py-5">
-                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-base font-semibold text-heading [&::-webkit-details-marker]:hidden">
-                  {item.q}
-                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-line transition group-open:rotate-45">
-                    <svg
-                      className="h-3.5 w-3.5"
-                      viewBox="0 0 14 14"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      aria-hidden
-                    >
-                      <path d="M7 1v12M1 7h12" />
-                    </svg>
-                  </span>
-                </summary>
-                <p className="mt-3 text-sm leading-relaxed text-muted">{item.a}</p>
-              </details>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* 8. FAQ + HELP BOX */}
+      <FaqWithHelp faqs={faqs} title="Questions we hear most" subtitle="Everything you need to know before you get started." />
 
-      {/* 7. FINAL CTA */}
-      <section className="mx-auto max-w-6xl px-4 py-16">
-        <div className="bg-orange-gradient relative overflow-hidden rounded-3xl p-10 text-center md:p-16">
-          <div
-            aria-hidden
-            className="pointer-events-none absolute -right-16 -top-16 h-64 w-64 rounded-full bg-white/20 blur-2xl"
-          />
+      {/* 9. FINAL CTA */}
+      <section className="mx-auto max-w-6xl px-4 pb-8">
+        <div className="bg-orange-gradient relative overflow-hidden rounded-3xl p-10 text-center shadow-[0_24px_60px_rgba(255,122,26,0.3)] md:p-16">
+          <div aria-hidden className="pointer-events-none absolute -right-16 -top-16 h-64 w-64 rounded-full bg-white/20 blur-2xl" />
           <h2 className="relative mx-auto max-w-2xl text-3xl font-semibold text-navy md:text-5xl">
-            Not sure which service you need?
+            Want to know what is holding your business back online?
           </h2>
           <p className="relative mx-auto mt-4 max-w-xl text-navy/80">
-            Get a free audit and we will tell you what to fix first. No pressure and no jargon.
+            Get a free audit and a clear list of what to fix first. No pressure and no jargon.
           </p>
           <div className="relative mt-8 flex flex-wrap justify-center gap-3">
             <Button href="/free-audit" variant="dark">Get a free audit →</Button>
