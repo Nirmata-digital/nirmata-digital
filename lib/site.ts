@@ -9,6 +9,8 @@ export const site = {
   email: "nirmatadigitalservices@gmail.com", // switch to a business-domain email later
   address: "105/103, Om Kuleshwar Apt., Bldg. No. 10, Wawtewadi, Virar East, 401 305",
   hours: "Mon to Sat, 10 am to 7 pm", // confirm your real hours
+  mapLink: "https://share.google/ctCWLjO1cPf6CX6QJ",
+  mapEmbed: "", // paste the src="..." address from Google Maps → Share → Embed a map
   instagram: "https://www.instagram.com/nirmatadigital",
   whatsappMessage: "Hi Nirmata Digital, I'd like to know more about your services.",
   announcement: {
