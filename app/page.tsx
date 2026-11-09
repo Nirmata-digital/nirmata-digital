@@ -1,4 +1,5 @@
 import Button from "@/components/Button";
+import FaqWithHelp from "@/components/FaqWithHelp";
 import { site } from "@/lib/site";
 
 /* ───────────── CONTENT (edit the words here) ───────────── */
@@ -629,33 +630,12 @@ export default function HomePage() {
         </section>
       )}
 
-      {/* 9. FAQ */}
-      <section className="mx-auto max-w-6xl px-4 py-20 md:py-28">
-        <SectionHeading center eyebrow="FAQ" title="Questions we hear most" />
-        <div className="mx-auto mt-12 max-w-3xl divide-y divide-line overflow-hidden rounded-2xl border border-line bg-card">
-          {faqs.map((item) => (
-            <details key={item.q} className="group px-6 py-5">
-              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-base font-semibold text-heading [&::-webkit-details-marker]:hidden">
-                {item.q}
-                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-line transition group-open:rotate-45">
-                  <svg
-                    className="h-3.5 w-3.5"
-                    viewBox="0 0 14 14"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    aria-hidden
-                  >
-                    <path d="M7 1v12M1 7h12" />
-                  </svg>
-                </span>
-              </summary>
-              <p className="mt-3 text-sm leading-relaxed text-muted">{item.a}</p>
-            </details>
-          ))}
-        </div>
-      </section>
+            {/* 9. FAQ + HELP BOX */}
+      <FaqWithHelp
+        faqs={faqs}
+        title="Questions we hear most"
+        subtitle="Everything you need to know before you get started."
+      />
 
       {/* 10. FINAL CTA */}
       <section className="mx-auto max-w-6xl px-4 pb-8">
