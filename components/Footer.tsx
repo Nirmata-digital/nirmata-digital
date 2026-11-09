@@ -42,7 +42,16 @@ export default function Footer() {
         <div>
           <p className="font-semibold">Contact</p>
           <ul className="mt-2 space-y-1 text-sm text-white/80">
-            <li>{site.address}</li>
+            <li>
+              <a
+                href={site.mapLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-white"
+              >
+                {site.address}
+              </a>
+            </li>
             <li>
               <a href={`tel:${site.phoneLink}`}>{site.phoneDisplay}</a>
               {" · "}
