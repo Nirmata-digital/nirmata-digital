@@ -1,10 +1,18 @@
 import Button from "@/components/Button";
 import FaqWithHelp from "@/components/FaqWithHelp";
-import HeroSlider from "@/components/HeroSlider";
+import HeroDashboard from "@/components/HeroDashboard";
 import ClientsCarousel from "@/components/ClientsCarousel";
 import { site } from "@/lib/site";
 
 /* ───────────── CONTENT (edit the words here) ───────────── */
+
+const hero = {
+  badge: "Digital agency · Mumbai",
+  titleStart: "Grow online.",
+  titleAccent: "Measure everything.",
+  text: "We build the websites, ads, content, automation and custom AI that bring Mumbai businesses and overseas clients more enquiries, and we track what each one brings in.",
+  trust: ["Free, no-obligation audit", "Proposal within 24 hours", "Clear monthly reports"],
+};
 
 const proof = [
   { title: "Mobile-first", text: "Built for the phone in your customer's hand." },
@@ -161,8 +169,39 @@ export default function HomePage() {
 
   return (
     <>
-      {/* 1. HERO SLIDER: overview, content, ads, website, dashboard, automation, ML */}
-      <HeroSlider />
+      {/* 1. HERO: static text on the left, auto-changing diagram on the right */}
+      <section className="bg-hero relative overflow-hidden">
+        <div aria-hidden className="bg-orange-gradient pointer-events-none absolute -right-32 -top-10 h-96 w-96 rounded-full opacity-20 blur-3xl dark:opacity-30" />
+        <div aria-hidden className="pointer-events-none absolute -left-32 top-40 h-96 w-96 rounded-full bg-navy-mid opacity-10 blur-3xl dark:opacity-30" />
+        <div className="relative mx-auto grid max-w-6xl items-center gap-14 px-4 pb-24 pt-12 md:pb-32 md:pt-20 lg:grid-cols-[1.1fr_0.9fr]">
+          <div>
+            <p className="inline-flex items-center gap-2 rounded-full border border-line bg-card px-4 py-1.5 text-xs text-muted">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-orange opacity-60" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-orange" />
+              </span>
+              {hero.badge}
+            </p>
+            <h1 className="mt-6 text-5xl font-semibold leading-[1.04] sm:text-6xl lg:text-7xl">
+              {hero.titleStart} <span className="text-orange-gradient">{hero.titleAccent}</span>
+            </h1>
+            <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted">{hero.text}</p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Button href="/free-audit">Get a free audit</Button>
+              <Button href="/work" variant="outline">See our work</Button>
+            </div>
+            <ul className="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-sm text-muted">
+              {hero.trust.map((t) => (
+                <li key={t} className="flex items-center gap-2">
+                  <span className="text-orange"><Icon name="check" className="h-4 w-4" /></span>
+                  {t}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <HeroDashboard />
+        </div>
+      </section>
 
       {/* 2. CLIENTS CAROUSEL */}
       <ClientsCarousel />

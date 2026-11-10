@@ -1,249 +1,125 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import Button from "@/components/Button";
+import { useState } from "react";
 
-const SLIDE_MS = 6500;
+const STAGE_MS = 3800;
 
-const slides = [
-  { id: "overview", tab: "Overview", kicker: "Digital agency · Mumbai", title: "Grow online. Measure everything.",
-    text: "Websites, ads, content, automation and custom AI, run by one team, with every enquiry tracked back to its source.",
-    chips: ["Free audit", "Proposal in 24 hours", "Monthly reports"], cta: { label: "Get a free audit", href: "/free-audit" },
-    status: "Every lead tracked" },
-  { id: "content", tab: "Content", kicker: "Content", title: "Look consistent everywhere",
-    text: "Reels, posters and social creatives planned a month at a time, so your brand shows up sharp on every feed.",
-    chips: ["Reels and shorts", "Posters", "Brand kits"], cta: { label: "See content work", href: "/work" },
-    status: "Monthly content plan ready" },
-  { id: "ads", tab: "Ads", kicker: "Growth", title: "Ads that report what they earn",
-    text: "Meta and Google campaigns with conversion tracking, so you see cost per enquiry instead of guessing.",
-    chips: ["Meta Ads", "Google Ads", "Local SEO"], cta: { label: "Plan my campaigns", href: "/contact" },
-    status: "Conversion tracking active" },
-  { id: "web", tab: "Website", kicker: "Web", title: "Websites built to get enquiries",
-    text: "Fast, mobile-first sites with call, form and WhatsApp buttons wired to tracking from the first day.",
-    chips: ["Mobile-first", "Tracking built in", "Landing pages"], cta: { label: "See website packages", href: "#packages" },
-    status: "Tested on real phones" },
-  { id: "apps", tab: "Dashboard", kicker: "Apps and dashboards", title: "One dashboard for every channel",
-    text: "Custom dashboards, portals and internal tools that put calls, forms and ad results on a single screen.",
-    chips: ["Reporting dashboards", "Web apps", "Client portals"], cta: { label: "Talk about an app", href: "/contact" },
-    status: "Live from your data" },
-  { id: "automation", tab: "Automation", kicker: "Automation", title: "Follow up while you sleep",
-    text: "WhatsApp replies, CRM setup and lead routing that answer every enquiry within minutes, not days.",
-    chips: ["WhatsApp flows", "CRM setup", "Lead routing"], cta: { label: "Automate my follow-up", href: "/contact" },
-    status: "Zero missed leads" },
-  { id: "ml", tab: "AI and ML", kicker: "Custom AI", title: "Custom machine learning models",
-    text: "We build models trained on your own data: lead scoring, demand forecasting, churn prediction and recommendations.",
-    chips: ["Lead scoring", "Forecasting", "Recommendations"], cta: { label: "Discuss an ML project", href: "/contact" },
-    status: "Trained on your data" },
+const tabs = ["Content", "Growth", "Web", "Automation", "AI / ML"] as const;
+
+const stages = [
+  { label: "Content", tab: "Content", icon: "content", head: "Content people remember.", text: "Reels, posters and photos in one consistent style, planned a month at a time.", status: "Monthly content plan ready" },
+  { label: "Ads", tab: "Growth", icon: "target", head: "Ads that are tracked.", text: "Meta and Google ads, with every call, form and WhatsApp chat counted.", status: "Conversion tracking active" },
+  { label: "Website", tab: "Web", icon: "web", head: "A site that turns visits into enquiries.", text: "Fast, mobile-first pages with call and WhatsApp buttons built in.", status: "Tested on real phones" },
+  { label: "Follow-up", tab: "Automation", icon: "chat", head: "No enquiry left waiting.", text: "WhatsApp replies and reminders that start within seconds.", status: "Zero missed leads" },
+  { label: "Dashboard", tab: "Automation", icon: "chart", head: "See what each rupee brings back.", text: "One screen for leads, spend and results, in plain numbers.", status: "Live from your data" },
+  { label: "ML models", tab: "AI / ML", icon: "brain", head: "Custom AI, trained on your data.", text: "Lead scoring, forecasting and recommendations built for your business.", status: "Trained on your data" },
 ];
 
-/* ── right-hand animated visuals ── */
-
-const d = (i: number, step = 0.12) => ({ animationDelay: `${i * step}s` });
-
-function Bars({ vals, h = "h-28" }: { vals: number[]; h?: string }) {
+function Icon({ name, className = "h-5 w-5" }: { name: string; className?: string }) {
+  const p: Record<string, React.ReactNode> = {
+    content: (<><rect x="3" y="5" width="18" height="14" rx="2" /><path d="M10 9.5v5l4.5-2.5z" /></>),
+    target: (<><circle cx="12" cy="12" r="9" /><circle cx="12" cy="12" r="5" /><circle cx="12" cy="12" r="1.5" /></>),
+    web: (<><rect x="3" y="4" width="18" height="13" rx="2" /><path d="M8 21h8M12 17v4" /></>),
+    chat: <path d="M21 12a8 8 0 01-11.6 7.1L4 20l1-4.6A8 8 0 1121 12z" />,
+    chart: <path d="M4 20V10M10 20V4M16 20v-8M22 20H2" />,
+    brain: (<><circle cx="6" cy="7" r="2" /><circle cx="6" cy="17" r="2" /><circle cx="18" cy="12" r="2" /><circle cx="12" cy="12" r="2" /><path d="M8 7l2.5 4M8 17l2.5-4M14 12h2" /></>),
+    pause: <path d="M8 5v14M16 5v14" />,
+    play: <path d="M7 5l12 7-12 7z" />,
+  };
   return (
-    <div className={`flex ${h} items-end gap-2`}>
-      {vals.map((v, i) => (
-        <div key={i} style={{ height: `${v}%`, ...d(i) }}
-          className={`anim-grow-y flex-1 rounded-t-md ${i === vals.length - 1 ? "bg-orange-gradient" : "bg-white/20"}`} />
-      ))}
-    </div>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden>
+      {p[name]}
+    </svg>
   );
 }
 
-function Visual({ id }: { id: string }) {
-  if (id === "overview")
-    return (
-      <>
-        <div className="grid grid-cols-3 gap-2">
-          {["Content", "Ads", "Website", "Dashboard", "Automation", "AI / ML"].map((t, i) => (
-            <div key={t} style={d(i, 0.15)} className="anim-fade rounded-lg border border-white/15 bg-white/5 px-3 py-2.5 text-xs font-semibold">
-              <span className="anim-node mr-1.5 inline-block h-1.5 w-1.5 rounded-full bg-orange" style={d(i, 0.3)} />
-              {t}
-            </div>
-          ))}
-        </div>
-        <div className="mt-6"><Bars vals={[35, 48, 42, 60, 55, 72, 90]} /></div>
-      </>
-    );
-
-  if (id === "content")
-    return (
-      <div className="flex h-44 items-center justify-center gap-4">
-        <div className="anim-float h-40 w-12 rounded-lg bg-white/15" style={d(1)} />
-        <div className="relative h-44 w-24 overflow-hidden rounded-2xl border border-white/20 bg-white/10 anim-fade">
-          <div className="bg-orange-gradient absolute inset-x-3 top-3 h-20 rounded-lg" />
-          <div className="absolute left-1/2 top-9 h-0 w-0 -translate-x-1/2 border-y-[9px] border-l-[14px] border-y-transparent border-l-navy" />
-          <div className="absolute inset-x-3 bottom-8 h-2 rounded bg-white/50" />
-          <div className="absolute inset-x-3 bottom-4 h-2 w-2/3 rounded bg-white/25" />
-        </div>
-        <div className="anim-float h-32 w-16 rounded-lg bg-white/25" style={d(3)} />
-      </div>
-    );
-
-  if (id === "ads")
-    return (
-      <div className="space-y-4">
-        {[["Impressions", 100], ["Clicks", 44], ["Calls and forms", 16], ["WhatsApp chats", 10]].map(([l, w], i) => (
-          <div key={l as string}>
-            <div className="flex justify-between text-xs text-white/70"><span>{l}</span></div>
-            <div className="mt-1.5 h-3 rounded-full bg-white/10">
-              <div style={{ width: `${w}%`, ...d(i, 0.25) }} className={`anim-grow-x h-3 origin-left rounded-full ${i === 2 ? "bg-orange-gradient" : "bg-white/40"}`} />
-            </div>
-          </div>
-        ))}
-        <div className="flex gap-2 pt-1 text-xs"><span className="rounded-full bg-white/10 px-3 py-1">Meta</span><span className="rounded-full bg-white/10 px-3 py-1">Google</span></div>
-      </div>
-    );
-
-  if (id === "web")
-    return (
-      <div className="rounded-xl bg-white/10 p-3">
-        <div className="flex gap-1.5">{[0, 1, 2].map((i) => <span key={i} className="h-2 w-2 rounded-full bg-white/40" />)}</div>
-        <div className="anim-fade mt-4 h-4 w-2/3 rounded bg-white/50" style={d(1, 0.3)} />
-        <div className="anim-fade mt-3 h-2.5 w-full rounded bg-white/25" style={d(2, 0.3)} />
-        <div className="anim-fade mt-2 h-2.5 w-5/6 rounded bg-white/25" style={d(3, 0.3)} />
-        <div className="mt-5 flex gap-2">
-          <div className="bg-orange-gradient anim-pulse-btn h-8 w-28 rounded-full" />
-          <div className="h-8 w-8 rounded-full bg-success/80" />
-          <div className="h-8 w-8 rounded-full bg-white/25" />
-        </div>
-        <div className="mt-5 grid grid-cols-3 gap-2">{[4, 5, 6].map((i) => <div key={i} style={d(i, 0.3)} className="anim-fade h-14 rounded-lg bg-white/15" />)}</div>
-      </div>
-    );
-
-  if (id === "apps")
-    return (
-      <>
-        <div className="grid grid-cols-3 gap-2 text-xs">
-          {["Calls", "Forms", "WhatsApp"].map((t, i) => (
-            <div key={t} style={d(i, 0.2)} className="anim-fade rounded-lg bg-white/10 p-3"><p className="text-white/70">{t}</p><div className="mt-2 h-2 w-1/2 rounded bg-white/40" /></div>
-          ))}
-        </div>
-        <svg viewBox="0 0 300 100" className="mt-5 h-28 w-full" aria-hidden>
-          <path d="M0 85 L40 70 L80 76 L120 50 L160 56 L200 30 L240 36 L300 8" fill="none" stroke="#ff8a1f" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="anim-draw" />
-          <path d="M0 92 L60 84 L120 80 L180 70 L240 64 L300 52" fill="none" stroke="rgba(255,255,255,.35)" strokeWidth="2" strokeLinecap="round" className="anim-draw" style={{ animationDelay: ".4s" }} />
-        </svg>
-      </>
-    );
-
-  if (id === "automation")
-    return (
-      <div className="space-y-3">
-        {["New enquiry arrives", "WhatsApp reply sent", "Lead saved in CRM", "Owner gets the report"].map((t, i) => (
-          <div key={t} style={d(i, 0.45)} className="anim-fade flex items-center gap-3 rounded-xl border border-white/15 bg-white/5 px-4 py-3 text-sm font-semibold">
-            <span className="bg-orange-gradient flex h-6 w-6 items-center justify-center rounded-full text-xs text-navy">{i + 1}</span>
-            {t}
-            <span className="anim-node ml-auto h-2 w-2 rounded-full bg-success" style={d(i, 0.45)} />
-          </div>
-        ))}
-      </div>
-    );
-
-  /* ml: small neural network */
-  const layers = [3, 5, 5, 2];
-  const pts = layers.map((n, l) => Array.from({ length: n }, (_, i) => ({ x: 30 + l * 80, y: (i + 0.5) * (180 / n) })));
-  return (
-    <>
-      <svg viewBox="0 0 270 180" className="h-40 w-full" aria-hidden>
-        {pts.slice(0, -1).flatMap((layer, l) => layer.flatMap((a, i) => pts[l + 1].map((b, j) => (
-          <line key={`${l}-${i}-${j}`} x1={a.x} y1={a.y} x2={b.x} y2={b.y} stroke="rgba(255,255,255,.15)" />
-        ))))}
-        {pts.flat().map((p, i) => (
-          <circle key={i} cx={p.x} cy={p.y} r="6" fill={i % 4 === 0 ? "#ff8a1f" : "#fff"} className="anim-node" style={{ animationDelay: `${(i % 7) * 0.2}s` }} />
-        ))}
-      </svg>
-      <div className="mt-4 flex flex-wrap gap-2 text-xs">
-        {["Lead scoring", "Sales forecast", "Churn prediction", "Recommendations"].map((t) => <span key={t} className="rounded-full bg-white/10 px-3 py-1">{t}</span>)}
-      </div>
-    </>
-  );
-}
-
-/* ── slider ── */
-
-export default function HeroSlider() {
+export default function HeroDashboard() {
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
-  const [reduced, setReduced] = useState(false);
-
-  useEffect(() => {
-    setReduced(window.matchMedia("(prefers-reduced-motion: reduce)").matches);
-  }, []);
-
-  useEffect(() => {
-    if (paused || reduced) return;
-    const t = setTimeout(() => setActive((a) => (a + 1) % slides.length), SLIDE_MS);
-    return () => clearTimeout(t);
-  }, [active, paused, reduced]);
-
-  const s = slides[active];
+  const s = stages[active];
+  const next = () => setActive((a) => (a + 1) % stages.length);
 
   return (
-    <section
-      className="bg-navy-gradient relative overflow-hidden text-white"
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
-      aria-roledescription="carousel"
-      aria-label="What we do"
-    >
-      <div aria-hidden className="bg-orange-gradient pointer-events-none absolute -right-32 -top-10 h-96 w-96 rounded-full opacity-20 blur-3xl" />
-
-      <div className="relative mx-auto grid min-h-[34rem] max-w-6xl items-center gap-12 px-4 pb-28 pt-14 lg:grid-cols-[1.05fr_0.95fr] lg:pt-20">
-        <div key={s.id} className="anim-fade" aria-live="polite">
-          <p className="text-sm font-semibold text-orange">{s.kicker}</p>
-          <h1 className="mt-3 text-4xl font-semibold leading-[1.05] sm:text-5xl lg:text-6xl">{s.title}</h1>
-          <p className="mt-5 max-w-xl text-lg leading-relaxed text-white/75">{s.text}</p>
-          <div className="mt-7 flex flex-wrap gap-3">
-            <Button href={s.cta.href}>{s.cta.label}</Button>
-            <Button href="/work" variant="outline">See our work</Button>
-          </div>
-          <ul className="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-sm text-white/80">
-            {s.chips.map((c) => (
-              <li key={c} className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-orange" />{c}</li>
+    <div className="relative">
+      <div className="absolute -inset-4 -z-10 rounded-[2rem] bg-orange-gradient opacity-20 blur-3xl" aria-hidden />
+      <div className="bg-navy-gradient overflow-hidden rounded-3xl border border-white/10 text-white shadow-[0_30px_80px_rgba(10,26,63,0.45)]">
+        {/* Tabs + pause */}
+        <div className="flex items-center justify-between gap-3 border-b border-white/10 px-4 py-3">
+          <div className="flex flex-wrap gap-1.5" role="tablist" aria-label="Service areas">
+            {tabs.map((t) => (
+              <button
+                key={t}
+                type="button"
+                role="tab"
+                aria-selected={s.tab === t}
+                onClick={() => setActive(stages.findIndex((x) => x.tab === t))}
+                className={`rounded-md px-3 py-1.5 text-xs font-medium transition ${
+                  s.tab === t ? "bg-white/15 text-white ring-1 ring-white/30" : "text-white/60 hover:text-white"
+                }`}
+              >
+                {t}
+              </button>
             ))}
-          </ul>
+          </div>
+          <button
+            type="button"
+            onClick={() => setPaused((p) => !p)}
+            aria-label={paused ? "Play animation" : "Pause animation"}
+            className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md border border-white/20 text-white/80 hover:text-white"
+          >
+            <Icon name={paused ? "play" : "pause"} className="h-3.5 w-3.5" />
+          </button>
         </div>
 
-        <div className="relative">
-          <div key={s.id} className="anim-fade rounded-3xl border border-white/10 bg-white/5 p-6 shadow-2xl backdrop-blur md:p-7">
-            <div className="flex items-center justify-between">
-              <p className="text-sm font-semibold">{s.tab}</p>
-              <span className="text-xs text-white/50">Illustration</span>
-            </div>
-            <div className="mt-5 min-h-[11rem]"><Visual id={s.id} /></div>
-            <div className="mt-6 flex items-center gap-2 rounded-xl bg-success/15 px-4 py-2.5 text-xs font-semibold">
-              <span className="h-2 w-2 rounded-full bg-success" />{s.status}
+        {/* Top line fills, then the next page opens */}
+        <div className="h-0.5 bg-white/10">
+          <div
+            key={active}
+            onAnimationEnd={next}
+            className="anim-progress bg-orange-gradient h-full origin-left"
+            style={{ animationDuration: `${STAGE_MS}ms`, animationPlayState: paused ? "paused" : "running" }}
+          />
+        </div>
+
+        <div className="px-6 pb-8 pt-7 md:px-8">
+          <div key={active} aria-live="polite" className="anim-fade min-h-[8rem]">
+            <h2 className="text-2xl font-semibold leading-tight text-white md:text-3xl">{s.head}</h2>
+            <p className="mt-3 max-w-md text-sm leading-relaxed text-white/70">{s.text}</p>
+          </div>
+
+          {/* Flow */}
+          <div className="mt-6 flex flex-col items-center">
+            <div className="rounded-xl border border-white/25 bg-white/10 px-5 py-2 text-sm font-semibold shadow-lg">Nirmata Digital</div>
+            <div className="h-6 w-px bg-white/30" />
+            <div className="relative w-full">
+              <div className="absolute left-[8.3%] right-[8.3%] top-0 h-px bg-white/30" />
+              <div className="grid grid-cols-6">
+                {stages.map((n, i) => (
+                  <button key={n.label} type="button" onClick={() => setActive(i)} aria-label={n.label} className="group flex flex-col items-center">
+                    <span className={`h-6 w-px transition ${i === active ? "bg-orange" : "bg-white/30"}`} />
+                    <span
+                      className={`flex h-10 w-10 items-center justify-center rounded-xl transition duration-300 sm:h-12 sm:w-12 ${
+                        i === active
+                          ? "bg-orange-gradient anim-pulse-btn text-navy shadow-[0_0_0_4px_rgba(255,255,255,0.15),0_10px_30px_rgba(255,122,26,0.45)]"
+                          : "bg-white/15 text-white group-hover:bg-white/25"
+                      }`}
+                    >
+                      <Icon name={n.icon} className="h-5 w-5" />
+                    </span>
+                    <span className={`mt-2 text-[10px] font-semibold sm:text-xs ${i === active ? "text-white" : "text-white/60"}`}>{n.label}</span>
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* tabs with progress */}
-      <div className="absolute inset-x-0 bottom-6">
-        <div className="mx-auto flex max-w-6xl gap-2 overflow-x-auto px-4" role="tablist">
-          {slides.map((sl, i) => (
-            <button
-              key={sl.id}
-              role="tab"
-              aria-selected={i === active}
-              onClick={() => setActive(i)}
-              className={`group min-w-[4.5rem] flex-1 text-left text-xs font-semibold transition ${i === active ? "text-white" : "text-white/50 hover:text-white/80"}`}
-            >
-              <span className="relative block h-1 overflow-hidden rounded-full bg-white/15">
-                {i === active && (
-                  <span
-                    key={`${active}-${paused}`}
-                    className="anim-progress bg-orange-gradient absolute inset-0 origin-left"
-                    style={{ animationDuration: `${SLIDE_MS}ms`, animationPlayState: paused ? "paused" : "running" }}
-                  />
-                )}
-              </span>
-              <span className="mt-2 block whitespace-nowrap">{sl.tab}</span>
-            </button>
-          ))}
+        <div className="flex items-center gap-2 border-t border-white/10 px-6 py-3 text-xs text-white/60">
+          <span className="anim-node h-2 w-2 rounded-full bg-success" />
+          <span key={active} className="anim-fade">{s.status}</span>
         </div>
       </div>
-    </section>
+      <p className="mt-3 text-center text-xs text-muted">Illustration of how our services connect</p>
+    </div>
   );
 }
