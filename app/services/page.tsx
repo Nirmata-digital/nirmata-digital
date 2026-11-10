@@ -3,7 +3,7 @@ import Button from "@/components/Button";
 import CaseVisual from "@/components/CaseVisual";
 import ClientMarquee from "@/components/ClientMarquee";
 import FaqWithHelp from "@/components/FaqWithHelp";
-import HeroDashboard from "@/components/HeroDashboard";
+import HeroDashboard from "@/components/HeroSlider";
 import { caseStudies } from "@/content/work";
 import { site } from "@/lib/site";
 import Link from "next/link";
