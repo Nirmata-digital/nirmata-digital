@@ -33,7 +33,7 @@ function Icon({ name, className = "h-5 w-5" }: { name: string; className?: strin
   );
 }
 
-export default function HeroDashboard() {
+export default function HeroSlider() {
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
   const s = stages[active];
@@ -76,7 +76,7 @@ export default function HeroDashboard() {
           <div
             key={active}
             onAnimationEnd={next}
-            className="anim-progress bg-orange-gradient h-full origin-left"
+            className="anim-progress bg-orange-gradient h-full"
             style={{ animationDuration: `${STAGE_MS}ms`, animationPlayState: paused ? "paused" : "running" }}
           />
         </div>
@@ -119,7 +119,7 @@ export default function HeroDashboard() {
           <span key={active} className="anim-fade">{s.status}</span>
         </div>
       </div>
-      <p className="mt-3 text-center text-xs text-muted">Illustration of how our services connect</p>
+      <p className="mt-3 text-center text-xs text-white/50">Illustration of how our services connect</p>
     </div>
   );
 }

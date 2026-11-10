@@ -111,3 +111,35 @@
 @media (prefers-reduced-motion: reduce) {
   .nd-marquee-track { animation: none; }
 }
+
+/* ───────────── Hero diagram animation ───────────── */
+@keyframes nd-progress {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+@keyframes nd-fade {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes nd-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+}
+@keyframes nd-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+
+.anim-progress {
+  transform-origin: left;
+  animation-name: nd-progress;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+.anim-fade { animation: nd-fade 0.5s ease both; }
+.anim-pulse-btn { animation: nd-pulse 1.6s ease-in-out infinite; }
+.anim-node { animation: nd-blink 1.8s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .anim-pulse-btn, .anim-node { animation: none; }
+}
