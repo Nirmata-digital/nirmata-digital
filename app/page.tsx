@@ -1,6 +1,6 @@
 import Button from "@/components/Button";
 import FaqWithHelp from "@/components/FaqWithHelp";
-import HeroDashboard from "@/components/HeroDashboard";
+import HeroDashboard from "@/components/HeroSlider";
 import ClientsCarousel from "@/components/ClientsCarousel";
 import { site } from "@/lib/site";
 
