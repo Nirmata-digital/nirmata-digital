@@ -1,81 +1,30 @@
+import type { Metadata } from "next";
+import { Fragment } from "react";
 import Button from "@/components/Button";
-import FaqWithHelp from "@/components/FaqWithHelp";
 import { site } from "@/lib/site";
+
+export const metadata: Metadata = {
+  title: "Packages",
+  description:
+    "Simple Starter, Growth and Scale packages from Nirmata Digital, with a full comparison, add-ons and how payment works.",
+  alternates: { canonical: "/packages" },
+  openGraph: {
+    title: "Packages | Nirmata Digital",
+    description:
+      "Simple Starter, Growth and Scale packages from Nirmata Digital, with a full comparison, add-ons and how payment works.",
+    url: "/packages",
+    type: "website",
+  },
+};
 
 /* ───────────── CONTENT (edit the words here) ───────────── */
 
-const hero = {
-  badge: "Digital agency · Mumbai",
-  titleStart: "Grow online.",
-  titleAccent: "Measure everything.",
-  text: "We build the websites, ads, content and automation that bring Mumbai businesses and overseas clients more enquiries, and we track what each one brings in.",
-  trust: ["Free, no-obligation audit", "Proposal within 24 hours", "Clear monthly reports"],
+const intro = {
+  badge: "Packages",
+  titleStart: "Simple packages that",
+  titleAccent: "grow with you.",
+  text: "Start where you are and move up when you are ready. Prices are starting points. Your proposal lists exactly what is included for your business.",
 };
-
-const proof = [
-  { title: "Mobile-first", text: "Built for the phone in your customer's hand." },
-  { title: "Tracking from day one", text: "Every call, form and click is counted." },
-  { title: "Monthly reports", text: "Results, learnings and next steps in plain English." },
-  { title: "Fast replies", text: "You hear back within a few hours." },
-];
-
-const offers = [
-  {
-    icon: "audit",
-    tag: "Free",
-    title: "Free Digital Audit",
-    text: "We review your website, ads and Google listing, then send a short list of the fixes most likely to bring in more enquiries.",
-    cta: "Claim your audit",
-    href: "/free-audit",
-  },
-  {
-    icon: "web",
-    tag: "Popular",
-    title: "Conversion-Ready Website",
-    text: "A fast, mobile-first website with tracking built in, designed to turn visitors into calls, forms and WhatsApp chats.",
-    cta: "See website packages",
-    href: "#packages",
-  },
-  {
-    icon: "target",
-    tag: "For growth",
-    title: "Lead Engine",
-    text: "Ads, SEO and WhatsApp follow-up working together, with a simple dashboard showing what each rupee brings back.",
-    cta: "Talk to us",
-    href: "/contact",
-  },
-];
-
-const pillars = [
-  {
-    icon: "growth",
-    label: "Pillar 01",
-    title: "Growth",
-    audience: "For businesses that want a steady flow of enquiries.",
-    services: ["Meta and Google Ads", "SEO and local SEO", "Analytics and tracking setup", "Monthly performance reports"],
-  },
-  {
-    icon: "web",
-    label: "Pillar 02",
-    title: "Web",
-    audience: "For brands that need a site that works hard.",
-    services: ["Business websites", "Landing pages for campaigns", "Speed and mobile optimisation", "Web apps and portals"],
-  },
-  {
-    icon: "content",
-    label: "Pillar 03",
-    title: "Content",
-    audience: "For brands that need to look consistent everywhere.",
-    services: ["Reels and short videos", "Posters and social creatives", "Photography direction", "Brand kits and templates"],
-  },
-  {
-    icon: "automation",
-    label: "Pillar 04",
-    title: "Automation and Apps",
-    audience: "For teams that lose hours to repeat work.",
-    services: ["WhatsApp follow-up flows", "CRM setup and lead routing", "Reporting dashboards", "Custom tools and apps"],
-  },
-];
 
 const packages = [
   {
@@ -128,98 +77,89 @@ const packages = [
   },
 ];
 
+// Order of values: [Starter, Growth, Scale]
+const comparison = [
+  {
+    group: "Foundation",
+    rows: [
+      { label: "Mobile-first website, up to 5 pages", values: [true, true, true] },
+      { label: "Google Business Profile setup", values: [true, true, true] },
+      { label: "Basic on-page SEO", values: [true, true, true] },
+      { label: "GA4 and Tag Manager tracking", values: [true, true, true] },
+      { label: "WhatsApp and call buttons, contact form", values: [true, true, true] },
+    ],
+  },
+  {
+    group: "Growth",
+    rows: [
+      { label: "Meta and Google Ads management", values: [false, true, true] },
+      { label: "Monthly content plan with reels and posters", values: [false, true, true] },
+      { label: "Ongoing SEO improvements", values: [false, true, true] },
+      { label: "Conversion tracking and Meta Pixel", values: [false, true, true] },
+      { label: "Monthly report and strategy call", values: [false, true, true] },
+    ],
+  },
+  {
+    group: "Automation and support",
+    rows: [
+      { label: "WhatsApp and CRM automation", values: [false, false, true] },
+      { label: "Custom reporting dashboard", values: [false, false, true] },
+      { label: "Landing pages for each campaign", values: [false, false, true] },
+      { label: "Quarterly strategy review", values: [false, false, true] },
+      { label: "Priority support", values: [false, false, true] },
+    ],
+  },
+];
+
+const chooser = [
+  {
+    need: "I need a proper website and to be found on Google.",
+    pick: "Starter",
+    why: "A fast mobile-first site, your Google listing and tracking, set up once.",
+  },
+  {
+    need: "I want enquiries coming in every month.",
+    pick: "Growth",
+    why: "Ads, content, SEO and a monthly report, so you can see what is working.",
+  },
+  {
+    need: "I lose leads and time on follow-ups and reports.",
+    pick: "Scale",
+    why: "WhatsApp and CRM automation, plus a dashboard that shows results at a glance.",
+  },
+];
+
 const addOns = [
-  "Extra landing pages",
-  "Video shoot day",
-  "WhatsApp automation flow",
-  "Logo and brand sheet",
-  "Extra ad platforms",
+  { name: "Extra landing pages", text: "A focused page for one offer or campaign." },
+  { name: "Video shoot day", text: "A planned shoot for reels, product or brand videos." },
+  { name: "WhatsApp automation flow", text: "Automatic replies and follow-ups for new enquiries." },
+  { name: "Logo and brand sheet", text: "A logo, colours and fonts on one reference page." },
+  { name: "Extra ad platforms", text: "Add another platform to your ad campaigns." },
 ];
 
-const samples = [
-  {
-    kind: "web",
-    tag: "Web",
-    title: "Clinic website",
-    text: "Problem: patients could not find timings or book easily. Replace with your real case study.",
-    result: "Result with a number goes here",
-  },
-  {
-    kind: "content",
-    tag: "Content",
-    title: "Boutique launch creatives",
-    text: "Problem: inconsistent posts and no clear offer. Replace with your real case study.",
-    result: "Result with a number goes here",
-  },
-  {
-    kind: "growth",
-    tag: "Growth",
-    title: "Builder lead campaign",
-    text: "Problem: ad spend with no tracking. Replace with your real case study.",
-    result: "Result with a number goes here",
-  },
+const billing = [
+  { title: "Projects", text: "Project work starts with a 50% advance. The rest of the schedule is set out in your proposal." },
+  { title: "Monthly packages", text: "Monthly packages are paid in advance each month, and you receive an invoice every time." },
+  { title: "Scope in writing", text: "Your agreement lists what is included, how many revisions you get, and the payment terms." },
+  { title: "No surprise extras", text: "If you ask for something outside the plan, we quote it first and wait for your yes." },
 ];
-
-const steps = [
-  { title: "Free audit", text: "We look at your website, ads and listing, and tell you what to fix first." },
-  { title: "Proposal", text: "Within 24 hours you get a clear plan, timeline and price, then a call to walk through it." },
-  { title: "Build and launch", text: "We build, test on real phones, and go live with tracking switched on." },
-  { title: "Report and grow", text: "Every month you see results, learnings and what we do next." },
-];
-
-// Add real quotes here, with the client's written permission.
-// The section stays hidden while this list is empty.
-const testimonials: { quote: string; name: string; business: string }[] = [];
 
 const faqs = [
-  { q: "How much does it cost?", a: "Packages start from the prices shown above. Your final price depends on scope, and every proposal lists exactly what is included." },
-  { q: "How long does a project take?", a: "It depends on the scope. Your proposal states the schedule, and we tell you early if anything changes." },
-  { q: "How many revisions are included?", a: "The number of revisions is set in your agreement and listed in the proposal, so there are no surprises." },
-  { q: "How does payment work?", a: "Projects start with a 50% advance. Retainers are paid in advance each month, and you receive an invoice every time." },
-  { q: "Do you work with clients outside Mumbai?", a: "Yes. We are based in Mumbai and work with businesses and agencies elsewhere over Google Meet and WhatsApp." },
-  { q: "What do I get from the free audit?", a: "A short review of your website, ads and Google listing, with the fixes most likely to bring in more enquiries." },
+  { q: "Are the prices fixed?", a: "The prices shown are starting points. Your final price depends on scope, and your proposal lists exactly what is included." },
+  { q: "Is ad spend included?", a: "No. The money you spend on ads is paid directly to the platform (for example Meta or Google) and is separate from our fee." },
+  { q: "Can I change package later?", a: "Yes. Tell us when you are ready for more, and we will adjust the plan." },
+  { q: "Do you guarantee results?", a: "No. Search engines, ad platforms and customers are outside our control, so we do not promise rankings or sales. We promise a clear plan, careful work and honest monthly reporting." },
+  { q: "Can I buy a single service instead?", a: "Yes. Every service can be bought on its own. Packages simply bundle the most useful ones." },
+  { q: "How do I get started?", a: "Send us a message or claim the free audit. We reply within a few hours and send a proposal within 24 hours of our call." },
 ];
 
 /* ───────────── SMALL HELPERS (kept in this file) ───────────── */
 
-function Icon({ name, className = "h-6 w-6" }: { name: string; className?: string }) {
+function Icon({ name, className = "h-5 w-5" }: { name: string; className?: string }) {
   const paths: Record<string, React.ReactNode> = {
-    growth: (
-      <>
-        <polyline points="3 17 9 11 13 15 21 7" />
-        <polyline points="15 7 21 7 21 13" />
-      </>
-    ),
-    web: (
-      <>
-        <rect x="3" y="4" width="18" height="13" rx="2" />
-        <path d="M8 21h8M12 17v4" />
-      </>
-    ),
-    content: (
-      <>
-        <rect x="3" y="5" width="18" height="14" rx="2" />
-        <path d="M10 9.5v5l4.5-2.5z" />
-      </>
-    ),
-    automation: <path d="M13 2L4 14h7l-1 8 9-12h-7z" />,
-    audit: (
-      <>
-        <circle cx="11" cy="11" r="7" />
-        <path d="M21 21l-4.3-4.3" />
-      </>
-    ),
-    target: (
-      <>
-        <circle cx="12" cy="12" r="9" />
-        <circle cx="12" cy="12" r="5" />
-        <circle cx="12" cy="12" r="1.5" />
-      </>
-    ),
     check: <path d="M5 12.5l4.5 4.5L19 7.5" />,
     arrow: <path d="M5 12h14M13 6l6 6-6 6" />,
   };
-
   return (
     <svg
       viewBox="0 0 24 24"
@@ -240,15 +180,13 @@ function SectionHeading({
   eyebrow,
   title,
   text,
-  center = false,
 }: {
   eyebrow?: string;
   title: string;
   text?: string;
-  center?: boolean;
 }) {
   return (
-    <div className={center ? "mx-auto max-w-2xl text-center" : "max-w-2xl"}>
+    <div className="mx-auto max-w-2xl text-center">
       {eyebrow && (
         <p className="text-orange-gradient inline-block font-mono text-xs font-semibold uppercase tracking-widest">
           {eyebrow}
@@ -260,384 +198,248 @@ function SectionHeading({
   );
 }
 
-function SampleVisual({ kind }: { kind: string }) {
-  return (
-    <div className="bg-navy-gradient relative flex h-48 items-center justify-center overflow-hidden p-6">
-      {kind === "web" && (
-        <div className="w-full max-w-[260px] rounded-lg bg-white/10 p-3">
-          <div className="flex gap-1.5">
-            <span className="h-2 w-2 rounded-full bg-white/40" />
-            <span className="h-2 w-2 rounded-full bg-white/40" />
-            <span className="h-2 w-2 rounded-full bg-white/40" />
-          </div>
-          <div className="mt-3 h-3 w-2/3 rounded bg-white/50" />
-          <div className="mt-2 h-2 w-full rounded bg-white/25" />
-          <div className="mt-1.5 h-2 w-5/6 rounded bg-white/25" />
-          <div className="bg-orange-gradient mt-4 h-6 w-24 rounded-full" />
-        </div>
-      )}
-      {kind === "content" && (
-        <div className="flex items-end gap-3">
-          {["h-28", "h-36", "h-24"].map((h, i) => (
-            <div key={h} className={`${h} w-16 rounded-lg ${i === 1 ? "bg-orange-gradient" : "bg-white/20"}`} />
-          ))}
-        </div>
-      )}
-      {kind === "growth" && (
-        <div className="flex h-28 w-full max-w-[260px] items-end gap-2">
-          {[30, 45, 40, 62, 55, 78, 92].map((h, i) => (
-            <div
-              key={i}
-              style={{ height: `${h}%` }}
-              className={`flex-1 rounded-t-md ${i === 6 ? "bg-orange-gradient" : "bg-white/25"}`}
-            />
-          ))}
-        </div>
-      )}
-      <span className="absolute left-4 top-4 rounded-full bg-white/15 px-3 py-1 font-mono text-[10px] text-white">
-        SAMPLE PROJECT
-      </span>
-    </div>
-  );
-}
-
 /* ───────────── PAGE ───────────── */
 
-export default function HomePage() {
-  const whatsappHref = `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(site.whatsappMessage)}`;
+export default function PackagesPage() {
+  const whatsappHref = `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(
+    "Hi Nirmata Digital, I'd like to know which package suits my business."
+  )}`;
 
   return (
     <>
-      {/* 1. HERO */}
+      {/* 1. INTRO + PACKAGE CARDS */}
       <section className="bg-hero relative overflow-hidden">
         <div
           aria-hidden
           className="bg-orange-gradient pointer-events-none absolute -right-32 -top-10 h-96 w-96 rounded-full opacity-20 blur-3xl dark:opacity-30"
         />
-        <div
-          aria-hidden
-          className="pointer-events-none absolute -left-32 top-40 h-96 w-96 rounded-full bg-navy-mid opacity-10 blur-3xl dark:opacity-30"
-        />
+        <div className="relative mx-auto max-w-6xl px-4 pb-24 pt-12 md:pb-32 md:pt-20">
+          <p className="inline-flex rounded-full border border-line bg-card px-4 py-1.5 font-mono text-xs text-muted">
+            {intro.badge}
+          </p>
+          <h1 className="mt-6 max-w-3xl text-5xl font-semibold leading-[1.05] md:text-7xl">
+            {intro.titleStart} <span className="text-orange-gradient">{intro.titleAccent}</span>
+          </h1>
+          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted">{intro.text}</p>
 
-        <div className="relative mx-auto grid max-w-6xl items-center gap-14 px-4 pb-24 pt-12 md:pb-32 md:pt-20 lg:grid-cols-[1.1fr_0.9fr]">
-          <div>
-            <p className="inline-flex items-center gap-2 rounded-full border border-line bg-card px-4 py-1.5 font-mono text-xs text-muted">
-              <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-orange opacity-60" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-orange" />
-              </span>
-              {hero.badge}
-            </p>
-
-            <h1 className="mt-6 text-5xl font-semibold leading-[1.04] sm:text-6xl lg:text-7xl">
-              {hero.titleStart} <span className="text-orange-gradient">{hero.titleAccent}</span>
-            </h1>
-
-            <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted">{hero.text}</p>
-
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Button href="/free-audit">Get a free audit →</Button>
-              <Button href="/work" variant="outline">See our work</Button>
-            </div>
-
-            <ul className="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-sm text-muted">
-              {hero.trust.map((t) => (
-                <li key={t} className="flex items-center gap-2">
-                  <span className="text-orange">
-                    <Icon name="check" className="h-4 w-4" />
-                  </span>
-                  {t}
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="relative">
-            <div className="bg-navy-gradient rounded-3xl border border-white/10 p-6 text-white shadow-2xl md:p-8">
-              <div className="flex items-center justify-between">
-                <p className="font-mono text-xs text-white/70">GROWTH DASHBOARD · ILLUSTRATION</p>
-                <span className="flex gap-1.5">
-                  <span className="h-2 w-2 rounded-full bg-white/30" />
-                  <span className="h-2 w-2 rounded-full bg-white/30" />
-                  <span className="h-2 w-2 rounded-full bg-orange" />
-                </span>
-              </div>
-
-              <p className="mt-5 text-2xl font-semibold md:text-3xl">One team. Every channel. Clear results.</p>
-
-              <div className="mt-7 flex h-28 items-end gap-2">
-                {[35, 48, 42, 60, 55, 72, 90].map((h, i) => (
-                  <div
-                    key={i}
-                    style={{ height: `${h}%` }}
-                    className={`flex-1 rounded-t-md ${i === 6 ? "bg-orange-gradient" : "bg-white/20"}`}
-                  />
-                ))}
-              </div>
-
-              <div className="mt-6 grid grid-cols-2 gap-3">
-                {pillars.map((p) => (
-                  <div
-                    key={p.title}
-                    className="flex items-center gap-3 rounded-xl border border-white/15 bg-white/5 px-4 py-3 text-sm font-semibold"
-                  >
-                    <span className="text-white/80">
-                      <Icon name={p.icon} className="h-5 w-5" />
-                    </span>
-                    {p.title === "Automation and Apps" ? "Automation" : p.title}
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="absolute -bottom-5 -left-3 hidden items-center gap-2 rounded-full border border-line bg-card px-4 py-2 text-xs font-semibold text-heading shadow-xl sm:flex">
-              <span className="h-2 w-2 rounded-full bg-success" />
-              Every lead tracked
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 2. TRUST STRIP */}
-      <section className="border-y border-line bg-page">
-        <div className="mx-auto grid max-w-6xl gap-6 px-4 py-10 sm:grid-cols-2 lg:grid-cols-4">
-          {proof.map((p) => (
-            <div key={p.title}>
-              <p className="font-semibold text-heading">{p.title}</p>
-              <p className="mt-1 text-sm text-muted">{p.text}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* 3. THREE OFFERS */}
-      <section className="mx-auto max-w-6xl px-4 py-20 md:py-28">
-        <SectionHeading
-          eyebrow="Start here"
-          title="Three ways to get started"
-          text="Pick the one that fits where your business is today. Each one leads to a clear plan."
-        />
-        <div className="mt-12 grid gap-6 md:grid-cols-3">
-          {offers.map((o) => (
-            <div
-              key={o.title}
-              className="group flex flex-col rounded-3xl border border-line bg-card p-8 shadow-[0_8px_30px_rgba(10,26,63,0.06)] transition hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(10,26,63,0.14)]"
-            >
-              <div className="flex items-center justify-between">
-                <span className="bg-navy-gradient flex h-12 w-12 items-center justify-center rounded-xl text-white">
-                  <Icon name={o.icon} />
-                </span>
-                <span className="rounded-full border border-line px-3 py-1 font-mono text-xs text-muted">
-                  {o.tag}
-                </span>
-              </div>
-              <h3 className="mt-6 text-xl font-semibold">{o.title}</h3>
-              <p className="mt-3 flex-1 text-sm leading-relaxed text-muted">{o.text}</p>
-              <a href={o.href} className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-heading">
-                {o.cta}
-                <span className="transition group-hover:translate-x-1">
-                  <Icon name="arrow" className="h-4 w-4" />
-                </span>
-              </a>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* 4. FOUR PILLARS */}
-      <section className="bg-soft py-20 md:py-28">
-        <div className="mx-auto max-w-6xl px-4">
-          <SectionHeading
-            eyebrow="What we do"
-            title="Four pillars, one team"
-            text="Everything a growing business needs online, handled together so the pieces fit."
-          />
-          <div className="mt-12 grid gap-6 md:grid-cols-2">
-            {pillars.map((p) => (
+          <div className="mt-16 grid items-stretch gap-6 md:grid-cols-3">
+            {packages.map((p) => (
               <div
-                key={p.title}
-                className="overflow-hidden rounded-3xl border border-line bg-card shadow-[0_8px_30px_rgba(10,26,63,0.06)]"
+                key={p.name}
+                className={`relative flex flex-col rounded-3xl p-8 ${
+                  p.highlight
+                    ? "bg-navy-gradient border border-white/10 text-white shadow-2xl md:-translate-y-4"
+                    : "border border-line bg-card shadow-[0_8px_30px_rgba(10,26,63,0.06)]"
+                }`}
               >
-                <div className="bg-orange-gradient h-1.5" />
-                <div className="p-8">
-                  <div className="flex items-center justify-between">
-                    <span className="bg-navy-gradient flex h-12 w-12 items-center justify-center rounded-xl text-white">
-                      <Icon name={p.icon} />
-                    </span>
-                    <span className="font-mono text-xs text-muted">{p.label}</span>
-                  </div>
-                  <h3 className="mt-6 text-2xl font-semibold">{p.title}</h3>
-                  <p className="mt-2 text-sm text-muted">{p.audience}</p>
-                  <ul className="mt-6 grid gap-3 sm:grid-cols-2">
-                    {p.services.map((s) => (
-                      <li key={s} className="flex gap-3 text-sm text-fg">
-                        <span className="mt-0.5 shrink-0 text-orange">
-                          <Icon name="check" className="h-4 w-4" />
-                        </span>
-                        {s}
-                      </li>
-                    ))}
-                  </ul>
+                {p.highlight && (
+                  <span className="bg-orange-gradient absolute -top-3 left-8 rounded-full px-4 py-1 text-xs font-semibold text-navy">
+                    Most popular
+                  </span>
+                )}
+
+                <h2 className={`text-xl font-semibold ${p.highlight ? "text-white" : ""}`}>{p.name}</h2>
+                <p className={`mt-1 text-sm ${p.highlight ? "text-white/70" : "text-muted"}`}>{p.audience}</p>
+
+                <p className="mt-6 flex items-baseline gap-2">
+                  <span className={`text-sm ${p.highlight ? "text-white/70" : "text-muted"}`}>from</span>
+                  <span
+                    className={`font-heading text-4xl font-semibold ${p.highlight ? "text-white" : "text-heading"}`}
+                  >
+                    {p.price}
+                  </span>
+                  <span className={`text-sm ${p.highlight ? "text-white/70" : "text-muted"}`}>{p.unit}</span>
+                </p>
+
+                <ul className="mt-8 flex-1 space-y-3">
+                  {p.features.map((f) => (
+                    <li key={f} className="flex gap-3 text-sm">
+                      <span className="mt-0.5 shrink-0 text-orange">
+                        <Icon name="check" className="h-4 w-4" />
+                      </span>
+                      <span className={p.highlight ? "text-white/90" : "text-fg"}>{f}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                <div className="mt-8">
+                  <Button href="/contact" variant={p.highlight ? "primary" : "dark"} className="w-full text-center">
+                    {p.cta}
+                  </Button>
                 </div>
               </div>
             ))}
           </div>
-          <div className="mt-10 text-center">
-            <Button href="/services" variant="outline">Explore all services</Button>
-          </div>
+
+          <p className="mt-10 text-center text-sm text-muted">
+            Prices are starting points. Ad spend is paid directly to the ad platform.
+          </p>
         </div>
       </section>
 
-      {/* 5. PACKAGES */}
-      <section id="packages" className="mx-auto max-w-6xl scroll-mt-28 px-4 py-20 md:py-28">
+      {/* 2. COMPARISON TABLE */}
+      <section className="mx-auto max-w-6xl px-4 py-20 md:py-28">
         <SectionHeading
-          center
-          eyebrow="Packages"
-          title="Simple packages that grow with you"
-          text="Start where you are. Move up when you are ready. Final pricing depends on scope."
+          eyebrow="Compare"
+          title="See exactly what is in each package"
+          text="Every higher package includes everything in the one before it."
         />
-
-        <div className="mt-16 grid items-stretch gap-6 md:grid-cols-3">
-          {packages.map((p) => (
-            <div
-              key={p.name}
-              className={`relative flex flex-col rounded-3xl p-8 ${
-                p.highlight
-                  ? "bg-navy-gradient border border-white/10 text-white shadow-2xl md:-translate-y-4"
-                  : "border border-line bg-card shadow-[0_8px_30px_rgba(10,26,63,0.06)]"
-              }`}
-            >
-              {p.highlight && (
-                <span className="bg-orange-gradient absolute -top-3 left-8 rounded-full px-4 py-1 text-xs font-semibold text-navy">
-                  Most popular
-                </span>
-              )}
-
-              <h3 className={`text-xl font-semibold ${p.highlight ? "text-white" : ""}`}>{p.name}</h3>
-              <p className={`mt-1 text-sm ${p.highlight ? "text-white/70" : "text-muted"}`}>{p.audience}</p>
-
-              <p className="mt-6 flex items-baseline gap-2">
-                <span className={`text-sm ${p.highlight ? "text-white/70" : "text-muted"}`}>from</span>
-                <span
-                  className={`font-heading text-4xl font-semibold ${p.highlight ? "text-white" : "text-heading"}`}
-                >
-                  {p.price}
-                </span>
-                <span className={`text-sm ${p.highlight ? "text-white/70" : "text-muted"}`}>{p.unit}</span>
-              </p>
-
-              <ul className="mt-8 flex-1 space-y-3">
-                {p.features.map((f) => (
-                  <li key={f} className="flex gap-3 text-sm">
-                    <span className="mt-0.5 shrink-0 text-orange">
-                      <Icon name="check" className="h-4 w-4" />
-                    </span>
-                    <span className={p.highlight ? "text-white/90" : "text-fg"}>{f}</span>
-                  </li>
+        <div className="mx-auto mt-12 max-w-5xl overflow-x-auto rounded-3xl border border-line bg-card shadow-[0_8px_30px_rgba(10,26,63,0.06)]">
+          <table className="w-full min-w-[640px] border-collapse text-left text-sm">
+            <thead>
+              <tr className="border-b border-line">
+                <th scope="col" className="p-5 font-semibold text-heading">
+                  Features
+                </th>
+                {packages.map((p) => (
+                  <th
+                    key={p.name}
+                    scope="col"
+                    className={`p-5 text-center font-semibold text-heading ${p.highlight ? "bg-soft" : ""}`}
+                  >
+                    {p.name}
+                  </th>
                 ))}
-              </ul>
-
-              <div className="mt-8">
-                <Button href="/contact" variant={p.highlight ? "primary" : "dark"} className="w-full text-center">
-                  {p.cta}
-                </Button>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <div className="mt-12 text-center">
-          <p className="text-sm font-semibold text-heading">Popular add-ons</p>
-          <div className="mt-4 flex flex-wrap justify-center gap-2">
-            {addOns.map((a) => (
-              <span key={a} className="rounded-full border border-line bg-card px-4 py-2 text-sm text-muted">
-                {a}
-              </span>
-            ))}
-          </div>
-          <div className="mt-8">
-            <Button href="/packages" variant="outline">Compare packages in detail</Button>
-          </div>
+              </tr>
+            </thead>
+            <tbody>
+              {comparison.map((g) => (
+                <Fragment key={g.group}>
+                  <tr>
+                    <th
+                      scope="colgroup"
+                      colSpan={4}
+                      className="bg-soft px-5 py-3 font-mono text-xs font-semibold uppercase tracking-widest text-muted"
+                    >
+                      {g.group}
+                    </th>
+                  </tr>
+                  {g.rows.map((r) => (
+                    <tr key={r.label} className="border-t border-line">
+                      <th scope="row" className="p-5 font-normal text-fg">
+                        {r.label}
+                      </th>
+                      {r.values.map((v, i) => (
+                        <td key={i} className={`p-5 text-center ${packages[i].highlight ? "bg-soft" : ""}`}>
+                          {v ? (
+                            <span className="inline-flex text-orange">
+                              <Icon name="check" className="h-5 w-5" />
+                              <span className="sr-only">Included</span>
+                            </span>
+                          ) : (
+                            <>
+                              <span className="text-muted" aria-hidden>
+                                —
+                              </span>
+                              <span className="sr-only">Not included</span>
+                            </>
+                          )}
+                        </td>
+                      ))}
+                    </tr>
+                  ))}
+                </Fragment>
+              ))}
+            </tbody>
+          </table>
         </div>
       </section>
 
-      {/* 6. WORK PREVIEW */}
+      {/* 3. WHICH PACKAGE */}
       <section className="bg-soft py-20 md:py-28">
         <div className="mx-auto max-w-6xl px-4">
-          <SectionHeading
-            eyebrow="Our work"
-            title="Sample projects"
-            text="Real case studies will replace these as we finish client work. Each one will show the problem, what we did and a result with a number."
-          />
+          <SectionHeading eyebrow="Not sure?" title="Which package is right for you?" />
           <div className="mt-12 grid gap-6 md:grid-cols-3">
-            {samples.map((s) => (
-              <article
-                key={s.title}
-                className="overflow-hidden rounded-3xl border border-line bg-card shadow-[0_8px_30px_rgba(10,26,63,0.06)]"
+            {chooser.map((c) => (
+              <div
+                key={c.pick}
+                className="flex flex-col rounded-3xl border border-line bg-card p-8 shadow-[0_8px_30px_rgba(10,26,63,0.06)]"
               >
-                <SampleVisual kind={s.kind} />
-                <div className="p-6">
-                  <p className="font-mono text-xs text-muted">{s.tag}</p>
-                  <h3 className="mt-2 text-lg font-semibold">{s.title}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-muted">{s.text}</p>
-                  <p className="mt-4 text-sm font-semibold text-heading">{s.result}</p>
-                </div>
-              </article>
+                <p className="text-base font-semibold text-heading">“{c.need}”</p>
+                <p className="mt-3 flex-1 text-sm leading-relaxed text-muted">{c.why}</p>
+                <p className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-heading">
+                  Start with {c.pick}
+                  <Icon name="arrow" className="h-4 w-4" />
+                </p>
+              </div>
             ))}
           </div>
-          <div className="mt-10 text-center">
-            <Button href="/work" variant="outline">View all work</Button>
-          </div>
+          <p className="mt-10 text-center text-sm text-muted">
+            Still unsure? Our free audit tells you what to fix first.{" "}
+            <a href="/free-audit" className="font-semibold text-heading underline">
+              Get a free audit
+            </a>
+          </p>
         </div>
       </section>
 
-      {/* 7. HOW WE WORK */}
+      {/* 4. ADD-ONS */}
       <section className="mx-auto max-w-6xl px-4 py-20 md:py-28">
-        <SectionHeading center eyebrow="How we work" title="A clear process from first call to monthly results" />
-        <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {steps.map((s, i) => (
-            <div key={s.title} className="rounded-3xl border border-line bg-card p-7">
-              <span className="bg-orange-gradient flex h-10 w-10 items-center justify-center rounded-full font-mono text-sm font-bold text-navy">
-                {i + 1}
-              </span>
-              <h3 className="mt-5 text-lg font-semibold">{s.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted">{s.text}</p>
+        <SectionHeading
+          eyebrow="Add-ons"
+          title="Add only what you need"
+          text="Priced per project. Ask us for a quote."
+        />
+        <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {addOns.map((a) => (
+            <div key={a.name} className="overflow-hidden rounded-2xl border border-line bg-card">
+              <div className="bg-orange-gradient h-1" />
+              <div className="p-6">
+                <h3 className="text-base font-semibold">{a.name}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted">{a.text}</p>
+              </div>
             </div>
           ))}
         </div>
       </section>
 
-      {/* 8. TESTIMONIALS (hidden until you add real quotes) */}
-      {testimonials.length > 0 && (
-        <section className="bg-soft py-20 md:py-28">
-          <div className="mx-auto max-w-6xl px-4">
-            <SectionHeading center eyebrow="Kind words" title="What clients say" />
-            <div className="mt-12 grid gap-6 md:grid-cols-3">
-              {testimonials.map((t) => (
-                <figure
-                  key={t.name}
-                  className="rounded-3xl border border-line bg-card p-8 shadow-[0_8px_30px_rgba(10,26,63,0.06)]"
-                >
-                  <blockquote className="text-base leading-relaxed text-fg">“{t.quote}”</blockquote>
-                  <figcaption className="mt-6 text-sm">
-                    <span className="font-semibold text-heading">{t.name}</span>
-                    <span className="text-muted"> · {t.business}</span>
-                  </figcaption>
-                </figure>
-              ))}
-            </div>
+      {/* 5. HOW BILLING WORKS */}
+      <section className="bg-soft py-20 md:py-28">
+        <div className="mx-auto max-w-6xl px-4">
+          <SectionHeading eyebrow="Payment" title="How payment works" text="Clear terms from day one, written into your agreement." />
+          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {billing.map((b, i) => (
+              <div key={b.title} className="rounded-3xl border border-line bg-card p-7">
+                <span className="bg-orange-gradient flex h-10 w-10 items-center justify-center rounded-full font-mono text-sm font-bold text-navy">
+                  {i + 1}
+                </span>
+                <h3 className="mt-5 text-lg font-semibold">{b.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted">{b.text}</p>
+              </div>
+            ))}
           </div>
-        </section>
-      )}
+        </div>
+      </section>
 
-            {/* 9. FAQ + HELP BOX */}
-      <FaqWithHelp
-        faqs={faqs}
-        title="Questions we hear most"
-        subtitle="Everything you need to know before you get started."
-      />
+      {/* 6. FAQ */}
+      <section className="mx-auto max-w-6xl px-4 py-20 md:py-28">
+        <SectionHeading eyebrow="FAQ" title="Questions about packages" />
+        <div className="mx-auto mt-12 max-w-3xl divide-y divide-line overflow-hidden rounded-2xl border border-line bg-card">
+          {faqs.map((item) => (
+            <details key={item.q} className="group px-6 py-5">
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-base font-semibold text-heading [&::-webkit-details-marker]:hidden">
+                {item.q}
+                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-line transition group-open:rotate-45">
+                  <svg
+                    className="h-3.5 w-3.5"
+                    viewBox="0 0 14 14"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    aria-hidden
+                  >
+                    <path d="M7 1v12M1 7h12" />
+                  </svg>
+                </span>
+              </summary>
+              <p className="mt-3 text-sm leading-relaxed text-muted">{item.a}</p>
+            </details>
+          ))}
+        </div>
+      </section>
 
-      {/* 10. FINAL CTA */}
+      {/* 7. FINAL CTA */}
       <section className="mx-auto max-w-6xl px-4 pb-8">
         <div className="bg-orange-gradient relative overflow-hidden rounded-3xl p-10 text-center md:p-16">
           <div
@@ -645,13 +447,13 @@ export default function HomePage() {
             className="pointer-events-none absolute -right-16 -top-16 h-64 w-64 rounded-full bg-white/20 blur-2xl"
           />
           <h2 className="relative mx-auto max-w-2xl text-3xl font-semibold text-navy md:text-5xl">
-            Want to know what is holding your business back online?
+            Ready to pick a package?
           </h2>
           <p className="relative mx-auto mt-4 max-w-xl text-navy/80">
-            Get a free audit and a clear list of what to fix first. No pressure and no jargon.
+            Tell us about your business and we will recommend the right starting point. No pressure and no jargon.
           </p>
           <div className="relative mt-8 flex flex-wrap justify-center gap-3">
-            <Button href="/free-audit" variant="dark">Get a free audit →</Button>
+            <Button href="/contact" variant="dark">Talk to us →</Button>
             <a
               href={whatsappHref}
               target="_blank"
