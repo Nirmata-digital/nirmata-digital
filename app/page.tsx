@@ -43,7 +43,7 @@ const pillars = [
       "Photography direction",
       "Logo, branding and brand kits",
     ] },
-  
+
   { icon: "growth", label: "Pillar 02", title: "Growth",
     audience: "For businesses that want a steady flow of enquiries.",
     services: [
@@ -67,7 +67,7 @@ const pillars = [
       "Web apps and portals",
       "Website care plans (hosting, security, updates)",
     ] },
-  
+
   { icon: "automation", label: "Pillar 04", title: "Automation, Apps and AI",
     audience: "For teams that lose hours to repeat work or want to use their data.",
     services: [
@@ -88,14 +88,15 @@ const mlUseCases = [
   { title: "Recommendations", text: "Suggest the right product or service to each customer automatically." },
 ];
 
+// Indicative Indian-market starting prices. Adjust to your own costs.
 const packages = [
-  { name: "Starter", audience: "For new businesses getting online properly.", price: "₹XX,XXX", unit: "one-time",
+  { name: "Starter", audience: "For new businesses getting online properly.", price: "₹24,999", unit: "one-time",
     features: ["Mobile-first website, up to 5 pages", "Google Business Profile setup", "Basic on-page SEO", "GA4 and Tag Manager tracking", "WhatsApp and call buttons", "Contact form that sends leads to you"],
     cta: "Start with Starter", highlight: false },
-  { name: "Growth", audience: "For businesses ready to bring in leads every month.", price: "₹XX,XXX", unit: "per month",
+  { name: "Growth", audience: "For businesses ready to bring in leads every month.", price: "₹29,999", unit: "per month",
     features: ["Everything in Starter", "Meta and Google Ads management", "Monthly content plan with reels and posters", "Ongoing SEO improvements", "Conversion tracking and Meta Pixel", "Monthly report and strategy call"],
     cta: "Choose Growth", highlight: true },
-  { name: "Scale", audience: "For teams that want growth running on autopilot.", price: "₹XX,XXX", unit: "per month",
+  { name: "Scale", audience: "For teams that want growth running on autopilot.", price: "₹64,999", unit: "per month",
     features: ["Everything in Growth", "WhatsApp and CRM automation", "Custom reporting dashboard", "Landing pages for each campaign", "Quarterly strategy review", "Priority support"],
     cta: "Talk about Scale", highlight: false },
 ];
@@ -114,13 +115,17 @@ const addOns = [
   "Custom ML model",
 ];
 
+// Concept projects: they describe scope and goals only, with no invented results.
 const samples = [
-  { kind: "web", tag: "Web", title: "Clinic website",
-    text: "Problem: patients could not find timings or book easily. Replace with your real case study.", result: "Result with a number goes here" },
-  { kind: "content", tag: "Content", title: "Boutique launch creatives",
-    text: "Problem: inconsistent posts and no clear offer. Replace with your real case study.", result: "Result with a number goes here" },
-  { kind: "growth", tag: "Growth", title: "Builder lead campaign",
-    text: "Problem: ad spend with no tracking. Replace with your real case study.", result: "Result with a number goes here" },
+  { kind: "web", tag: "Web", title: "Clinic website concept",
+    text: "A mobile-first site for a Mumbai dental clinic with timings, treatments and one-tap WhatsApp booking, plus call and form tracking in GA4.",
+    result: "Goal: more booked appointments, tracked per source" },
+  { kind: "content", tag: "Content", title: "Boutique launch creatives concept",
+    text: "A launch kit for a fashion boutique: 6 reels, 10 posters and a simple brand sheet, so every post looks consistent.",
+    result: "Goal: a steady posting plan and a clear offer" },
+  { kind: "growth", tag: "Growth", title: "Real estate lead campaign concept",
+    text: "Meta and Google Ads for a builder, with a lead form, WhatsApp follow-up and a dashboard that shows cost per site visit.",
+    result: "Goal: lower cost per qualified lead" },
 ];
 
 const steps = [
@@ -131,8 +136,24 @@ const steps = [
 ];
 
 // Add real quotes here, with the client's written permission.
-// The section stays hidden while this list is empty.
-const testimonials: { quote: string; name: string; business: string }[] = [];
+// The section stays hidden on the live site while this list is empty.
+const realTestimonials: { quote: string; name: string; business: string }[] = [
+  // { quote: "...", name: "Real name", business: "Business, Area" },
+];
+
+// Layout preview only. Shows while you run `npm run dev`, never in production.
+const previewTestimonials = [
+  { quote: "Layout preview only. Replace with a real client quote.", name: "Client name", business: "Business, Mumbai" },
+  { quote: "Layout preview only. Replace with a real client quote.", name: "Client name", business: "Business, Pune" },
+  { quote: "Layout preview only. Replace with a real client quote.", name: "Client name", business: "Business, Thane" },
+];
+
+const testimonials: { quote: string; name: string; business: string }[] =
+  realTestimonials.length > 0
+    ? realTestimonials
+    : process.env.NODE_ENV === "development"
+    ? previewTestimonials
+    : [];
 
 const faqs = [
   { q: "How much does it cost?", a: "Packages start from the prices shown above. Your final price depends on scope, and every proposal lists exactly what is included." },
@@ -369,7 +390,8 @@ export default function HomePage() {
             );
           })}
         </div>
-        <div className="mt-12 text-center">
+        <p className="mt-8 text-center text-xs text-muted">Prices exclude GST and ad spend. Ad budget is paid directly to Meta and Google.</p>
+        <div className="mt-10 text-center">
           <p className="text-sm font-semibold text-heading">Popular add-ons</p>
           <div className="mt-4 flex flex-wrap justify-center gap-2">
             {addOns.map((a) => <span key={a} className="shadow-soft rounded-full border border-line bg-card px-4 py-2 text-sm text-muted transition duration-300 hover:-translate-y-0.5 hover:border-orange/50 hover:text-heading">{a}</span>)}
@@ -381,7 +403,7 @@ export default function HomePage() {
       {/* 8. WORK PREVIEW */}
       <section className="dot-grid bg-soft py-20 md:py-28">
         <div className="mx-auto max-w-6xl px-4">
-          <SectionHeading eyebrow="Our work" title="Sample projects" text="Real case studies will replace these as we finish client work. Each one will show the problem, what we did and a result with a number." />
+          <SectionHeading eyebrow="Our work" title="Sample projects" text="Sample concepts showing how we would approach each type of project. Real case studies are coming soon." />
           <div className="stagger mt-12 grid gap-6 md:grid-cols-3">
             {samples.map((s) => (
               <article key={s.title} className={`reveal overflow-hidden rounded-3xl border border-line bg-card ${cardShadow}`}>
@@ -413,14 +435,14 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 10. TESTIMONIALS (hidden until you add real quotes) */}
+      {/* 10. TESTIMONIALS (hidden in production until you add real quotes) */}
       {testimonials.length > 0 && (
         <section className="dot-grid bg-soft py-20 md:py-28">
           <div className="mx-auto max-w-6xl px-4">
             <SectionHeading center eyebrow="Kind words" title="What clients say" />
             <div className="stagger mt-12 grid gap-6 md:grid-cols-3">
-              {testimonials.map((t) => (
-                <figure key={t.name} className={`reveal rounded-3xl border border-line bg-card p-8 ${cardShadow}`}>
+              {testimonials.map((t, i) => (
+                <figure key={`${t.name}-${i}`} className={`reveal rounded-3xl border border-line bg-card p-8 ${cardShadow}`}>
                   <blockquote className="text-base leading-relaxed text-fg">“{t.quote}”</blockquote>
                   <figcaption className="mt-6 text-sm">
                     <span className="font-semibold text-heading">{t.name}</span>
