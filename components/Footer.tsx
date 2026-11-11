@@ -125,9 +125,10 @@ export default function Footer() {
       {/* Brand row */}
       <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 border-b border-white/15 px-4 py-8">
         <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
-          <Logo tone="light" boxed size="lg" />
-          <div translate="no" className="notranslate">
-  <Logo tone="light" boxed size="lg" />
+  <div translate="no" className="notranslate">
+    <Logo tone="light" boxed size="lg" />
+  </div>
+  <p className="max-w-xs text-sm leading-relaxed text-white/70">{site.tagline}</p>
 </div>
           <p className="max-w-xs text-sm leading-relaxed text-white/70">{site.tagline}</p>
         </div>
