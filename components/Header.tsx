@@ -1,5 +1,5 @@
 "use client";
-
+import Logo from "@/components/Logo";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -49,7 +49,7 @@ export default function Header() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
-
+<Logo mark />
   // Close menus when the page changes
   useEffect(() => {
     setActive(null);
