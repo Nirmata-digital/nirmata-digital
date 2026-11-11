@@ -28,7 +28,8 @@ function Card({ c }: { c: Client }) {
 export default function ClientsCarousel() {
   const loop = [...clients, ...clients];
   return (
-    <section className="mx-auto max-w-6xl px-4 py-16 md:py-20">
+    <section className="force-dark bg-page">
+    <div className="mx-auto max-w-6xl px-4 py-16 md:py-20">
       <div className="text-center">
         <h2 className="text-2xl font-semibold md:text-4xl">Businesses that trust us with their growth</h2>
         <p className="mx-auto mt-3 max-w-xl text-muted">From local clinics to overseas brands, we work with owners who want to see what their marketing earns.</p>
@@ -39,11 +40,12 @@ export default function ClientsCarousel() {
         </div>
       </div>
 
-      <div className="group relative mt-10 overflow-hidden rounded-3xl border border-line bg-card shadow-[0_8px_30px_rgba(10,26,63,0.06)] [mask-image:linear-gradient(90deg,transparent,#000_8%,#000_92%,transparent)]">
-        <div className="anim-marquee flex w-max group-hover:[animation-play-state:paused]">
+      <div className="nd-marquee relative mt-10 overflow-hidden rounded-3xl border border-line bg-card shadow-[0_8px_30px_rgba(10,26,63,0.06)] [mask-image:linear-gradient(90deg,transparent,#000_8%,#000_92%,transparent)]">
+        <div className="nd-marquee-track">
           {loop.map((c, i) => <Card key={i} c={c} />)}
         </div>
       </div>
+    </div>
     </section>
   );
 }
