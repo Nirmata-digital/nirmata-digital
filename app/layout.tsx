@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Plus_Jakarta_Sans, JetBrains_Mono, Kumbh_Sans } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
+import Breadcrumbs from "@/components/Breadcrumbs";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import CallButton from "@/components/CallButton";
@@ -58,7 +59,10 @@ export default function RootLayout({
       </head>
       <body>
         <Header />
-        <main className="pt-20">{children}</main>
+        <main className="pt-20">
+          <Breadcrumbs />
+          {children}
+        </main>
         <Footer />
         <CookieBanner />
         <WhatsAppButton />
