@@ -10,17 +10,20 @@ import { site } from "@/lib/site";
 export default function Logo({
   tone = "dark",
   boxed = false,
-  showName = true,
+  showName = false,
+  size = "md",
   src = "/logo.png",
   className = "",
 }: {
   tone?: "dark" | "light";
   boxed?: boolean;
   showName?: boolean;
+  size?: "sm" | "md" | "lg";
   src?: string;
   className?: string;
 }) {
   const [failed, setFailed] = useState(false);
+  const h = { sm: "h-12", md: "h-14", lg: "h-20" }[size];
 
   const mark = failed ? (
     <span className="bg-orange-gradient flex h-11 w-11 items-center justify-center rounded-xl text-lg font-bold text-navy shadow-md">
@@ -28,7 +31,7 @@ export default function Logo({
     </span>
   ) : (
     // eslint-disable-next-line @next/next/no-img-element
-    <img src={src} alt={`${site.name} logo`} onError={() => setFailed(true)} className="h-11 w-auto max-w-[170px] object-contain" />
+    <img src={src} alt={`${site.name} logo`} onError={() => setFailed(true)} className={`${h} w-auto object-contain`} />
   );
 
   return (
