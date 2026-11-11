@@ -452,3 +452,20 @@ body {
   }
   .card-lift, .icon-tile { transition: none; }
 }
+
+/* WhatsApp button: periodic bounce */
+@keyframes wa-bounce {
+  0%, 55%, 100% { transform: translateY(0); }
+  62% { transform: translateY(-14px); }
+  70% { transform: translateY(0); }
+  77% { transform: translateY(-8px); }
+  85% { transform: translateY(0); }
+  91% { transform: translateY(-3px); }
+}
+.wa-bounce { animation: wa-bounce 3.5s ease-in-out infinite; }
+.wa-bounce:hover,
+.wa-bounce:focus-visible { animation: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .wa-bounce { animation: none; }
+}
