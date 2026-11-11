@@ -125,11 +125,9 @@ export default function Footer() {
       {/* Brand row */}
       <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 border-b border-white/15 px-4 py-8">
         <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
-  <div translate="no" className="notranslate">
-    <Logo tone="light" boxed size="lg" />
-  </div>
-  <p className="max-w-xs text-sm leading-relaxed text-white/70">{site.tagline}</p>
-</div>
+          <div translate="no" className="notranslate">
+            <Logo tone="light" boxed size="lg" />
+          </div>
           <p className="max-w-xs text-sm leading-relaxed text-white/70">{site.tagline}</p>
         </div>
         <Link href="/free-audit" className="bg-orange-gradient rounded-full px-7 py-3.5 text-sm font-semibold text-navy shadow-[0_10px_30px_rgba(255,122,26,0.35)] transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_16px_40px_rgba(255,122,26,0.55)]">
@@ -174,7 +172,7 @@ export default function Footer() {
         ))}
 
         {/* Contact column */}
-        <div>
+        <div className="group/col">
           <h3 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wide text-white">
             <span className="text-orange"><Icon name="phone" /></span>
             Contact
