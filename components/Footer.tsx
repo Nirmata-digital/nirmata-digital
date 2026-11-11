@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Logo from "@/components/Logo";
 import { site } from "@/lib/site";
 
 /* Edit the link lists here. Change any href that does not match your routes. */
@@ -51,6 +52,30 @@ const columns = [
   ] },
 ];
 
+/* Fill in your real profile links. Empty ones are hidden automatically. */
+const socialLinks = [
+  { label: "Instagram", icon: "instagram", href: site.instagram },
+  { label: "LinkedIn", icon: "linkedin", href: "" },
+  { label: "Facebook", icon: "facebook", href: "" },
+  { label: "X", icon: "x", href: "" },
+  { label: "WhatsApp Channel", icon: "channel", href: "" },
+  { label: "Telegram", icon: "telegram", href: "" },
+];
+
+/* Payment methods you accept. Remove any you do not use.
+   To show a logo, save the official file in /public/payments/ and set logo: "/payments/upi.svg".
+   Without a logo, the name is shown as a white badge. */
+const payments: { name: string; logo?: string }[] = [
+  { name: "UPI" },
+  { name: "Google Pay" },
+  { name: "PhonePe" },
+  { name: "Paytm" },
+  { name: "Visa" },
+  { name: "Mastercard" },
+  { name: "RuPay" },
+  { name: "Net Banking" },
+];
+
 function Icon({ name, className = "h-5 w-5" }: { name: string; className?: string }) {
   const p: Record<string, React.ReactNode> = {
     growth: <polyline points="3 17 9 11 13 15 21 7" />,
@@ -69,6 +94,11 @@ function Icon({ name, className = "h-5 w-5" }: { name: string; className?: strin
     chevron: <path d="M9 6l6 6-6 6" />,
     instagram: (<><rect x="3" y="3" width="18" height="18" rx="5" /><circle cx="12" cy="12" r="4" /><circle cx="17.5" cy="6.5" r="0.8" /></>),
     whatsapp: <path d="M21 12a8 8 0 01-11.6 7.1L4 20l1-4.6A8 8 0 1121 12z" />,
+    channel: (<><path d="M4 10v4l12 5V5z" /><path d="M16 9.5a3 3 0 010 5M7 14.5l1 5h2l-1-4" /></>),
+    linkedin: (<><rect x="3" y="3" width="18" height="18" rx="3" /><path d="M8 10v7M8 7v.01M12 17v-7M12 13c0-2 1.5-3 3-3s2 1 2 3v4" /></>),
+    facebook: <path d="M14 8h3V4h-3a4 4 0 00-4 4v3H7v4h3v6h4v-6h3l1-4h-4V8z" />,
+    x: <path d="M4 4l16 16M20 4L4 20" />,
+    telegram: <path d="M21 4L3 11l6 2 2 6 3-4 5 4z M9 13l8-6" />,
   };
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden>
@@ -81,14 +111,14 @@ export default function Footer() {
   const whatsappHref = `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(site.whatsappMessage)}`;
 
   return (
-    <footer className="bg-navy-gradient mt-16 text-white">
+    <footer className="bg-navy-gradient relative mt-20 text-white shadow-[0_-20px_60px_rgba(10,26,63,0.18)]">
       {/* Brand row */}
       <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 border-b border-white/15 px-4 py-8">
-        <div>
-          <p className="font-heading text-xl font-semibold text-white">{site.name}</p>
-          <p className="mt-1 max-w-md text-sm text-white/70">{site.tagline}</p>
+        <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
+          <Logo tone="light" boxed />
+          <p className="max-w-xs text-sm leading-relaxed text-white/70">{site.tagline}</p>
         </div>
-        <Link href="/free-audit" className="bg-orange-gradient rounded-full px-6 py-3 text-sm font-semibold text-navy">
+        <Link href="/free-audit" className="bg-orange-gradient rounded-full px-7 py-3.5 text-sm font-semibold text-navy shadow-[0_10px_30px_rgba(255,122,26,0.35)] transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_16px_40px_rgba(255,122,26,0.55)]">
           Get a free audit
         </Link>
       </div>
@@ -96,16 +126,16 @@ export default function Footer() {
       {/* Link columns */}
       <div className="mx-auto grid max-w-6xl grid-cols-2 gap-x-6 gap-y-10 px-4 py-12 sm:grid-cols-3 lg:grid-cols-5">
         {columns.map((c) => (
-          <div key={c.title}>
+          <div key={c.title} className="group/col">
             <h3 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wide text-white">
               <span className="text-orange"><Icon name={c.icon} /></span>
               {c.title}
             </h3>
-            <span className="mt-2 block h-0.5 w-6 rounded bg-orange" />
+            <span className="mt-2 block h-0.5 w-6 rounded bg-orange transition-all duration-300 group-hover/col:w-12" />
             <ul className="mt-5 space-y-3 text-sm text-white/75">
               {c.links.map((l) => (
                 <li key={l.label}>
-                  <Link href={l.href} className="group flex items-center gap-2 hover:text-white">
+                  <Link href={l.href} className="group flex items-center gap-2 transition duration-200 hover:translate-x-1 hover:text-white">
                     <span className="text-orange"><Icon name="chevron" className="h-3.5 w-3.5" /></span>
                     {l.label}
                   </Link>
@@ -121,7 +151,7 @@ export default function Footer() {
             <span className="text-orange"><Icon name="phone" /></span>
             Contact
           </h3>
-          <span className="mt-2 block h-0.5 w-6 rounded bg-orange" />
+          <span className="mt-2 block h-0.5 w-6 rounded bg-orange transition-all duration-300 group-hover/col:w-12" />
           <ul className="mt-5 space-y-3 text-sm text-white/75">
             <li className="flex gap-2">
               <span className="mt-0.5 shrink-0 text-orange"><Icon name="pin" className="h-4 w-4" /></span>
@@ -150,15 +180,29 @@ export default function Footer() {
       {/* Bottom bar */}
       <div className="border-t border-white/15">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-4 py-5 text-xs text-white/70">
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="mr-1 font-semibold uppercase tracking-wide text-white/60">We accept</span>
+            {payments.map((m) => (
+              <span key={m.name} title={m.name} className="flex h-8 items-center rounded-md bg-white px-2.5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+                {m.logo ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={m.logo} alt={m.name} className="h-5 w-auto" />
+                ) : (
+                  <span className="text-[11px] font-bold text-navy">{m.name}</span>
+                )}
+              </span>
+            ))}
+          </div>
           <p>© 2026 {site.name}. All rights reserved.</p>
           <div className="flex items-center gap-3">
             <span className="font-semibold uppercase tracking-wide text-white/60">Follow us</span>
-            <a href={site.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="flex h-9 w-9 items-center justify-center rounded-full border border-white/25 hover:bg-white/10 hover:text-white">
-              <Icon name="instagram" className="h-4 w-4" />
-            </a>
-            <a href={whatsappHref} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" className="flex h-9 w-9 items-center justify-center rounded-full border border-white/25 hover:bg-white/10 hover:text-white">
-              <Icon name="whatsapp" className="h-4 w-4" />
-            </a>
+            {[...socialLinks, { label: "WhatsApp", icon: "whatsapp", href: whatsappHref }]
+              .filter((s) => s.href)
+              .map((s) => (
+                <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer" aria-label={s.label} title={s.label} className="flex h-9 w-9 items-center justify-center rounded-full border border-white/25 transition duration-200 hover:-translate-y-0.5 hover:border-orange hover:bg-orange hover:text-navy hover:shadow-[0_8px_20px_rgba(255,122,26,0.4)]">
+                  <Icon name={s.icon} className="h-4 w-4" />
+                </a>
+              ))}
           </div>
         </div>
       </div>

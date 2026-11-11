@@ -1,7 +1,8 @@
 import Button from "@/components/Button";
 import FaqWithHelp from "@/components/FaqWithHelp";
-import HeroSlider from "@/components/HeroSlider";
+import HeroDashboard from "@/components/HeroSlider";
 import ClientsCarousel from "@/components/ClientsCarousel";
+import RevealObserver from "@/components/RevealObserver";
 import { site } from "@/lib/site";
 
 /* ───────────── CONTENT (edit the words here) ───────────── */
@@ -121,9 +122,9 @@ function Icon({ name, className = "h-6 w-6" }: { name: string; className?: strin
 
 function SectionHeading({ eyebrow, title, text, center = false }: { eyebrow?: string; title: string; text?: string; center?: boolean }) {
   return (
-    <div className={center ? "mx-auto max-w-2xl text-center" : "max-w-2xl"}>
-      {eyebrow && <p className="text-orange-gradient inline-block text-sm font-semibold">{eyebrow}</p>}
-      <h2 className="mt-2 text-3xl font-semibold leading-tight md:text-5xl">{title}</h2>
+    <div className={`reveal ${center ? "mx-auto max-w-2xl text-center" : "max-w-2xl"}`}>
+      {eyebrow && <p className="eyebrow text-orange">{eyebrow}</p>}
+      <h2 className="mt-3 text-3xl font-semibold leading-[1.1] md:text-5xl">{title}</h2>
       {text && <p className="mt-4 text-base leading-relaxed text-muted md:text-lg">{text}</p>}
     </div>
   );
@@ -160,7 +161,7 @@ function SampleVisual({ kind }: { kind: string }) {
   );
 }
 
-const cardShadow = "shadow-[0_8px_30px_rgba(10,26,63,0.06)]";
+const cardShadow = "shadow-soft card-hover";
 
 /* ───────────── PAGE ───────────── */
 
@@ -169,28 +170,29 @@ export default function HomePage() {
 
   return (
     <>
-      {/* 1. HERO: static white text on the left, auto-changing diagram on the right */}
-      <section className="bg-navy-gradient relative overflow-hidden text-white">
-        <div aria-hidden className="bg-orange-gradient pointer-events-none absolute -right-32 -top-10 h-96 w-96 rounded-full opacity-25 blur-3xl" />
-        <div aria-hidden className="pointer-events-none absolute -left-32 top-40 h-96 w-96 rounded-full bg-navy-mid opacity-30 blur-3xl" />
+      <RevealObserver />
+      {/* 1. HERO: static text on the left, auto-changing diagram on the right */}
+      <section className="force-light bg-hero relative overflow-hidden">
+        <div aria-hidden className="bg-orange-gradient pointer-events-none absolute -right-32 -top-10 h-96 w-96 rounded-full opacity-20 blur-3xl dark:opacity-30" />
+        <div aria-hidden className="pointer-events-none absolute -left-32 top-40 h-96 w-96 rounded-full bg-navy-mid opacity-10 blur-3xl dark:opacity-30" />
         <div className="relative mx-auto grid max-w-6xl items-center gap-14 px-4 pb-24 pt-12 md:pb-32 md:pt-20 lg:grid-cols-[1.1fr_0.9fr]">
           <div>
-            <p className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs text-white/80">
+            <p className="anim-fade inline-flex items-center gap-2 rounded-full border border-line bg-card px-4 py-1.5 text-xs text-muted shadow-soft">
               <span className="relative flex h-2 w-2">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-orange opacity-60" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-orange" />
               </span>
               {hero.badge}
             </p>
-            <h1 className="mt-6 text-5xl font-semibold leading-[1.04] text-white sm:text-6xl lg:text-7xl">
+            <h1 style={{ animationDelay: "0.1s" }} className="anim-fade mt-6 text-5xl font-semibold leading-[1.04] sm:text-6xl lg:text-7xl">
               {hero.titleStart} <span className="text-orange-gradient">{hero.titleAccent}</span>
             </h1>
-            <p className="mt-6 max-w-xl text-lg leading-relaxed text-white/75">{hero.text}</p>
-            <div className="mt-8 flex flex-wrap gap-3">
+            <p style={{ animationDelay: "0.2s" }} className="anim-fade mt-6 max-w-xl text-lg leading-relaxed text-muted">{hero.text}</p>
+            <div style={{ animationDelay: "0.3s" }} className="anim-fade mt-8 flex flex-wrap gap-3">
               <Button href="/free-audit">Get a free audit</Button>
-              <Button href="/work" variant="outline" className="text-white! border-white/30!">See our work</Button>
+              <Button href="/work" variant="outline">See our work</Button>
             </div>
-            <ul className="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-sm text-white/70">
+            <ul style={{ animationDelay: "0.4s" }} className="anim-fade mt-8 flex flex-wrap gap-x-6 gap-y-2 text-sm text-muted">
               {hero.trust.map((t) => (
                 <li key={t} className="flex items-center gap-2">
                   <span className="text-orange"><Icon name="check" className="h-4 w-4" /></span>
@@ -199,7 +201,7 @@ export default function HomePage() {
               ))}
             </ul>
           </div>
-          <HeroSlider />
+          <HeroDashboard />
         </div>
       </section>
 
@@ -210,7 +212,7 @@ export default function HomePage() {
       <section className="border-y border-line bg-page">
         <div className="mx-auto grid max-w-6xl gap-6 px-4 py-10 sm:grid-cols-2 lg:grid-cols-4">
           {proof.map((p) => (
-            <div key={p.title}>
+            <div key={p.title} className="reveal">
               <p className="font-semibold text-heading">{p.title}</p>
               <p className="mt-1 text-sm text-muted">{p.text}</p>
             </div>
@@ -223,7 +225,7 @@ export default function HomePage() {
         <SectionHeading eyebrow="Start here" title="Three ways to get started" text="Pick the one that fits where your business is today. Each one leads to a clear plan." />
         <div className="mt-12 grid gap-6 md:grid-cols-3">
           {offers.map((o) => (
-            <div key={o.title} className={`group flex flex-col rounded-3xl border border-line bg-card p-8 ${cardShadow} transition hover:-translate-y-1`}>
+            <div key={o.title} className={`reveal group flex flex-col rounded-3xl border border-line bg-card p-8 ${cardShadow}`}>
               <div className="flex items-center justify-between">
                 <span className="bg-navy-gradient flex h-12 w-12 items-center justify-center rounded-xl text-white"><Icon name={o.icon} /></span>
                 <span className="rounded-full border border-line px-3 py-1 text-xs text-muted">{o.tag}</span>
@@ -245,7 +247,7 @@ export default function HomePage() {
           <SectionHeading eyebrow="What we do" title="Four pillars, one team" text="Everything a growing business needs online, handled together so the pieces fit." />
           <div className="mt-12 grid gap-6 md:grid-cols-2">
             {pillars.map((p) => (
-              <div key={p.title} className={`overflow-hidden rounded-3xl border border-line bg-card ${cardShadow}`}>
+              <div key={p.title} className={`reveal overflow-hidden rounded-3xl border border-line bg-card ${cardShadow}`}>
                 <div className="bg-orange-gradient h-1.5" />
                 <div className="p-8">
                   <div className="flex items-center justify-between">
@@ -281,7 +283,7 @@ export default function HomePage() {
           </div>
           <div className="grid gap-4 sm:grid-cols-2">
             {mlUseCases.map((u) => (
-              <div key={u.title} className="rounded-2xl border border-white/15 bg-white/5 p-6">
+              <div key={u.title} className="reveal rounded-2xl border border-white/15 bg-white/5 p-6 transition duration-300 hover:-translate-y-1 hover:border-orange/50 hover:bg-white/10">
                 <h3 className="font-semibold text-white">{u.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-white/70">{u.text}</p>
               </div>
@@ -297,7 +299,7 @@ export default function HomePage() {
           {packages.map((p) => {
             const hl = p.highlight;
             return (
-              <div key={p.name} className={`relative flex flex-col rounded-3xl p-8 ${hl ? "bg-navy-gradient border border-white/10 text-white shadow-2xl md:-translate-y-4" : `border border-line bg-card ${cardShadow}`}`}>
+              <div key={p.name} className={`reveal relative flex flex-col rounded-3xl p-8 ${hl ? "bg-navy-gradient border border-white/10 text-white shadow-2xl md:-translate-y-4" : `border border-line bg-card ${cardShadow}`}`}>
                 {hl && <span className="bg-orange-gradient absolute -top-3 left-8 rounded-full px-4 py-1 text-xs font-semibold text-navy">Most popular</span>}
                 <h3 className={`text-xl font-semibold ${hl ? "text-white" : ""}`}>{p.name}</h3>
                 <p className={`mt-1 text-sm ${hl ? "text-white/70" : "text-muted"}`}>{p.audience}</p>
@@ -334,7 +336,7 @@ export default function HomePage() {
           <SectionHeading eyebrow="Our work" title="Sample projects" text="Real case studies will replace these as we finish client work. Each one will show the problem, what we did and a result with a number." />
           <div className="mt-12 grid gap-6 md:grid-cols-3">
             {samples.map((s) => (
-              <article key={s.title} className={`overflow-hidden rounded-3xl border border-line bg-card ${cardShadow}`}>
+              <article key={s.title} className={`reveal overflow-hidden rounded-3xl border border-line bg-card ${cardShadow}`}>
                 <SampleVisual kind={s.kind} />
                 <div className="p-6">
                   <p className="text-xs text-muted">{s.tag}</p>
@@ -354,7 +356,7 @@ export default function HomePage() {
         <SectionHeading center eyebrow="How we work" title="A clear process from first call to monthly results" />
         <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {steps.map((s, i) => (
-            <div key={s.title} className="rounded-3xl border border-line bg-card p-7">
+            <div key={s.title} className={`reveal rounded-3xl border border-line bg-card p-7 ${cardShadow}`}>
               <span className="bg-orange-gradient flex h-10 w-10 items-center justify-center rounded-full text-sm font-bold text-navy">{i + 1}</span>
               <h3 className="mt-5 text-lg font-semibold">{s.title}</h3>
               <p className="mt-2 text-sm leading-relaxed text-muted">{s.text}</p>
@@ -370,7 +372,7 @@ export default function HomePage() {
             <SectionHeading center eyebrow="Kind words" title="What clients say" />
             <div className="mt-12 grid gap-6 md:grid-cols-3">
               {testimonials.map((t) => (
-                <figure key={t.name} className={`rounded-3xl border border-line bg-card p-8 ${cardShadow}`}>
+                <figure key={t.name} className={`reveal rounded-3xl border border-line bg-card p-8 ${cardShadow}`}>
                   <blockquote className="text-base leading-relaxed text-fg">“{t.quote}”</blockquote>
                   <figcaption className="mt-6 text-sm">
                     <span className="font-semibold text-heading">{t.name}</span>
@@ -388,7 +390,7 @@ export default function HomePage() {
 
       {/* 12. FINAL CTA */}
       <section className="mx-auto max-w-6xl px-4 pb-8">
-        <div className="bg-orange-gradient relative overflow-hidden rounded-3xl p-10 text-center md:p-16">
+        <div className="reveal bg-orange-gradient relative overflow-hidden rounded-3xl p-10 text-center shadow-[0_30px_80px_rgba(255,122,26,0.35)] md:p-16">
           <div aria-hidden className="pointer-events-none absolute -right-16 -top-16 h-64 w-64 rounded-full bg-white/20 blur-2xl" />
           <h2 className="relative mx-auto max-w-2xl text-3xl font-semibold text-navy md:text-5xl">Want to know what is holding your business back online?</h2>
           <p className="relative mx-auto mt-4 max-w-xl text-navy/80">Get a free audit and a clear list of what to fix first. No pressure and no jargon.</p>
