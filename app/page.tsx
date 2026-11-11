@@ -6,6 +6,7 @@ import RevealObserver from "@/components/RevealObserver";
 import { site } from "@/lib/site";
 import Preloader from "@/components/Preloader";
 import AmbientBackground from "@/components/AmbientBackground";
+import SoftBackground from "@/components/SoftBackground";
 
 /* ───────────── CONTENT (edit the words here) ───────────── */
 
@@ -239,12 +240,12 @@ export default function HomePage() {
 
   return (
     <>
-    <Preloader />
+      <Preloader />
       <RevealObserver />
       {/* 1. HERO: static text on the left, auto-changing diagram on the right */}
       <section className="force-light bg-hero relative overflow-hidden">
-  <AmbientBackground />
-  <div className="relative mx-auto grid max-w-6xl items-center gap-14 px-4 pb-24 pt-12 md:pb-32 md:pt-20 lg:grid-cols-[1.1fr_0.9fr]">
+        <AmbientBackground />
+        <div className="relative mx-auto grid max-w-6xl items-center gap-14 px-4 pb-24 pt-12 md:pb-32 md:pt-20 lg:grid-cols-[1.1fr_0.9fr]">
           <div>
             <p className="anim-fade shadow-layered inline-flex items-center gap-2 rounded-full border border-line bg-card px-4 py-1.5 text-xs text-muted">
               <span className="relative flex h-2 w-2">
@@ -290,23 +291,26 @@ export default function HomePage() {
       </section>
 
       {/* 4. THREE OFFERS */}
-      <section className="mx-auto max-w-6xl px-4 py-20 md:py-28">
-        <SectionHeading eyebrow="Start here" title="Three ways to get started" text="Pick the one that fits where your business is today. Each one leads to a clear plan." />
-        <div className="stagger mt-12 grid gap-6 md:grid-cols-3">
-          {offers.map((o) => (
-            <div key={o.title} className={`reveal group flex flex-col rounded-3xl border border-line bg-card p-8 ${cardShadow}`}>
-              <div className="flex items-center justify-between">
-                <span className="icon-tile shadow-glow bg-navy-gradient flex h-12 w-12 items-center justify-center rounded-xl text-white"><Icon name={o.icon} /></span>
-                <span className="rounded-full border border-orange/40 bg-orange/10 px-3 py-1 text-xs font-medium text-orange">{o.tag}</span>
+      <section className="relative overflow-hidden">
+        <SoftBackground />
+        <div className="relative mx-auto max-w-6xl px-4 py-20 md:py-28">
+          <SectionHeading eyebrow="Start here" title="Three ways to get started" text="Pick the one that fits where your business is today. Each one leads to a clear plan." />
+          <div className="stagger mt-12 grid gap-6 md:grid-cols-3">
+            {offers.map((o) => (
+              <div key={o.title} className={`reveal group flex flex-col rounded-3xl border border-line bg-card p-8 ${cardShadow}`}>
+                <div className="flex items-center justify-between">
+                  <span className="icon-tile shadow-glow bg-navy-gradient flex h-12 w-12 items-center justify-center rounded-xl text-white"><Icon name={o.icon} /></span>
+                  <span className="rounded-full border border-orange/40 bg-orange/10 px-3 py-1 text-xs font-medium text-orange">{o.tag}</span>
+                </div>
+                <h3 className="mt-6 text-xl font-semibold">{o.title}</h3>
+                <p className="mt-3 flex-1 text-sm leading-relaxed text-muted">{o.text}</p>
+                <a href={o.href} className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-heading">
+                  <span className="link-grow pb-0.5">{o.cta}</span>
+                  <span className="text-orange transition group-hover:translate-x-1"><Icon name="arrow" className="h-4 w-4" /></span>
+                </a>
               </div>
-              <h3 className="mt-6 text-xl font-semibold">{o.title}</h3>
-              <p className="mt-3 flex-1 text-sm leading-relaxed text-muted">{o.text}</p>
-              <a href={o.href} className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-heading">
-                <span className="link-grow pb-0.5">{o.cta}</span>
-                <span className="text-orange transition group-hover:translate-x-1"><Icon name="arrow" className="h-4 w-4" /></span>
-              </a>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </section>
 
@@ -343,8 +347,8 @@ export default function HomePage() {
 
       {/* 6. CUSTOM ML */}
       <section className="bg-navy-gradient relative overflow-hidden text-white">
-  <AmbientBackground variant="dark" />
-  <div className="relative mx-auto grid max-w-6xl gap-12 px-4 py-20 md:py-24 lg:grid-cols-[0.9fr_1.1fr]">
+        <AmbientBackground variant="dark" />
+        <div className="relative mx-auto grid max-w-6xl gap-12 px-4 py-20 md:py-24 lg:grid-cols-[0.9fr_1.1fr]">
           <div>
             <p className="text-sm font-semibold text-orange">Custom AI</p>
             <h2 className="mt-2 text-3xl font-semibold leading-tight text-white md:text-4xl">Machine learning built on your own data</h2>
@@ -363,41 +367,44 @@ export default function HomePage() {
       </section>
 
       {/* 7. PACKAGES */}
-      <section id="packages" className="mx-auto max-w-6xl scroll-mt-28 px-4 py-20 md:py-28">
-        <SectionHeading center eyebrow="Packages" title="Simple packages that grow with you" text="Start where you are. Move up when you are ready. Final pricing depends on scope." />
-        <div className="stagger mt-16 grid items-stretch gap-6 md:grid-cols-3">
-          {packages.map((p) => {
-            const hl = p.highlight;
-            return (
-              <div key={p.name} className={`reveal relative flex flex-col rounded-3xl p-8 ${hl ? "gradient-border bg-navy-gradient shadow-glow float-slow border border-white/10 text-white md:-translate-y-4" : `border border-line bg-card ${cardShadow}`}`}>
-                {hl && <span className="bg-orange-gradient shimmer absolute -top-3 left-8 rounded-full px-4 py-1 text-xs font-semibold text-navy">Most popular</span>}
-                <h3 className={`text-xl font-semibold ${hl ? "text-white" : ""}`}>{p.name}</h3>
-                <p className={`mt-1 text-sm ${hl ? "text-white/70" : "text-muted"}`}>{p.audience}</p>
-                <p className="mt-6 flex items-baseline gap-2">
-                  <span className={`text-sm ${hl ? "text-white/70" : "text-muted"}`}>from</span>
-                  <span className={`font-heading text-4xl font-semibold ${hl ? "text-white" : "text-heading"}`}>{p.price}</span>
-                  <span className={`text-sm ${hl ? "text-white/70" : "text-muted"}`}>{p.unit}</span>
-                </p>
-                <ul className="mt-8 flex-1 space-y-3">
-                  {p.features.map((f) => (
-                    <li key={f} className="flex gap-3 text-sm">
-                      <span className="mt-0.5 shrink-0 text-orange"><Icon name="check" className="h-4 w-4" /></span>
-                      <span className={hl ? "text-white/90" : "text-fg"}>{f}</span>
-                    </li>
-                  ))}
-                </ul>
-                <div className="mt-8"><Button href="/contact" variant={hl ? "primary" : "dark"} className="w-full text-center">{p.cta}</Button></div>
-              </div>
-            );
-          })}
-        </div>
-        <p className="mt-8 text-center text-xs text-muted">Prices exclude GST and ad spend. Ad budget is paid directly to Meta and Google.</p>
-        <div className="mt-10 text-center">
-          <p className="text-sm font-semibold text-heading">Popular add-ons</p>
-          <div className="mt-4 flex flex-wrap justify-center gap-2">
-            {addOns.map((a) => <span key={a} className="shadow-soft rounded-full border border-line bg-card px-4 py-2 text-sm text-muted transition duration-300 hover:-translate-y-0.5 hover:border-orange/50 hover:text-heading">{a}</span>)}
+      <section id="packages" className="relative scroll-mt-28 overflow-hidden">
+        <SoftBackground flip />
+        <div className="relative mx-auto max-w-6xl px-4 py-20 md:py-28">
+          <SectionHeading center eyebrow="Packages" title="Simple packages that grow with you" text="Start where you are. Move up when you are ready. Final pricing depends on scope." />
+          <div className="stagger mt-16 grid items-stretch gap-6 md:grid-cols-3">
+            {packages.map((p) => {
+              const hl = p.highlight;
+              return (
+                <div key={p.name} className={`reveal relative flex flex-col rounded-3xl p-8 ${hl ? "gradient-border bg-navy-gradient shadow-glow float-slow border border-white/10 text-white md:-translate-y-4" : `border border-line bg-card ${cardShadow}`}`}>
+                  {hl && <span className="bg-orange-gradient shimmer absolute -top-3 left-8 rounded-full px-4 py-1 text-xs font-semibold text-navy">Most popular</span>}
+                  <h3 className={`text-xl font-semibold ${hl ? "text-white" : ""}`}>{p.name}</h3>
+                  <p className={`mt-1 text-sm ${hl ? "text-white/70" : "text-muted"}`}>{p.audience}</p>
+                  <p className="mt-6 flex items-baseline gap-2">
+                    <span className={`text-sm ${hl ? "text-white/70" : "text-muted"}`}>from</span>
+                    <span className={`font-heading text-4xl font-semibold ${hl ? "text-white" : "text-heading"}`}>{p.price}</span>
+                    <span className={`text-sm ${hl ? "text-white/70" : "text-muted"}`}>{p.unit}</span>
+                  </p>
+                  <ul className="mt-8 flex-1 space-y-3">
+                    {p.features.map((f) => (
+                      <li key={f} className="flex gap-3 text-sm">
+                        <span className="mt-0.5 shrink-0 text-orange"><Icon name="check" className="h-4 w-4" /></span>
+                        <span className={hl ? "text-white/90" : "text-fg"}>{f}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="mt-8"><Button href="/contact" variant={hl ? "primary" : "dark"} className="w-full text-center">{p.cta}</Button></div>
+                </div>
+              );
+            })}
           </div>
-          <div className="mt-8"><Button href="/packages" variant="outline">Compare packages in detail</Button></div>
+          <p className="mt-8 text-center text-xs text-muted">Prices exclude GST and ad spend. Ad budget is paid directly to Meta and Google.</p>
+          <div className="mt-10 text-center">
+            <p className="text-sm font-semibold text-heading">Popular add-ons</p>
+            <div className="mt-4 flex flex-wrap justify-center gap-2">
+              {addOns.map((a) => <span key={a} className="shadow-soft rounded-full border border-line bg-card px-4 py-2 text-sm text-muted transition duration-300 hover:-translate-y-0.5 hover:border-orange/50 hover:text-heading">{a}</span>)}
+            </div>
+            <div className="mt-8"><Button href="/packages" variant="outline">Compare packages in detail</Button></div>
+          </div>
         </div>
       </section>
 
@@ -423,16 +430,19 @@ export default function HomePage() {
       </section>
 
       {/* 9. HOW WE WORK */}
-      <section className="mx-auto max-w-6xl px-4 py-20 md:py-28">
-        <SectionHeading center eyebrow="How we work" title="A clear process from first call to monthly results" />
-        <div className="stagger mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {steps.map((s, i) => (
-            <div key={s.title} className={`reveal step-line rounded-3xl border border-line bg-card p-7 ${cardShadow}`}>
-              <span className="bg-orange-gradient shadow-glow flex h-10 w-10 items-center justify-center rounded-full text-sm font-bold text-navy">{i + 1}</span>
-              <h3 className="mt-5 text-lg font-semibold">{s.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted">{s.text}</p>
-            </div>
-          ))}
+      <section className="relative overflow-hidden">
+        <SoftBackground />
+        <div className="relative mx-auto max-w-6xl px-4 py-20 md:py-28">
+          <SectionHeading center eyebrow="How we work" title="A clear process from first call to monthly results" />
+          <div className="stagger mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {steps.map((s, i) => (
+              <div key={s.title} className={`reveal step-line rounded-3xl border border-line bg-card p-7 ${cardShadow}`}>
+                <span className="bg-orange-gradient shadow-glow flex h-10 w-10 items-center justify-center rounded-full text-sm font-bold text-navy">{i + 1}</span>
+                <h3 className="mt-5 text-lg font-semibold">{s.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted">{s.text}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 

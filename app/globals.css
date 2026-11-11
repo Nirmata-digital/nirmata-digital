@@ -594,3 +594,62 @@ body {
   .ambient-aurora, .ambient-grid, .ambient-ring, .ambient-particle { animation: none; }
   .ambient-particle { opacity: .4; }
 }
+
+.soft-bg { --s1: 255, 122, 26; --s2: 56, 92, 200; --dotc: 90, 100, 140; }
+
+/* Thin gradient line at the top edge */
+.soft-hairline {
+  position: absolute; left: 0; right: 0; top: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(var(--s1), .5), rgba(var(--s2), .4), transparent);
+}
+
+/* Fine dot pattern, fades out toward the edges */
+.soft-dots {
+  position: absolute; inset: 0;
+  background-image: radial-gradient(rgba(var(--dotc), .22) 1px, transparent 1.2px);
+  background-size: 28px 28px;
+  -webkit-mask-image: radial-gradient(ellipse at 50% 30%, #000 0%, transparent 70%);
+          mask-image: radial-gradient(ellipse at 50% 30%, #000 0%, transparent 70%);
+}
+
+/* Soft colour washes */
+.soft-blob {
+  position: absolute; border-radius: 9999px;
+  filter: blur(80px); will-change: transform;
+  animation: soft-drift 28s ease-in-out infinite alternate;
+}
+.soft-blob-a {
+  top: -8rem; right: -6rem; width: 30rem; height: 30rem;
+  background: radial-gradient(circle, rgba(var(--s1), .13), transparent 65%);
+}
+.soft-blob-b {
+  bottom: -10rem; left: -8rem; width: 34rem; height: 34rem;
+  background: radial-gradient(circle, rgba(var(--s2), .10), transparent 65%);
+  animation-duration: 36s; animation-direction: alternate-reverse;
+}
+
+/* One large faint ring for depth */
+.soft-ring {
+  position: absolute; top: 50%; left: 50%;
+  width: 56rem; height: 56rem; margin: -28rem 0 0 -28rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(var(--dotc), .07);
+  box-shadow: inset 0 0 0 5rem rgba(var(--dotc), .015);
+}
+
+/* Mirror the layout on alternating sections */
+.soft-bg-flip .soft-blob-a { right: auto; left: -6rem; }
+.soft-bg-flip .soft-blob-b { left: auto; right: -8rem; }
+
+@keyframes soft-drift {
+  0%   { transform: translate3d(0, 0, 0) scale(1); }
+  100% { transform: translate3d(5%, -6%, 0) scale(1.12); }
+}
+
+@media (max-width: 768px) {
+  .soft-ring { display: none; }
+  .soft-blob { filter: blur(60px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .soft-blob { animation: none; }
+}
