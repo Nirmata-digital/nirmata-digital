@@ -32,21 +32,19 @@ export default function AuditForm() {
   const set = (k: keyof Fields) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) =>
     setF((p) => ({ ...p, [k]: e.target.value }));
 
-  const message = () =>
-    [
-      "Hi, I would like a free digital audit.",
-      "",
+  const message = () => {
+    const lines = [
       `Name: ${f.name}`,
       `Phone: ${f.phone}`,
-      f.email && `Email: ${f.email}`,
+      f.email ? `Email: ${f.email}` : "",
       `Business: ${f.business}`,
-      f.link && `Website or Instagram: ${f.link}`,
-      f.type && `Type: ${f.type}`,
-      f.goal && `Main goal: ${f.goal}`,
-      f.note && `Notes: ${f.note}`,
-    ]
-      .filter((l) => l !== false && l !== undefined)
-      .join("\n");
+      f.link ? `Website or Instagram: ${f.link}` : "",
+      f.type ? `Type: ${f.type}` : "",
+      f.goal ? `Main goal: ${f.goal}` : "",
+      f.note ? `Notes: ${f.note}` : "",
+    ].filter(Boolean);
+    return ["Hi, I would like a free digital audit.", "", ...lines].join("\n");
+  };
 
   function validate() {
     const e: Partial<Record<keyof Fields, string>> = {};
