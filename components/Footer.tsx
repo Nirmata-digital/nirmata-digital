@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Logo from "@/components/Logo";
+import VisitorCount from "@/components/VisitorCount";
 import { site } from "@/lib/site";
 import { industries } from "@/content/industries";
 import { services, servicePillars } from "@/content/services";
@@ -100,6 +101,7 @@ function Icon({ name, className = "h-5 w-5" }: { name: string; className?: strin
     mail: (<><rect x="3" y="5" width="18" height="14" rx="2" /><path d="M3 7l9 6 9-6" /></>),
     clock: (<><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" /></>),
     chevron: <path d="M9 6l6 6-6 6" />,
+    lock: (<><rect x="5" y="11" width="14" height="9" rx="2" /><path d="M8 11V8a4 4 0 118 0v3" /></>),
     instagram: (<><rect x="3" y="3" width="18" height="18" rx="5" /><circle cx="12" cy="12" r="4" /><circle cx="17.5" cy="6.5" r="0.8" /></>),
     whatsapp: <path d="M21 12a8 8 0 01-11.6 7.1L4 20l1-4.6A8 8 0 1121 12z" />,
     channel: (<><path d="M4 10v4l12 5V5z" /><path d="M16 9.5a3 3 0 010 5M7 14.5l1 5h2l-1-4" /></>),
@@ -212,6 +214,20 @@ export default function Footer() {
                 </a>
               ))}
           </div>
+        </div>
+      </div>
+
+      {/* Visitor count + admin login */}
+      <div className="border-t border-white/10">
+        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-4 py-4">
+          <VisitorCount />
+          <Link
+            href="/admin/login"
+            className="inline-flex items-center gap-2 rounded-full border border-white/25 px-4 py-1.5 text-xs font-semibold text-white/80 transition duration-200 hover:border-orange hover:bg-orange hover:text-navy"
+          >
+            <Icon name="lock" className="h-3.5 w-3.5" />
+            Admin login
+          </Link>
         </div>
       </div>
     </footer>
