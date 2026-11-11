@@ -9,6 +9,7 @@ import CallButton from "@/components/CallButton";
 import CookieBanner from "@/components/CookieBanner";
 import SourceSurvey from "@/components/SourceSurvey";
 import CopyGuard from "@/components/CopyGuard";
+import BackToTop from "@/components/BackToTop";
 
 
 const jakarta = Plus_Jakarta_Sans({
@@ -65,6 +66,7 @@ export default function RootLayout({
         <main className="pt-20">
           <Breadcrumbs />
           {children}
+          <BackToTop />
         </main>
         <Footer />
         <CookieBanner />
