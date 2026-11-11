@@ -49,7 +49,7 @@ export default function Header() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
-<Logo mark />
+
   // Close menus when the page changes
   useEffect(() => {
     setActive(null);
@@ -138,18 +138,7 @@ export default function Header() {
                 : "border-transparent bg-transparent px-2 py-4"
             }`}
           >
-            {/* Logo */}
-            <Link href="/" className="flex items-center gap-2.5" aria-label={`${site.name} home`}>
-              <Image
-                src="/logo.png"
-                alt=""
-                width={40}
-                height={40}
-                priority
-                className="h-10 w-10 rounded-xl border border-line bg-white object-contain"
-              />
-              <span className="font-heading text-lg font-semibold tracking-tight text-heading">{site.name}</span>
-            </Link>
+           <Logo mark size="sm" />
 
             {/* Desktop navigation */}
             <nav className="hidden items-center gap-1 lg:flex" aria-label="Main">
