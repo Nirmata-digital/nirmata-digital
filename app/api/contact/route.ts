@@ -1,37 +1,58 @@
 import { NextResponse } from "next/server";
-
-type Body = {
-  name?: string;
-  phone?: string;
-  email?: string;
-  service?: string;
-  message?: string;
-  website?: string; // honeypot
-  source?: string;
-};
+import { isHoneypotTripped, rateLimited, verifyTurnstile } from "@/lib/spam";
 
 export async function POST(req: Request) {
-  let body: Body;
+  const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "unknown";
+
+  // 1. Rate limit
+  if (rateLimited(ip)) {
+    return NextResponse.json({ ok: false, error: "rate_limited" }, { status: 429 });
+  }
+
+  // 2. Parse body (JSON or form data) into a FormData so spam.ts works for both
+  let form: FormData;
   try {
-    body = await req.json();
+    const contentType = req.headers.get("content-type") ?? "";
+    if (contentType.includes("application/json")) {
+      const json = await req.json();
+      form = new FormData();
+      for (const [key, value] of Object.entries(json ?? {})) {
+        if (value !== undefined && value !== null) form.append(key, String(value));
+      }
+    } else {
+      form = await req.formData();
+    }
   } catch {
     return NextResponse.json({ ok: false, error: "bad_request" }, { status: 400 });
   }
 
-  // Honeypot: bots fill this field. Pretend success and do nothing.
-  if (body.website) return NextResponse.json({ ok: true });
+  // 3. Honeypot: pretend success so bots don't adapt
+  if (isHoneypotTripped(form)) {
+    return NextResponse.json({ ok: true });
+  }
 
-  const name = String(body.name ?? "").trim().slice(0, 100);
-  const phone = String(body.phone ?? "").trim().slice(0, 30);
-  const email = String(body.email ?? "").trim().slice(0, 120);
-  const service = String(body.service ?? "").trim().slice(0, 100);
-  const message = String(body.message ?? "").trim().slice(0, 2000);
-  const source = String(body.source ?? "website").slice(0, 50);
+  // 4. Turnstile
+  const token = String(form.get("cf-turnstile-response") ?? "") || null;
+  const human = await verifyTurnstile(token, ip);
+  if (!human) {
+    return NextResponse.json({ ok: false, error: "spam_check_failed" }, { status: 400 });
+  }
+
+  // 5. Existing validation
+  const get = (k: string, max: number) => String(form.get(k) ?? "").trim().slice(0, max);
+
+  const name = get("name", 100);
+  const phone = get("phone", 30);
+  const email = get("email", 120);
+  const service = get("service", 100);
+  const message = get("message", 2000);
+  const source = String(form.get("source") ?? "website").slice(0, 50);
 
   if (name.length < 2 || phone.length < 9 || message.length < 10) {
     return NextResponse.json({ ok: false, error: "invalid" }, { status: 400 });
   }
 
+  // 6. Existing webhook forwarding
   const webhook = process.env.CONTACT_WEBHOOK_URL;
   if (!webhook) {
     return NextResponse.json({ ok: false, error: "not_configured" }, { status: 503 });
