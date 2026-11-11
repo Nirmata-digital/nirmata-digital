@@ -35,7 +35,16 @@ const offers = [
 ];
 
 const pillars = [
-  { icon: "growth", label: "Pillar 01", title: "Growth",
+  { icon: "content", label: "Pillar 01", title: "Content",
+    audience: "For brands that need to look consistent everywhere.",
+    services: [
+      "Reels, Shorts and UGC-style video ads",
+      "Posters and social creatives",
+      "Photography direction",
+      "Logo, branding and brand kits",
+    ] },
+  
+  { icon: "growth", label: "Pillar 02", title: "Growth",
     audience: "For businesses that want a steady flow of enquiries.",
     services: [
       "Meta and Google Ads",
@@ -48,7 +57,7 @@ const pillars = [
       "B2B lead generation for export and trade",
       "Monthly performance reports",
     ] },
-  { icon: "web", label: "Pillar 02", title: "Web",
+  { icon: "web", label: "Pillar 03", title: "Web",
     audience: "For brands that need a site that works hard.",
     services: [
       "Business websites",
@@ -58,14 +67,7 @@ const pillars = [
       "Web apps and portals",
       "Website care plans (hosting, security, updates)",
     ] },
-  { icon: "content", label: "Pillar 03", title: "Content",
-    audience: "For brands that need to look consistent everywhere.",
-    services: [
-      "Reels, Shorts and UGC-style video ads",
-      "Posters and social creatives",
-      "Photography direction",
-      "Logo, branding and brand kits",
-    ] },
+  
   { icon: "automation", label: "Pillar 04", title: "Automation, Apps and AI",
     audience: "For teams that lose hours to repeat work or want to use their data.",
     services: [
