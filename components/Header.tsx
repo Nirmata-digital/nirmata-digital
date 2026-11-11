@@ -1,6 +1,5 @@
 "use client";
 import Logo from "@/components/Logo";
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
@@ -91,7 +90,7 @@ export default function Header() {
   const top = barOpen ? Math.max(0, BAR_HEIGHT - scrollY) : 0;
   const activeItem = menu.find((m) => m.label === active && m.columns);
 
-  const navText = "text-[15px] font-medium tracking-[-0.01em]";
+  const navText = "whitespace-nowrap text-[15px] font-medium tracking-[-0.01em]";
 
   return (
     <>
@@ -129,19 +128,19 @@ export default function Header() {
         <div
           ref={wrapRef}
           onMouseLeave={() => setActive(null)}
-          className={`relative mx-auto transition-all duration-300 ${scrolled ? "mt-3 max-w-5xl" : "mt-0 max-w-6xl"}`}
+          className={`relative mx-auto transition-all duration-300 ${scrolled ? "mt-3 max-w-[70rem]" : "mt-0 max-w-6xl"}`}
         >
           <div
-            className={`flex items-center justify-between rounded-full border transition-all duration-300 ${
+            className={`flex items-center justify-between gap-4 rounded-full border transition-all duration-300 ${
               scrolled
-                ? "border-line bg-header px-5 py-2.5 shadow-[0_8px_30px_rgba(10,26,63,0.18)] backdrop-blur"
+                ? "border-line bg-header px-4 py-2 shadow-[0_8px_30px_rgba(10,26,63,0.18)] backdrop-blur xl:px-5"
                 : "border-transparent bg-transparent px-2 py-4"
             }`}
           >
-           <Logo mark showName size="sm" />
+            <Logo mark showName size="sm" />
 
             {/* Desktop navigation */}
-            <nav className="hidden items-center gap-1 lg:flex" aria-label="Main">
+            <nav className="hidden items-center gap-0.5 lg:flex xl:gap-1" aria-label="Main">
               {menu.map((item) =>
                 item.columns ? (
                   <button
@@ -151,7 +150,7 @@ export default function Header() {
                     aria-expanded={active === item.label}
                     onMouseEnter={() => setActive(item.label)}
                     onClick={() => setActive((a) => (a === item.label ? null : item.label))}
-                    className={`${navText} flex items-center gap-1.5 rounded-full px-3.5 py-2 transition hover:text-heading ${
+                    className={`${navText} flex items-center gap-1.5 rounded-full px-2.5 py-2 transition hover:text-heading xl:px-3.5 ${
                       active === item.label || isActive(item.href) ? "text-heading" : "text-muted"
                     }`}
                   >
@@ -164,7 +163,7 @@ export default function Header() {
                     href={item.href!}
                     onMouseEnter={() => setActive(null)}
                     aria-current={isActive(item.href) ? "page" : undefined}
-                    className={`${navText} rounded-full px-3.5 py-2 transition hover:text-heading ${
+                    className={`${navText} rounded-full px-2.5 py-2 transition hover:text-heading xl:px-3.5 ${
                       isActive(item.href) ? "text-heading" : "text-muted"
                     }`}
                   >
@@ -175,25 +174,25 @@ export default function Header() {
             </nav>
 
             {/* Right side */}
-            <div className="flex items-center gap-2">
+            <div className="flex shrink-0 items-center gap-2">
               <button
                 type="button"
                 onClick={() => setSearchOpen(true)}
                 aria-label="Search the site (Ctrl K)"
-                className="flex items-center gap-2 rounded-full border border-line bg-card px-3 py-2 text-sm text-muted transition hover:border-heading hover:text-heading"
+                className="flex shrink-0 items-center gap-2 rounded-full border border-line bg-card px-3 py-2 text-sm text-muted transition hover:border-heading hover:text-heading"
               >
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" className="h-4 w-4" aria-hidden>
                   <circle cx="11" cy="11" r="7" />
                   <path d="M21 21l-4.3-4.3" />
                 </svg>
-                <kbd className="hidden rounded border border-line px-1.5 font-mono text-[11px] xl:inline">Ctrl K</kbd>
+                <kbd className="hidden whitespace-nowrap rounded border border-line px-1.5 font-mono text-[11px] 2xl:inline">Ctrl K</kbd>
               </button>
 
               <ThemeToggle />
 
               <Link
                 href="/free-audit"
-                className="bg-orange-gradient hidden rounded-full px-5 py-2.5 text-sm font-semibold text-navy transition hover:brightness-105 lg:inline-block"
+                className="bg-orange-gradient hidden shrink-0 whitespace-nowrap rounded-full px-5 py-2.5 text-sm font-semibold text-navy transition hover:brightness-105 lg:inline-block"
               >
                 Free audit
               </Link>

@@ -38,7 +38,7 @@ export default function Logo({
   );
 
   return (
-    <Link href="/" aria-label={`${site.name} home`} className={`group inline-flex items-center gap-3 ${className}`}>
+    <Link href="/" aria-label={`${site.name} home`} className={`group inline-flex shrink-0 items-center gap-3 whitespace-nowrap ${className}`}>
       <span className={boxed && !failed ? "rounded-xl bg-white p-2 shadow-[0_8px_24px_rgba(0,0,0,0.25)] transition group-hover:-translate-y-0.5" : "transition group-hover:scale-105 dark:rounded-xl dark:bg-white dark:p-1.5"}>
         {badge}
       </span>
