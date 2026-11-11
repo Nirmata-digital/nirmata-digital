@@ -3,6 +3,7 @@ import Logo from "@/components/Logo";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 import SearchDialog from "@/components/SearchDialog";
 import ThemeToggle from "@/components/ThemeToggle";
 import { menu } from "@/lib/nav";
@@ -137,7 +138,10 @@ export default function Header() {
                 : "border-transparent bg-transparent px-2 py-4"
             }`}
           >
-            <Logo mark showName size="sm" />
+            {/* translate="no" keeps the brand name in English when the page is translated */}
+            <div translate="no" className="notranslate shrink-0">
+              <Logo mark showName size="sm" />
+            </div>
 
             {/* Desktop navigation */}
             <nav className="hidden items-center gap-0.5 lg:flex xl:gap-1" aria-label="Main">
@@ -189,6 +193,9 @@ export default function Header() {
               </button>
 
               <ThemeToggle />
+
+              {/* Language: desktop copy (this one loads the translator; the mobile copy is in the menu below) */}
+              <LanguageSwitcher className="hidden lg:block" />
 
               <Link
                 href="/free-audit"
@@ -300,6 +307,13 @@ export default function Header() {
                   </li>
                 ))}
               </ul>
+
+              {/* Language: mobile copy (the desktop copy above loads the translator) */}
+              <div className="mt-4 flex items-center justify-between gap-3 rounded-2xl border border-line px-4 py-2.5">
+                <span className="text-sm font-medium text-heading">Language</span>
+                <LanguageSwitcher id="nd-lang-mobile" loadTranslator={false} />
+              </div>
+
               <Link
                 href="/free-audit"
                 className="bg-orange-gradient mt-4 block rounded-full px-4 py-3 text-center font-semibold text-navy"
