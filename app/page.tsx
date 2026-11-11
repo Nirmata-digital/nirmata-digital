@@ -7,6 +7,7 @@ import { site } from "@/lib/site";
 import Preloader from "@/components/Preloader";
 import AmbientBackground from "@/components/AmbientBackground";
 import SoftBackground from "@/components/SoftBackground";
+import HoverEffects from "@/components/HoverEffects";
 
 /* ───────────── CONTENT (edit the words here) ───────────── */
 
@@ -231,7 +232,7 @@ function SampleVisual({ kind }: { kind: string }) {
   );
 }
 
-const cardShadow = "shadow-layered card-lift";
+const cardShadow = "shadow-layered card-lift spot-card";
 
 /* ───────────── PAGE ───────────── */
 
@@ -241,6 +242,7 @@ export default function HomePage() {
   return (
     <>
       <Preloader />
+      <HoverEffects />
       <RevealObserver />
       {/* 1. HERO: static text on the left, auto-changing diagram on the right */}
       <section className="force-light bg-hero relative overflow-hidden">
@@ -259,8 +261,8 @@ export default function HomePage() {
             </h1>
             <p style={{ animationDelay: "0.2s" }} className="anim-fade mt-6 max-w-xl text-lg leading-relaxed text-muted">{hero.text}</p>
             <div style={{ animationDelay: "0.3s" }} className="anim-fade mt-8 flex flex-wrap gap-3">
-              <Button href="/free-audit">Get a free audit</Button>
-              <Button href="/work" variant="outline">See our work</Button>
+              <Button href="/free-audit" className="magnetic">Get a free audit</Button>
+              <Button href="/work" variant="outline" className="magnetic">See our work</Button>
             </div>
             <ul style={{ animationDelay: "0.4s" }} className="anim-fade mt-8 flex flex-wrap gap-x-6 gap-y-2 text-sm text-muted">
               {hero.trust.map((t) => (
@@ -477,8 +479,8 @@ export default function HomePage() {
           <h2 className="relative mx-auto max-w-2xl text-3xl font-semibold text-navy md:text-5xl">Want to know what is holding your business back online?</h2>
           <p className="relative mx-auto mt-4 max-w-xl text-navy/80">Get a free audit and a clear list of what to fix first. No pressure and no jargon.</p>
           <div className="relative mt-8 flex flex-wrap justify-center gap-3">
-            <Button href="/free-audit" variant="dark">Get a free audit</Button>
-            <a href={whatsappHref} target="_blank" rel="noopener noreferrer" className="inline-block rounded-full border border-navy/30 px-7 py-3.5 text-sm font-semibold text-navy transition hover:-translate-y-0.5 hover:border-navy hover:bg-white/20">
+            <Button href="/free-audit" variant="dark" className="magnetic">Get a free audit</Button>
+            <a href={whatsappHref} target="_blank" rel="noopener noreferrer" className="magnetic inline-block rounded-full border border-navy/30 px-7 py-3.5 text-sm font-semibold text-navy transition hover:-translate-y-0.5 hover:border-navy hover:bg-white/20">
               Chat on WhatsApp
             </a>
           </div>
