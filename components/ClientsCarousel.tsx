@@ -3,11 +3,11 @@ type Client = { name: string; logo?: string };
 const clients: Client[] = [
   { name: "Naman Waterproofing", logo: "/clients/naman-waterproofing.png" },
   { name: "Waghmare's Ayurvedic Acupressure Acupuncture Center", logo: "/clients/waghmares.png" },
-  { name: "Paulwat Foundation", logo: "/clients/paulwat-foundation.png" },
+  { name: "Paulwat Foundation, Vasai", logo: "/clients/paulwat-foundation.png" },
   { name: "St. Mary High School, Virar", logo: "/clients/st-mary-high-school.png" },
-  { name: "Shree Chem", logo: "/clients/shree-chem.png" },
+  { name: "ShreeChem kadi", logo: "/clients/shree-chem.png" },
   { name: "Shreeji Infraventure", logo: "/clients/shreeji-infraventure.png" },
-  { name: "Vidyavardhini", logo: "/clients/vidyavardhini.png" },
+  { name: "Vidyavardhini College", logo: "/clients/vidyavardhini.png" },
   { name: "Naikee Engineering", logo: "/clients/naikee-engineering.png" },
 ];
 
