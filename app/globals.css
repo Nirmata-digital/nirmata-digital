@@ -469,57 +469,128 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .wa-bounce { animation: none; }
 }
-.ambient-orb {
-  position: absolute;
-  border-radius: 9999px;
-  filter: blur(90px);
-  will-change: transform;
-  animation: ambient-float 26s ease-in-out infinite alternate;
+.ambient {
+  --a1: 255, 122, 26;   /* orange */
+  --a2: 56, 92, 200;    /* blue */
+  --a3: 140, 90, 255;   /* violet */
+  --line: 120, 130, 160;
+  --dot: 255, 122, 26;
 }
-.ambient-orb-a {
-  top: -10%; right: -8%;
-  width: 34rem; height: 34rem;
-  background: radial-gradient(circle, rgba(255,122,26,.28), transparent 65%);
-}
-.ambient-orb-b {
-  bottom: -15%; left: -10%;
-  width: 38rem; height: 38rem;
-  background: radial-gradient(circle, rgba(56,92,200,.22), transparent 65%);
-  animation-duration: 32s;
-  animation-direction: alternate-reverse;
+.ambient-dark {
+  --line: 255, 255, 255;
+  --dot: 255, 255, 255;
 }
 
+/* 1. Aurora: a rotating conic gradient, heavily blurred */
+.ambient-aurora {
+  position: absolute;
+  left: 50%; top: 50%;
+  width: 90rem; height: 90rem;
+  margin: -45rem 0 0 -45rem;
+  background: conic-gradient(
+    from 0deg,
+    rgba(var(--a1), .22),
+    transparent 20%,
+    rgba(var(--a2), .20) 40%,
+    transparent 60%,
+    rgba(var(--a3), .18) 80%,
+    rgba(var(--a1), .22)
+  );
+  filter: blur(110px);
+  opacity: .9;
+  will-change: transform;
+  animation: ambient-spin 60s linear infinite;
+}
+
+/* 2. Grid that fades toward the edges */
 .ambient-grid {
   position: absolute; inset: 0;
   background-image:
-    linear-gradient(to right, rgba(120,130,160,.10) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(120,130,160,.10) 1px, transparent 1px);
+    linear-gradient(to right, rgba(var(--line), .09) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(var(--line), .09) 1px, transparent 1px);
   background-size: 56px 56px;
-  -webkit-mask-image: radial-gradient(ellipse at center, #000 20%, transparent 70%);
-          mask-image: radial-gradient(ellipse at center, #000 20%, transparent 70%);
-  animation: ambient-grid-pan 60s linear infinite;
+  -webkit-mask-image: radial-gradient(ellipse at 50% 40%, #000 10%, transparent 70%);
+          mask-image: radial-gradient(ellipse at 50% 40%, #000 10%, transparent 70%);
+  animation: ambient-grid-pan 70s linear infinite;
 }
 
-.ambient-sweep {
+/* 3. Cursor spotlight (position set from JS via --mx / --my) */
+.ambient-spotlight {
   position: absolute; inset: 0;
-  background: linear-gradient(115deg, transparent 40%, rgba(255,255,255,.10) 50%, transparent 60%);
-  background-size: 250% 100%;
-  animation: ambient-sweep 14s ease-in-out infinite;
+  background: radial-gradient(
+    28rem circle at var(--mx, 50%) var(--my, 40%),
+    rgba(var(--a1), .16),
+    transparent 60%
+  );
 }
 
-@keyframes ambient-float {
-  0%   { transform: translate3d(0, 0, 0) scale(1); }
-  50%  { transform: translate3d(4%, -6%, 0) scale(1.12); }
-  100% { transform: translate3d(-5%, 5%, 0) scale(1.05); }
+/* 4. Orbit rings with a glowing dot travelling on each */
+.ambient-ring {
+  position: absolute;
+  border-radius: 9999px;
+  border: 1px solid rgba(var(--line), .16);
+  will-change: transform;
 }
-@keyframes ambient-grid-pan {
-  to { background-position: 56px 56px; }
+.ambient-ring i {
+  position: absolute;
+  top: -4px; left: 50%;
+  width: 8px; height: 8px;
+  margin-left: -4px;
+  border-radius: 9999px;
+  background: rgb(var(--dot));
+  box-shadow: 0 0 14px 3px rgba(var(--dot), .6);
 }
-@keyframes ambient-sweep {
-  0%, 100% { background-position: 150% 0; }
-  50%      { background-position: -50% 0; }
+.ambient-ring-a {
+  right: -12rem; top: 50%;
+  width: 40rem; height: 40rem;
+  margin-top: -20rem;
+  animation: ambient-spin 48s linear infinite;
+}
+.ambient-ring-b {
+  right: -5rem; top: 50%;
+  width: 26rem; height: 26rem;
+  margin-top: -13rem;
+  animation: ambient-spin 32s linear infinite reverse;
+}
+.ambient-ring-b i { background: rgb(var(--a2)); box-shadow: 0 0 14px 3px rgba(var(--a2), .6); }
+
+/* 5. Rising particles */
+.ambient-particle {
+  position: absolute;
+  bottom: -10px;
+  border-radius: 9999px;
+  background: rgba(var(--dot), .55);
+  box-shadow: 0 0 8px rgba(var(--dot), .5);
+  opacity: 0;
+  animation-name: ambient-rise;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+/* 6. Film grain for a tactile, premium feel */
+.ambient-grain {
+  position: absolute; inset: 0;
+  opacity: .05;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+.ambient-dark .ambient-grain { mix-blend-mode: screen; opacity: .06; }
+
+@keyframes ambient-spin { to { transform: rotate(360deg); } }
+@keyframes ambient-grid-pan { to { background-position: 56px 56px; } }
+@keyframes ambient-rise {
+  0%   { transform: translateY(0); opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: .8; }
+  100% { transform: translateY(-110vh); opacity: 0; }
+}
+
+@media (max-width: 768px) {
+  .ambient-ring-a, .ambient-ring-b { display: none; }
+  .ambient-aurora { filter: blur(80px); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .ambient-orb, .ambient-grid, .ambient-sweep { animation: none; }
+  .ambient-aurora, .ambient-grid, .ambient-ring, .ambient-particle { animation: none; }
+  .ambient-particle { opacity: .4; }
 }

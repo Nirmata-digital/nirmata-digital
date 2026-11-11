@@ -343,9 +343,8 @@ export default function HomePage() {
 
       {/* 6. CUSTOM ML */}
       <section className="bg-navy-gradient relative overflow-hidden text-white">
-        <div aria-hidden className="bg-orange-gradient animate-drift pointer-events-none absolute -left-24 top-10 h-80 w-80 rounded-full opacity-15 blur-3xl" />
-        <div aria-hidden className="animate-drift-slow pointer-events-none absolute -right-24 bottom-0 h-80 w-80 rounded-full bg-sky-400 opacity-10 blur-3xl" />
-        <div className="relative mx-auto grid max-w-6xl gap-12 px-4 py-20 md:py-24 lg:grid-cols-[0.9fr_1.1fr]">
+  <AmbientBackground variant="dark" />
+  <div className="relative mx-auto grid max-w-6xl gap-12 px-4 py-20 md:py-24 lg:grid-cols-[0.9fr_1.1fr]">
           <div>
             <p className="text-sm font-semibold text-orange">Custom AI</p>
             <h2 className="mt-2 text-3xl font-semibold leading-tight text-white md:text-4xl">Machine learning built on your own data</h2>
