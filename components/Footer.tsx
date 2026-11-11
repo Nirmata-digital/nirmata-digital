@@ -152,6 +152,20 @@ export default function Footer() {
                 </li>
               ))}
             </ul>
+            {c.title === "Legal" && (
+              <div className="mt-6 space-y-4">
+                <Link
+                  href="/admin/login"
+                  className="inline-flex items-center gap-2 rounded-full border border-white/25 px-4 py-2 text-xs font-semibold text-white/80 transition duration-200 hover:border-orange hover:bg-orange hover:text-navy"
+                >
+                  <Icon name="lock" className="h-3.5 w-3.5" />
+                  Admin login
+                </Link>
+                <div>
+                  <VisitorCount />
+                </div>
+              </div>
+            )}
           </div>
         ))}
 
@@ -214,20 +228,6 @@ export default function Footer() {
                 </a>
               ))}
           </div>
-        </div>
-      </div>
-
-      {/* Visitor count + admin login */}
-      <div className="border-t border-white/10">
-        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-4 py-4">
-          <VisitorCount />
-          <Link
-            href="/admin/login"
-            className="inline-flex items-center gap-2 rounded-full border border-white/25 px-4 py-1.5 text-xs font-semibold text-white/80 transition duration-200 hover:border-orange hover:bg-orange hover:text-navy"
-          >
-            <Icon name="lock" className="h-3.5 w-3.5" />
-            Admin login
-          </Link>
         </div>
       </div>
     </footer>
