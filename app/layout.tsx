@@ -8,6 +8,8 @@ import WhatsAppButton from "@/components/WhatsAppButton";
 import CallButton from "@/components/CallButton";
 import CookieBanner from "@/components/CookieBanner";
 import SourceSurvey from "@/components/SourceSurvey";
+import CopyGuard from "@/components/CopyGuard";
+
 
 const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -67,6 +69,7 @@ export default function RootLayout({
         <Footer />
         <CookieBanner />
         <SourceSurvey />
+        <CopyGuard />
         <WhatsAppButton />
         <CallButton />
       </body>

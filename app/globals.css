@@ -144,55 +144,19 @@
   .anim-pulse-btn, .anim-node { animation: none; }
 }
 
-/* ───────────── Shadows, hover, reveal, text styles (add at the bottom of globals.css) ───────────── */
-:root {
-  --shadow-soft: 0 1px 2px rgba(10, 26, 63, 0.04), 0 10px 32px rgba(10, 26, 63, 0.08);
-  --shadow-lift: 0 4px 8px rgba(10, 26, 63, 0.06), 0 22px 50px rgba(10, 26, 63, 0.18);
+/* ───────────── Light copy deterrent ───────────── */
+body {
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
 }
-.dark {
-  --shadow-soft: 0 10px 32px rgba(0, 0, 0, 0.35);
-  --shadow-lift: 0 22px 55px rgba(0, 0, 0, 0.55);
+input, textarea, select, [contenteditable],
+.allow-copy, .allow-copy *,
+a[href^="tel:"], a[href^="mailto:"] {
+  -webkit-user-select: text;
+  user-select: text;
 }
-
-.shadow-soft { box-shadow: var(--shadow-soft); }
-
-.card-hover {
-  box-shadow: var(--shadow-soft);
-  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.35s ease, border-color 0.35s ease;
+img {
+  -webkit-user-drag: none;
+  user-drag: none;
 }
-.card-hover:hover {
-  transform: translateY(-6px);
-  box-shadow: var(--shadow-lift);
-  border-color: rgba(255, 122, 26, 0.45);
-}
-
-/* Scroll reveal (only active once RevealObserver has run) */
-@keyframes nd-rise {
-  from { opacity: 0; translate: 0 26px; }
-  to { opacity: 1; translate: 0 0; }
-}
-.reveal-ready .reveal:not(.in) { opacity: 0; }
-.reveal.in { animation: nd-rise 0.75s cubic-bezier(0.2, 0.8, 0.2, 1) backwards; }
-.reveal.in:nth-child(2) { animation-delay: 0.1s; }
-.reveal.in:nth-child(3) { animation-delay: 0.2s; }
-.reveal.in:nth-child(4) { animation-delay: 0.3s; }
-.reveal.in:nth-child(5) { animation-delay: 0.4s; }
-.reveal.in:nth-child(6) { animation-delay: 0.5s; }
-
-@media (prefers-reduced-motion: reduce) {
-  .reveal-ready .reveal:not(.in) { opacity: 1; }
-  .reveal.in { animation: none; }
-  .card-hover:hover { transform: none; }
-}
-
-/* Text styles */
-@layer base {
-  html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
-  h1, h2 { text-wrap: balance; }
-  p { text-wrap: pretty; }
-}
-.eyebrow {
-  display: inline-flex; align-items: center; gap: 0.6rem;
-  font-size: 0.75rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
-}
-.eyebrow::before { content: ""; width: 1.5rem; height: 2px; border-radius: 2px; background: #ff7a1a; }
