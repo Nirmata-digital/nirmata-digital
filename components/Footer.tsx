@@ -37,6 +37,8 @@ const columns: { title: string; icon: string; links: { label: string; href: stri
     icon: "people",
     links: [
       { label: "About us", href: "/about" },
+      { label: "Team", href: "/team" },
+      { label: "Careers", href: "/careers" },
       { label: "Services", href: "/services" },
       { label: "Packages", href: "/packages" },
       { label: "Blog", href: "/blog" },

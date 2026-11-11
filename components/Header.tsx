@@ -11,6 +11,17 @@ import { site } from "@/lib/site";
 
 const BAR_HEIGHT = 48;
 
+/* Extra top-level links added here so lib/nav.ts does not need to change.
+   Any link already in lib/nav.ts is skipped automatically, so there are never duplicates.
+   On desktop they show from the xl breakpoint up (so the bar does not get crowded);
+   on mobile they always show in the menu. They are also in the footer. */
+const extraLinks = (
+  [
+    { label: "Team", href: "/team" },
+    { label: "Careers", href: "/careers" },
+  ] as (typeof menu)[number][]
+).filter((e) => !menu.some((m) => m.href === e.href));
+
 function Chevron({ open }: { open: boolean }) {
   return (
     <svg
@@ -175,6 +186,21 @@ export default function Header() {
                   </Link>
                 )
               )}
+
+              {/* Extra links: Team, Careers (desktop, wide screens only) */}
+              {extraLinks.map((item) => (
+                <Link
+                  key={item.label}
+                  href={item.href!}
+                  onMouseEnter={() => setActive(null)}
+                  aria-current={isActive(item.href) ? "page" : undefined}
+                  className={`${navText} hidden rounded-full px-2 py-2 transition hover:text-heading xl:block xl:px-3.5 ${
+                    isActive(item.href) ? "text-heading" : "text-muted"
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              ))}
             </nav>
 
             {/* Right side */}
@@ -304,6 +330,15 @@ export default function Header() {
                         {item.label}
                       </Link>
                     )}
+                  </li>
+                ))}
+
+                {/* Extra links: Team, Careers */}
+                {extraLinks.map((item) => (
+                  <li key={item.label} className="border-b border-line last:border-0">
+                    <Link href={item.href!} className="block px-2 py-4 text-base font-medium text-heading">
+                      {item.label}
+                    </Link>
                   </li>
                 ))}
               </ul>
