@@ -43,14 +43,26 @@ function chooseLang(code: string) {
 
 /* Uses Google's free website translator behind our own dropdown.
    The Google script loads only when a non-English language is chosen,
-   so English visitors download nothing extra. */
-export default function LanguageSwitcher({ className = "" }: { className?: string }) {
+   so English visitors download nothing extra.
+
+   If the switcher appears twice on a page (for example desktop header and mobile menu),
+   keep loadTranslator on for ONE of them and pass loadTranslator={false} and a different id
+   to the other. */
+export default function LanguageSwitcher({
+  className = "",
+  id = "nd-lang",
+  loadTranslator = true,
+}: {
+  className?: string;
+  id?: string;
+  loadTranslator?: boolean;
+}) {
   const [lang, setLang] = useState("en");
 
   useEffect(() => {
     const current = readLang();
     setLang(current);
-    if (current === "en") return;
+    if (current === "en" || !loadTranslator) return;
 
     const w = window as GoogleTranslateWindow;
     w.googleTranslateInit = () => {
@@ -72,13 +84,13 @@ export default function LanguageSwitcher({ className = "" }: { className?: strin
       s.async = true;
       document.body.appendChild(s);
     }
-  }, []);
+  }, [loadTranslator]);
 
   return (
     <div translate="no" className={`notranslate ${className}`}>
-      <label htmlFor="nd-lang" className="sr-only">Language</label>
+      <label htmlFor={id} className="sr-only">Language</label>
       <select
-        id="nd-lang"
+        id={id}
         value={lang}
         onChange={(e) => chooseLang(e.target.value)}
         className="rounded-full border border-line bg-card px-3 py-1.5 text-xs font-medium text-fg outline-none transition hover:border-orange focus:border-orange"
@@ -87,7 +99,7 @@ export default function LanguageSwitcher({ className = "" }: { className?: strin
           <option key={l.code} value={l.code}>{l.label}</option>
         ))}
       </select>
-      <div id="google_translate_element" style={{ display: "none" }} />
+      {loadTranslator && <div id="google_translate_element" style={{ display: "none" }} />}
     </div>
   );
 }
