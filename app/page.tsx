@@ -4,6 +4,7 @@ import HeroDashboard from "@/components/HeroSlider";
 import ClientsCarousel from "@/components/ClientsCarousel";
 import RevealObserver from "@/components/RevealObserver";
 import { site } from "@/lib/site";
+import Preloader from "@/components/Preloader";
 
 /* ───────────── CONTENT (edit the words here) ───────────── */
 
@@ -237,6 +238,7 @@ export default function HomePage() {
 
   return (
     <>
+    <Preloader />
       <RevealObserver />
       {/* 1. HERO: static text on the left, auto-changing diagram on the right */}
       <section className="force-light bg-hero relative overflow-hidden">
