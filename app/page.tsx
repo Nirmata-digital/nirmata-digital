@@ -37,16 +37,46 @@ const offers = [
 const pillars = [
   { icon: "growth", label: "Pillar 01", title: "Growth",
     audience: "For businesses that want a steady flow of enquiries.",
-    services: ["Meta and Google Ads", "SEO and local SEO", "Analytics and tracking setup", "Monthly performance reports"] },
+    services: [
+      "Meta and Google Ads",
+      "SEO and Google Business Profile",
+      "AI search visibility (ChatGPT, Gemini, Google AI)",
+      "Analytics and tracking setup",
+      "Conversion rate optimisation",
+      "Reputation and review management",
+      "Email and SMS marketing",
+      "B2B lead generation for export and trade",
+      "Monthly performance reports",
+    ] },
   { icon: "web", label: "Pillar 02", title: "Web",
     audience: "For brands that need a site that works hard.",
-    services: ["Business websites", "Landing pages for campaigns", "Speed and mobile optimisation", "Web apps and portals"] },
+    services: [
+      "Business websites",
+      "Landing pages for campaigns",
+      "E-commerce stores and marketplace listings",
+      "Speed and mobile optimisation",
+      "Web apps and portals",
+      "Website care plans (hosting, security, updates)",
+    ] },
   { icon: "content", label: "Pillar 03", title: "Content",
     audience: "For brands that need to look consistent everywhere.",
-    services: ["Reels and short videos", "Posters and social creatives", "Photography direction", "Brand kits and templates"] },
+    services: [
+      "Reels, Shorts and UGC-style video ads",
+      "Posters and social creatives",
+      "Photography direction",
+      "Logo, branding and brand kits",
+    ] },
   { icon: "automation", label: "Pillar 04", title: "Automation, Apps and AI",
     audience: "For teams that lose hours to repeat work or want to use their data.",
-    services: ["WhatsApp follow-up flows", "CRM setup and lead routing", "Dashboards and custom apps", "Custom ML models"] },
+    services: [
+      "WhatsApp Business marketing and automation",
+      "AI chatbots and voice agents",
+      "CRM setup and lead follow-up",
+      "Dashboards and custom apps",
+      "Custom ML models",
+      "AI training for your team",
+      "Privacy and consent compliance (DPDP Act)",
+    ] },
 ];
 
 const mlUseCases = [
@@ -68,7 +98,19 @@ const packages = [
     cta: "Talk about Scale", highlight: false },
 ];
 
-const addOns = ["Extra landing pages", "Video shoot day", "WhatsApp automation flow", "Logo and brand sheet", "Extra ad platforms", "Custom ML model"];
+const addOns = [
+  "Extra landing pages",
+  "Video shoot day",
+  "WhatsApp automation flow",
+  "AI chatbot for your website",
+  "Review and reputation setup",
+  "Email and SMS campaigns",
+  "AI search visibility audit",
+  "Website care plan",
+  "Logo and brand sheet",
+  "Extra ad platforms",
+  "Custom ML model",
+];
 
 const samples = [
   { kind: "web", tag: "Web", title: "Clinic website",
@@ -96,6 +138,7 @@ const faqs = [
   { q: "How many revisions are included?", a: "The number of revisions is set in your agreement and listed in the proposal, so there are no surprises." },
   { q: "How does payment work?", a: "Projects start with a 50% advance. Retainers are paid in advance each month, and you receive an invoice every time." },
   { q: "Do you work with clients outside Mumbai?", a: "Yes. We are based in Mumbai and work with businesses and agencies elsewhere over Google Meet and WhatsApp." },
+  { q: "Can you set up WhatsApp automation or an AI chatbot?", a: "Yes. We can build WhatsApp Business flows and website or WhatsApp chatbots that answer common questions, collect lead details and book appointments, then pass the hot leads to your team." },
   { q: "Do you build custom machine learning models?", a: "Yes. We build models on your own data, such as lead scoring or forecasting. We start with a short feasibility check to confirm you have enough data to make it worthwhile." },
   { q: "What do I get from the free audit?", a: "A short review of your website, ads and Google listing, with the fixes most likely to bring in more enquiries." },
 ];

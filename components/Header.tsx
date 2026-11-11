@@ -129,7 +129,7 @@ export default function Header() {
         <div
           ref={wrapRef}
           onMouseLeave={() => setActive(null)}
-          className={`relative mx-auto transition-all duration-300 ${scrolled ? "mt-3 max-w-[70rem]" : "mt-0 max-w-6xl"}`}
+          className={`relative mx-auto max-w-6xl transition-all duration-300 ${scrolled ? "mt-3" : "mt-0"}`}
         >
           <div
             className={`flex items-center justify-between gap-4 rounded-full border transition-all duration-300 ${
@@ -154,7 +154,7 @@ export default function Header() {
                     aria-expanded={active === item.label}
                     onMouseEnter={() => setActive(item.label)}
                     onClick={() => setActive((a) => (a === item.label ? null : item.label))}
-                    className={`${navText} flex items-center gap-1.5 rounded-full px-2.5 py-2 transition hover:text-heading xl:px-3.5 ${
+                    className={`${navText} flex items-center gap-1.5 rounded-full px-2 py-2 transition hover:text-heading xl:px-3.5 ${
                       active === item.label || isActive(item.href) ? "text-heading" : "text-muted"
                     }`}
                   >
@@ -167,7 +167,7 @@ export default function Header() {
                     href={item.href!}
                     onMouseEnter={() => setActive(null)}
                     aria-current={isActive(item.href) ? "page" : undefined}
-                    className={`${navText} rounded-full px-2.5 py-2 transition hover:text-heading xl:px-3.5 ${
+                    className={`${navText} rounded-full px-2 py-2 transition hover:text-heading xl:px-3.5 ${
                       isActive(item.href) ? "text-heading" : "text-muted"
                     }`}
                   >
@@ -178,7 +178,7 @@ export default function Header() {
             </nav>
 
             {/* Right side */}
-            <div className="flex shrink-0 items-center gap-2">
+            <div className="flex shrink-0 items-center gap-1.5 xl:gap-2">
               <button
                 type="button"
                 onClick={() => setSearchOpen(true)}
@@ -199,7 +199,7 @@ export default function Header() {
 
               <Link
                 href="/free-audit"
-                className="bg-orange-gradient hidden shrink-0 whitespace-nowrap rounded-full px-5 py-2.5 text-sm font-semibold text-navy transition hover:brightness-105 lg:inline-block"
+                className="bg-orange-gradient hidden shrink-0 whitespace-nowrap rounded-full px-4 py-2.5 text-sm font-semibold text-navy transition hover:brightness-105 lg:inline-block xl:px-5"
               >
                 Free audit
               </Link>
