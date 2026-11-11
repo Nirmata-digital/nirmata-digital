@@ -469,3 +469,57 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .wa-bounce { animation: none; }
 }
+.ambient-orb {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(90px);
+  will-change: transform;
+  animation: ambient-float 26s ease-in-out infinite alternate;
+}
+.ambient-orb-a {
+  top: -10%; right: -8%;
+  width: 34rem; height: 34rem;
+  background: radial-gradient(circle, rgba(255,122,26,.28), transparent 65%);
+}
+.ambient-orb-b {
+  bottom: -15%; left: -10%;
+  width: 38rem; height: 38rem;
+  background: radial-gradient(circle, rgba(56,92,200,.22), transparent 65%);
+  animation-duration: 32s;
+  animation-direction: alternate-reverse;
+}
+
+.ambient-grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(to right, rgba(120,130,160,.10) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(120,130,160,.10) 1px, transparent 1px);
+  background-size: 56px 56px;
+  -webkit-mask-image: radial-gradient(ellipse at center, #000 20%, transparent 70%);
+          mask-image: radial-gradient(ellipse at center, #000 20%, transparent 70%);
+  animation: ambient-grid-pan 60s linear infinite;
+}
+
+.ambient-sweep {
+  position: absolute; inset: 0;
+  background: linear-gradient(115deg, transparent 40%, rgba(255,255,255,.10) 50%, transparent 60%);
+  background-size: 250% 100%;
+  animation: ambient-sweep 14s ease-in-out infinite;
+}
+
+@keyframes ambient-float {
+  0%   { transform: translate3d(0, 0, 0) scale(1); }
+  50%  { transform: translate3d(4%, -6%, 0) scale(1.12); }
+  100% { transform: translate3d(-5%, 5%, 0) scale(1.05); }
+}
+@keyframes ambient-grid-pan {
+  to { background-position: 56px 56px; }
+}
+@keyframes ambient-sweep {
+  0%, 100% { background-position: 150% 0; }
+  50%      { background-position: -50% 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ambient-orb, .ambient-grid, .ambient-sweep { animation: none; }
+}

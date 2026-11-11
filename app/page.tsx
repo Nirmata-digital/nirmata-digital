@@ -5,6 +5,7 @@ import ClientsCarousel from "@/components/ClientsCarousel";
 import RevealObserver from "@/components/RevealObserver";
 import { site } from "@/lib/site";
 import Preloader from "@/components/Preloader";
+import AmbientBackground from "@/components/AmbientBackground";
 
 /* ───────────── CONTENT (edit the words here) ───────────── */
 
@@ -242,9 +243,8 @@ export default function HomePage() {
       <RevealObserver />
       {/* 1. HERO: static text on the left, auto-changing diagram on the right */}
       <section className="force-light bg-hero relative overflow-hidden">
-        <div aria-hidden className="bg-orange-gradient animate-drift pointer-events-none absolute -right-32 -top-10 h-96 w-96 rounded-full opacity-20 blur-3xl dark:opacity-30" />
-        <div aria-hidden className="animate-drift-slow pointer-events-none absolute -left-32 top-40 h-96 w-96 rounded-full bg-navy-mid opacity-10 blur-3xl dark:opacity-30" />
-        <div className="relative mx-auto grid max-w-6xl items-center gap-14 px-4 pb-24 pt-12 md:pb-32 md:pt-20 lg:grid-cols-[1.1fr_0.9fr]">
+  <AmbientBackground />
+  <div className="relative mx-auto grid max-w-6xl items-center gap-14 px-4 pb-24 pt-12 md:pb-32 md:pt-20 lg:grid-cols-[1.1fr_0.9fr]">
           <div>
             <p className="anim-fade shadow-layered inline-flex items-center gap-2 rounded-full border border-line bg-card px-4 py-1.5 text-xs text-muted">
               <span className="relative flex h-2 w-2">
