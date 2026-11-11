@@ -11,16 +11,42 @@ import { site } from "@/lib/site";
 
 const BAR_HEIGHT = 48;
 
-/* Extra top-level links added here so lib/nav.ts does not need to change.
-   Any link already in lib/nav.ts is skipped automatically, so there are never duplicates.
-   On desktop they show from the xl breakpoint up (so the bar does not get crowded);
-   on mobile they always show in the menu. They are also in the footer. */
-const extraLinks = (
-  [
-    { label: "Team", href: "/team" },
-    { label: "Careers", href: "/careers" },
-  ] as (typeof menu)[number][]
-).filter((e) => !menu.some((m) => m.href === e.href));
+type MenuItem = (typeof menu)[number];
+
+/* Team and Careers go inside the "Company" dropdown (or "About" if that is what your menu calls it),
+   added here so lib/nav.ts does not need to change. Links already in lib/nav.ts are skipped,
+   so there are never duplicates. If the menu has no Company/About dropdown, they fall back to
+   plain top-level links (desktop: wide screens only; mobile: always). They are also in the footer. */
+const companyLinks = [
+  { label: "Team", href: "/team", text: "Meet the people behind Nirmata Digital" },
+  { label: "Careers", href: "/careers", text: "Open roles and how to apply" },
+];
+
+function buildNav(items: readonly MenuItem[]) {
+  const have = new Set<string>();
+  for (const item of items) {
+    if (item.href) have.add(item.href);
+    for (const col of item.columns ?? []) for (const l of col.items) have.add(l.href);
+  }
+  const toAdd = companyLinks.filter((l) => !have.has(l.href));
+
+  let placed = false;
+  const navItems = items.map((item) => {
+    const isCompany = ["company", "about"].includes(item.label.toLowerCase());
+    if (!isCompany || !item.columns || item.columns.length === 0 || toAdd.length === 0) return item;
+    placed = true;
+    const last = item.columns.length - 1;
+    return {
+      ...item,
+      columns: item.columns.map((col, i) => (i === last ? { ...col, items: [...col.items, ...toAdd] } : col)),
+    } as MenuItem;
+  });
+
+  const extraLinks = placed ? [] : (toAdd as unknown as MenuItem[]);
+  return { navItems, extraLinks };
+}
+
+const { navItems, extraLinks } = buildNav(menu);
 
 function Chevron({ open }: { open: boolean }) {
   return (
@@ -100,7 +126,7 @@ export default function Header() {
 
   const scrolled = scrollY > 24;
   const top = barOpen ? Math.max(0, BAR_HEIGHT - scrollY) : 0;
-  const activeItem = menu.find((m) => m.label === active && m.columns);
+  const activeItem = navItems.find((m) => m.label === active && m.columns);
 
   const navText = "whitespace-nowrap text-[15px] font-medium tracking-[-0.01em]";
 
@@ -156,7 +182,7 @@ export default function Header() {
 
             {/* Desktop navigation */}
             <nav className="hidden items-center gap-0.5 lg:flex xl:gap-1" aria-label="Main">
-              {menu.map((item) =>
+              {navItems.map((item) =>
                 item.columns ? (
                   <button
                     key={item.label}
@@ -290,7 +316,7 @@ export default function Header() {
               className="absolute left-0 right-0 top-full mt-2 max-h-[75vh] overflow-y-auto rounded-3xl border border-line bg-card p-4 shadow-xl lg:hidden"
             >
               <ul className="flex flex-col">
-                {menu.map((item) => (
+                {navItems.map((item) => (
                   <li key={item.label} className="border-b border-line last:border-0">
                     {item.columns ? (
                       <>
