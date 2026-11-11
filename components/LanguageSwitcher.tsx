@@ -41,21 +41,25 @@ function chooseLang(code: string) {
   location.reload();
 }
 
-/* Uses Google's free website translator behind our own dropdown.
+/* Uses Google's free website translator behind our own control.
    The Google script loads only when a non-English language is chosen,
    so English visitors download nothing extra.
 
-   If the switcher appears twice on a page (for example desktop header and mobile menu),
-   keep loadTranslator on for ONE of them and pass loadTranslator={false} and a different id
-   to the other. */
+   variant="icon"   : a round globe button (same size as the theme toggle), for the header
+   variant="select" : a normal dropdown, for the mobile menu
+
+   If the switcher appears twice on a page, keep loadTranslator on for ONE of them and pass
+   loadTranslator={false} and a different id to the other. */
 export default function LanguageSwitcher({
   className = "",
   id = "nd-lang",
   loadTranslator = true,
+  variant = "icon",
 }: {
   className?: string;
   id?: string;
   loadTranslator?: boolean;
+  variant?: "icon" | "select";
 }) {
   const [lang, setLang] = useState("en");
 
@@ -86,20 +90,50 @@ export default function LanguageSwitcher({
     }
   }, [loadTranslator]);
 
+  const options = LANGS.map((l) => (
+    <option key={l.code} value={l.code}>{l.label}</option>
+  ));
+  const target = loadTranslator && <div id="google_translate_element" style={{ display: "none" }} />;
+
+  if (variant === "select") {
+    return (
+      <div translate="no" className={`notranslate ${className}`}>
+        <label htmlFor={id} className="sr-only">Language</label>
+        <select
+          id={id}
+          value={lang}
+          onChange={(e) => chooseLang(e.target.value)}
+          className="rounded-full border border-line bg-card px-3 py-1.5 text-xs font-medium text-fg outline-none transition hover:border-orange focus:border-orange"
+        >
+          {options}
+        </select>
+        {target}
+      </div>
+    );
+  }
+
   return (
     <div translate="no" className={`notranslate ${className}`}>
-      <label htmlFor={id} className="sr-only">Language</label>
-      <select
-        id={id}
-        value={lang}
-        onChange={(e) => chooseLang(e.target.value)}
-        className="rounded-full border border-line bg-card px-3 py-1.5 text-xs font-medium text-fg outline-none transition hover:border-orange focus:border-orange"
-      >
-        {LANGS.map((l) => (
-          <option key={l.code} value={l.code}>{l.label}</option>
-        ))}
-      </select>
-      {loadTranslator && <div id="google_translate_element" style={{ display: "none" }} />}
+      <div className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-line bg-card text-muted transition hover:border-heading hover:text-heading focus-within:border-orange">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="h-[18px] w-[18px]" aria-hidden>
+          <circle cx="12" cy="12" r="9" />
+          <path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z" />
+        </svg>
+        {lang !== "en" && (
+          <span className="absolute right-0.5 top-0.5 h-2 w-2 rounded-full bg-orange ring-2 ring-white dark:ring-[#0f2250]" aria-hidden />
+        )}
+        <label htmlFor={id} className="sr-only">Language</label>
+        <select
+          id={id}
+          value={lang}
+          onChange={(e) => chooseLang(e.target.value)}
+          title="Language"
+          className="absolute inset-0 h-full w-full cursor-pointer appearance-none rounded-full opacity-0"
+        >
+          {options}
+        </select>
+      </div>
+      {target}
     </div>
   );
 }

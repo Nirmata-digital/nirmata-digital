@@ -311,7 +311,7 @@ export default function Header() {
               {/* Language: mobile copy (the desktop copy above loads the translator) */}
               <div className="mt-4 flex items-center justify-between gap-3 rounded-2xl border border-line px-4 py-2.5">
                 <span className="text-sm font-medium text-heading">Language</span>
-                <LanguageSwitcher id="nd-lang-mobile" loadTranslator={false} />
+                <LanguageSwitcher id="nd-lang-mobile" loadTranslator={false} variant="select" />
               </div>
 
               <Link
