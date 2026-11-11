@@ -13,6 +13,9 @@ const labels: Record<string, string> = {
   ai: "AI",
 };
 
+/* URL parts that are only folders (no page of their own). They show as plain text. */
+const noPage = new Set(["industries"]);
+
 const pretty = (seg: string) =>
   labels[seg] ?? decodeURIComponent(seg).replace(/-/g, " ").replace(/^\w/, (c) => c.toUpperCase());
 
@@ -25,9 +28,9 @@ export default function Breadcrumbs() {
   const parts = pathname.split("/").filter(Boolean);
   const crumbs = [
     { label: "Home", href: "/" },
-    ...parts.map((seg, i) => ({ label: pretty(seg), href: "/" + parts.slice(0, i + 1).join("/") })),
+    ...parts.map((seg, i) => ({ label: pretty(seg), href: "/" + parts.slice(0, i + 1).join("/"), plain: noPage.has(seg) && i < parts.length - 1 })),
   ];
-  const parent = crumbs[crumbs.length - 2].href;
+  const parent = [...crumbs.slice(0, -1)].reverse().find((c) => !("plain" in c && c.plain))?.href ?? "/";
 
   function goBack() {
     // Go back in history if the visitor came from this site, otherwise go up one level.
@@ -61,8 +64,8 @@ export default function Breadcrumbs() {
                       <path d="M9 6l6 6-6 6" />
                     </svg>
                   )}
-                  {last ? (
-                    <span aria-current="page" className="font-semibold text-heading">{c.label}</span>
+                  {last || ("plain" in c && c.plain) ? (
+                    <span aria-current={last ? "page" : undefined} className={last ? "font-semibold text-heading" : "text-muted"}>{c.label}</span>
                   ) : (
                     <Link href={c.href} className="text-muted transition hover:text-orange">{c.label}</Link>
                   )}

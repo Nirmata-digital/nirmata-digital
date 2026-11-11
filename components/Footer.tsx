@@ -1,55 +1,63 @@
 import Link from "next/link";
 import Logo from "@/components/Logo";
 import { site } from "@/lib/site";
+import { industries } from "@/content/industries";
+import { services, servicePillars } from "@/content/services";
+import { caseStudies } from "@/content/work";
 
-/* Edit the link lists here. Change any href that does not match your routes. */
-const columns = [
-  { title: "Growth", icon: "growth", links: [
-    { label: "Meta and Google Ads", href: "/services" },
-    { label: "SEO and Local SEO", href: "/services" },
-    { label: "Analytics and Tracking", href: "/services" },
-    { label: "Monthly Reports", href: "/services" },
-  ] },
-  { title: "Web", icon: "web", links: [
-    { label: "Business Websites", href: "/services" },
-    { label: "Landing Pages", href: "/services" },
-    { label: "Speed Optimisation", href: "/services" },
-    { label: "Web Apps and Portals", href: "/services" },
-  ] },
-  { title: "Content", icon: "content", links: [
-    { label: "Reels and Short Videos", href: "/services" },
-    { label: "Posters and Creatives", href: "/services" },
-    { label: "Photography Direction", href: "/services" },
-    { label: "Brand Kits", href: "/services" },
-  ] },
-  { title: "Automation", icon: "automation", links: [
-    { label: "WhatsApp Follow-up", href: "/services" },
-    { label: "CRM and Lead Routing", href: "/services" },
-    { label: "Reporting Dashboards", href: "/services" },
-    { label: "Custom Tools and Apps", href: "/services" },
-  ] },
-  { title: "AI Solutions", icon: "ai", links: [
-    { label: "Custom ML Models", href: "/contact" },
-    { label: "Lead Scoring", href: "/contact" },
-    { label: "Demand Forecasting", href: "/contact" },
-    { label: "Recommendations", href: "/contact" },
-  ] },
-  { title: "Industries", icon: "building", links: site.industries.map((i: string) => ({ label: i, href: "/work" })) },
-  { title: "Company", icon: "people", links: [
-    { label: "About Us", href: "/about" },
-    { label: "Our Work", href: "/work" },
-    { label: "Packages", href: "/packages" },
-    { label: "Free Audit", href: "/free-audit" },
-  ] },
-  { title: "Support", icon: "headset", links: [
-    { label: "Contact Us", href: "/contact" },
-    { label: "Free Audit", href: "/free-audit" },
-    { label: "FAQs", href: "/#faq" },
-  ] },
-  { title: "Legal", icon: "legal", links: [
-    { label: "Privacy Policy", href: "/privacy" },
-    { label: "Terms and Conditions", href: "/terms" },
-  ] },
+/* Footer links come from the same content files as the header menu,
+   so adding a service, industry or project updates both automatically. */
+const pillarIcon = (name: string) => {
+  const n = name.toLowerCase();
+  if (n.includes("growth")) return "growth";
+  if (n.includes("web")) return "web";
+  if (n.includes("content")) return "content";
+  if (n.includes("ai") || n.includes("ml")) return "ai";
+  return "automation";
+};
+
+const columns: { title: string; icon: string; links: { label: string; href: string }[] }[] = [
+  ...servicePillars.map((p) => ({
+    title: p,
+    icon: pillarIcon(p),
+    links: services.filter((s) => s.pillar === p).map((s) => ({ label: s.title, href: `/services/${s.slug}` })),
+  })),
+  {
+    title: "Work",
+    icon: "content",
+    links: [
+      ...caseStudies.slice(0, 5).map((c) => ({ label: c.title, href: `/work/${c.slug}` })),
+      { label: "View all work", href: "/work" },
+    ],
+  },
+  { title: "Industries", icon: "building", links: industries.map((i) => ({ label: i.name, href: `/industries/${i.slug}` })) },
+  {
+    title: "Company",
+    icon: "people",
+    links: [
+      { label: "About us", href: "/about" },
+      { label: "Services", href: "/services" },
+      { label: "Packages", href: "/packages" },
+      { label: "Blog", href: "/blog" },
+    ],
+  },
+  {
+    title: "Support",
+    icon: "headset",
+    links: [
+      { label: "Free audit", href: "/free-audit" },
+      { label: "Contact us", href: "/contact" },
+    ],
+  },
+  {
+    title: "Legal",
+    icon: "legal",
+    links: [
+      { label: "Privacy policy", href: "/privacy" },
+      { label: "Terms", href: "/terms" },
+      { label: "Cookie policy", href: "/cookies" },
+    ],
+  },
 ];
 
 /* Fill in your real profile links. Empty ones are hidden automatically. */
