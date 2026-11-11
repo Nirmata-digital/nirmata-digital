@@ -129,32 +129,7 @@ export default function ClientsCarousel() {
         </div>
       </div>
 
-      {/* Animation styles */}
-      <style jsx>{`
-        .nd-marquee-track {
-          animation: nd-scroll 38s linear infinite;
-          will-change: transform;
-        }
-
-        .nd-marquee:hover .nd-marquee-track {
-          animation-play-state: paused;
-        }
-
-        @keyframes nd-scroll {
-          from {
-            transform: translateX(0);
-          }
-          to {
-            transform: translateX(-50%);
-          }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-          .nd-marquee-track {
-            animation: none;
-          }
-        }
-      `}</style>
+      
     </section>
   );
 }
