@@ -138,7 +138,7 @@ export default function Header() {
                 : "border-transparent bg-transparent px-2 py-4"
             }`}
           >
-           <Logo mark size="sm" />
+           <Logo mark showName size="sm" />
 
             {/* Desktop navigation */}
             <nav className="hidden items-center gap-1 lg:flex" aria-label="Main">

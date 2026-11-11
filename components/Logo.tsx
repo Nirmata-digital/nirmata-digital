@@ -6,7 +6,7 @@ import { site } from "@/lib/site";
 
 /* Put your logo file at /public/logo.png (or .svg) and change `src` if needed.
    If the file is missing, a monogram badge is shown instead.
-   Use showName={false} if your logo image already contains the business name. */
+   showName shows the premium NIRMATA / DIGITAL wordmark next to the image (use it with `mark`). */
 export default function Logo({
   tone = "dark",
   boxed = false,
@@ -39,12 +39,21 @@ export default function Logo({
 
   return (
     <Link href="/" aria-label={`${site.name} home`} className={`group inline-flex items-center gap-3 ${className}`}>
-      <span className={boxed && !failed ? "rounded-xl bg-white p-2 shadow-[0_8px_24px_rgba(0,0,0,0.25)] transition group-hover:-translate-y-0.5" : "transition group-hover:scale-105"}>
+      <span className={boxed && !failed ? "rounded-xl bg-white p-2 shadow-[0_8px_24px_rgba(0,0,0,0.25)] transition group-hover:-translate-y-0.5" : "transition group-hover:scale-105 dark:rounded-xl dark:bg-white dark:p-1.5"}>
         {badge}
       </span>
       {showName && (
-        <span className={`font-heading text-xl font-semibold tracking-tight ${tone === "light" ? "text-white" : "text-heading"}`}>
-          {site.name}
+        <span className="flex flex-col leading-none">
+          <span className={`font-heading text-[19px] font-extrabold uppercase tracking-[0.16em] sm:text-[21px] ${tone === "light" ? "text-white" : "text-heading"}`}>
+            {site.name.split(" ")[0]}
+          </span>
+          <span className="mt-1.5 flex items-center gap-2">
+            <span className="h-px w-3.5 bg-orange" />
+            <span className={`text-[10px] font-semibold uppercase tracking-[0.45em] ${tone === "light" ? "text-[#aab0ff]" : "text-[#4f46e5] dark:text-[#9aa0ff]"}`}>
+              {site.name.split(" ").slice(1).join(" ") || "Digital"}
+            </span>
+            <span className="h-px w-3.5 bg-orange" />
+          </span>
         </span>
       )}
     </Link>
