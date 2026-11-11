@@ -176,26 +176,27 @@ function SectionHeading({ eyebrow, title, text, center = false }: { eyebrow?: st
 function SampleVisual({ kind }: { kind: string }) {
   return (
     <div className="bg-navy-gradient relative flex h-48 items-center justify-center overflow-hidden p-6">
+      <div aria-hidden className="bg-orange-gradient animate-drift pointer-events-none absolute -right-10 -top-10 h-32 w-32 rounded-full opacity-30 blur-2xl" />
       {kind === "web" && (
-        <div className="w-full max-w-[260px] rounded-lg bg-white/10 p-3">
+        <div className="float-slow relative w-full max-w-[260px] rounded-lg bg-white/10 p-3 shadow-[0_18px_40px_-14px_rgba(0,0,0,0.5)] backdrop-blur-sm">
           <div className="flex gap-1.5">{[0, 1, 2].map((i) => <span key={i} className="h-2 w-2 rounded-full bg-white/40" />)}</div>
           <div className="mt-3 h-3 w-2/3 rounded bg-white/50" />
           <div className="mt-2 h-2 w-full rounded bg-white/25" />
           <div className="mt-1.5 h-2 w-5/6 rounded bg-white/25" />
-          <div className="bg-orange-gradient mt-4 h-6 w-24 rounded-full" />
+          <div className="bg-orange-gradient shadow-glow mt-4 h-6 w-24 rounded-full" />
         </div>
       )}
       {kind === "content" && (
-        <div className="flex items-end gap-3">
+        <div className="relative flex items-end gap-3">
           {["h-28", "h-36", "h-24"].map((h, i) => (
-            <div key={h} className={`${h} w-16 rounded-lg ${i === 1 ? "bg-orange-gradient" : "bg-white/20"}`} />
+            <div key={h} className={`${h} w-16 rounded-lg ${i === 1 ? "bg-orange-gradient shadow-glow float-slow" : "bg-white/20"}`} />
           ))}
         </div>
       )}
       {kind === "growth" && (
-        <div className="flex h-28 w-full max-w-[260px] items-end gap-2">
+        <div className="relative flex h-28 w-full max-w-[260px] items-end gap-2">
           {[30, 45, 40, 62, 55, 78, 92].map((h, i) => (
-            <div key={i} style={{ height: `${h}%` }} className={`flex-1 rounded-t-md ${i === 6 ? "bg-orange-gradient" : "bg-white/25"}`} />
+            <div key={i} style={{ height: `${h}%` }} className={`flex-1 rounded-t-md ${i === 6 ? "bg-orange-gradient shadow-glow" : "bg-white/25"}`} />
           ))}
         </div>
       )}
@@ -204,7 +205,7 @@ function SampleVisual({ kind }: { kind: string }) {
   );
 }
 
-const cardShadow = "shadow-soft card-hover";
+const cardShadow = "shadow-layered card-lift";
 
 /* ───────────── PAGE ───────────── */
 
@@ -216,19 +217,19 @@ export default function HomePage() {
       <RevealObserver />
       {/* 1. HERO: static text on the left, auto-changing diagram on the right */}
       <section className="force-light bg-hero relative overflow-hidden">
-        <div aria-hidden className="bg-orange-gradient pointer-events-none absolute -right-32 -top-10 h-96 w-96 rounded-full opacity-20 blur-3xl dark:opacity-30" />
-        <div aria-hidden className="pointer-events-none absolute -left-32 top-40 h-96 w-96 rounded-full bg-navy-mid opacity-10 blur-3xl dark:opacity-30" />
+        <div aria-hidden className="bg-orange-gradient animate-drift pointer-events-none absolute -right-32 -top-10 h-96 w-96 rounded-full opacity-20 blur-3xl dark:opacity-30" />
+        <div aria-hidden className="animate-drift-slow pointer-events-none absolute -left-32 top-40 h-96 w-96 rounded-full bg-navy-mid opacity-10 blur-3xl dark:opacity-30" />
         <div className="relative mx-auto grid max-w-6xl items-center gap-14 px-4 pb-24 pt-12 md:pb-32 md:pt-20 lg:grid-cols-[1.1fr_0.9fr]">
           <div>
-            <p className="anim-fade inline-flex items-center gap-2 rounded-full border border-line bg-card px-4 py-1.5 text-xs text-muted shadow-soft">
+            <p className="anim-fade shadow-layered inline-flex items-center gap-2 rounded-full border border-line bg-card px-4 py-1.5 text-xs text-muted">
               <span className="relative flex h-2 w-2">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-orange opacity-60" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-orange" />
+                <span className="pulse-ring relative inline-flex h-2 w-2 rounded-full bg-orange" />
               </span>
               {hero.badge}
             </p>
             <h1 style={{ animationDelay: "0.1s" }} className="anim-fade mt-6 text-5xl font-semibold leading-[1.04] sm:text-6xl lg:text-7xl">
-              {hero.titleStart} <span className="text-orange-gradient">{hero.titleAccent}</span>
+              {hero.titleStart} <span className="text-flow">{hero.titleAccent}</span>
             </h1>
             <p style={{ animationDelay: "0.2s" }} className="anim-fade mt-6 max-w-xl text-lg leading-relaxed text-muted">{hero.text}</p>
             <div style={{ animationDelay: "0.3s" }} className="anim-fade mt-8 flex flex-wrap gap-3">
@@ -253,9 +254,9 @@ export default function HomePage() {
 
       {/* 3. TRUST STRIP */}
       <section className="border-y border-line bg-page">
-        <div className="mx-auto grid max-w-6xl gap-6 px-4 py-10 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="stagger mx-auto grid max-w-6xl gap-6 px-4 py-10 sm:grid-cols-2 lg:grid-cols-4">
           {proof.map((p) => (
-            <div key={p.title} className="reveal">
+            <div key={p.title} className="reveal border-l-2 border-orange/60 pl-4">
               <p className="font-semibold text-heading">{p.title}</p>
               <p className="mt-1 text-sm text-muted">{p.text}</p>
             </div>
@@ -266,18 +267,18 @@ export default function HomePage() {
       {/* 4. THREE OFFERS */}
       <section className="mx-auto max-w-6xl px-4 py-20 md:py-28">
         <SectionHeading eyebrow="Start here" title="Three ways to get started" text="Pick the one that fits where your business is today. Each one leads to a clear plan." />
-        <div className="mt-12 grid gap-6 md:grid-cols-3">
+        <div className="stagger mt-12 grid gap-6 md:grid-cols-3">
           {offers.map((o) => (
             <div key={o.title} className={`reveal group flex flex-col rounded-3xl border border-line bg-card p-8 ${cardShadow}`}>
               <div className="flex items-center justify-between">
-                <span className="bg-navy-gradient flex h-12 w-12 items-center justify-center rounded-xl text-white"><Icon name={o.icon} /></span>
-                <span className="rounded-full border border-line px-3 py-1 text-xs text-muted">{o.tag}</span>
+                <span className="icon-tile shadow-glow bg-navy-gradient flex h-12 w-12 items-center justify-center rounded-xl text-white"><Icon name={o.icon} /></span>
+                <span className="rounded-full border border-orange/40 bg-orange/10 px-3 py-1 text-xs font-medium text-orange">{o.tag}</span>
               </div>
               <h3 className="mt-6 text-xl font-semibold">{o.title}</h3>
               <p className="mt-3 flex-1 text-sm leading-relaxed text-muted">{o.text}</p>
               <a href={o.href} className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-heading">
-                {o.cta}
-                <span className="transition group-hover:translate-x-1"><Icon name="arrow" className="h-4 w-4" /></span>
+                <span className="link-grow pb-0.5">{o.cta}</span>
+                <span className="text-orange transition group-hover:translate-x-1"><Icon name="arrow" className="h-4 w-4" /></span>
               </a>
             </div>
           ))}
@@ -285,17 +286,17 @@ export default function HomePage() {
       </section>
 
       {/* 5. FOUR PILLARS */}
-      <section className="bg-soft py-20 md:py-28">
+      <section className="dot-grid bg-soft py-20 md:py-28">
         <div className="mx-auto max-w-6xl px-4">
           <SectionHeading eyebrow="What we do" title="Four pillars, one team" text="Everything a growing business needs online, handled together so the pieces fit." />
-          <div className="mt-12 grid gap-6 md:grid-cols-2">
+          <div className="stagger mt-12 grid gap-6 md:grid-cols-2">
             {pillars.map((p) => (
-              <div key={p.title} className={`reveal overflow-hidden rounded-3xl border border-line bg-card ${cardShadow}`}>
-                <div className="bg-orange-gradient h-1.5" />
+              <div key={p.title} className={`reveal group overflow-hidden rounded-3xl border border-line bg-card ${cardShadow}`}>
+                <div className="bg-orange-gradient shimmer relative h-1.5" />
                 <div className="p-8">
                   <div className="flex items-center justify-between">
-                    <span className="bg-navy-gradient flex h-12 w-12 items-center justify-center rounded-xl text-white"><Icon name={p.icon} /></span>
-                    <span className="text-xs text-muted">{p.label}</span>
+                    <span className="icon-tile shadow-glow bg-navy-gradient flex h-12 w-12 items-center justify-center rounded-xl text-white"><Icon name={p.icon} /></span>
+                    <span className="rounded-full bg-orange/10 px-3 py-1 text-xs font-medium text-orange">{p.label}</span>
                   </div>
                   <h3 className="mt-6 text-2xl font-semibold">{p.title}</h3>
                   <p className="mt-2 text-sm text-muted">{p.audience}</p>
@@ -316,17 +317,19 @@ export default function HomePage() {
       </section>
 
       {/* 6. CUSTOM ML */}
-      <section className="bg-navy-gradient text-white">
-        <div className="mx-auto grid max-w-6xl gap-12 px-4 py-20 md:py-24 lg:grid-cols-[0.9fr_1.1fr]">
+      <section className="bg-navy-gradient relative overflow-hidden text-white">
+        <div aria-hidden className="bg-orange-gradient animate-drift pointer-events-none absolute -left-24 top-10 h-80 w-80 rounded-full opacity-15 blur-3xl" />
+        <div aria-hidden className="animate-drift-slow pointer-events-none absolute -right-24 bottom-0 h-80 w-80 rounded-full bg-sky-400 opacity-10 blur-3xl" />
+        <div className="relative mx-auto grid max-w-6xl gap-12 px-4 py-20 md:py-24 lg:grid-cols-[0.9fr_1.1fr]">
           <div>
             <p className="text-sm font-semibold text-orange">Custom AI</p>
             <h2 className="mt-2 text-3xl font-semibold leading-tight text-white md:text-4xl">Machine learning built on your own data</h2>
             <p className="mt-4 max-w-md text-white/75">Off-the-shelf tools treat every business the same. We train models on your leads, sales and customers, then connect them to the dashboards and WhatsApp flows you already use.</p>
             <div className="mt-8"><Button href="/contact">Discuss an ML project</Button></div>
           </div>
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div className="stagger grid gap-4 sm:grid-cols-2">
             {mlUseCases.map((u) => (
-              <div key={u.title} className="reveal rounded-2xl border border-white/15 bg-white/5 p-6 transition duration-300 hover:-translate-y-1 hover:border-orange/50 hover:bg-white/10">
+              <div key={u.title} className="reveal rounded-2xl border border-white/15 bg-white/5 p-6 backdrop-blur-sm transition duration-300 hover:-translate-y-1 hover:border-orange/50 hover:bg-white/10 hover:shadow-[0_22px_44px_-18px_rgba(255,122,26,0.45)]">
                 <h3 className="font-semibold text-white">{u.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-white/70">{u.text}</p>
               </div>
@@ -338,12 +341,12 @@ export default function HomePage() {
       {/* 7. PACKAGES */}
       <section id="packages" className="mx-auto max-w-6xl scroll-mt-28 px-4 py-20 md:py-28">
         <SectionHeading center eyebrow="Packages" title="Simple packages that grow with you" text="Start where you are. Move up when you are ready. Final pricing depends on scope." />
-        <div className="mt-16 grid items-stretch gap-6 md:grid-cols-3">
+        <div className="stagger mt-16 grid items-stretch gap-6 md:grid-cols-3">
           {packages.map((p) => {
             const hl = p.highlight;
             return (
-              <div key={p.name} className={`reveal relative flex flex-col rounded-3xl p-8 ${hl ? "bg-navy-gradient border border-white/10 text-white shadow-2xl md:-translate-y-4" : `border border-line bg-card ${cardShadow}`}`}>
-                {hl && <span className="bg-orange-gradient absolute -top-3 left-8 rounded-full px-4 py-1 text-xs font-semibold text-navy">Most popular</span>}
+              <div key={p.name} className={`reveal relative flex flex-col rounded-3xl p-8 ${hl ? "gradient-border bg-navy-gradient shadow-glow float-slow border border-white/10 text-white md:-translate-y-4" : `border border-line bg-card ${cardShadow}`}`}>
+                {hl && <span className="bg-orange-gradient shimmer absolute -top-3 left-8 rounded-full px-4 py-1 text-xs font-semibold text-navy">Most popular</span>}
                 <h3 className={`text-xl font-semibold ${hl ? "text-white" : ""}`}>{p.name}</h3>
                 <p className={`mt-1 text-sm ${hl ? "text-white/70" : "text-muted"}`}>{p.audience}</p>
                 <p className="mt-6 flex items-baseline gap-2">
@@ -367,22 +370,22 @@ export default function HomePage() {
         <div className="mt-12 text-center">
           <p className="text-sm font-semibold text-heading">Popular add-ons</p>
           <div className="mt-4 flex flex-wrap justify-center gap-2">
-            {addOns.map((a) => <span key={a} className="rounded-full border border-line bg-card px-4 py-2 text-sm text-muted">{a}</span>)}
+            {addOns.map((a) => <span key={a} className="shadow-soft rounded-full border border-line bg-card px-4 py-2 text-sm text-muted transition duration-300 hover:-translate-y-0.5 hover:border-orange/50 hover:text-heading">{a}</span>)}
           </div>
           <div className="mt-8"><Button href="/packages" variant="outline">Compare packages in detail</Button></div>
         </div>
       </section>
 
       {/* 8. WORK PREVIEW */}
-      <section className="bg-soft py-20 md:py-28">
+      <section className="dot-grid bg-soft py-20 md:py-28">
         <div className="mx-auto max-w-6xl px-4">
           <SectionHeading eyebrow="Our work" title="Sample projects" text="Real case studies will replace these as we finish client work. Each one will show the problem, what we did and a result with a number." />
-          <div className="mt-12 grid gap-6 md:grid-cols-3">
+          <div className="stagger mt-12 grid gap-6 md:grid-cols-3">
             {samples.map((s) => (
               <article key={s.title} className={`reveal overflow-hidden rounded-3xl border border-line bg-card ${cardShadow}`}>
                 <SampleVisual kind={s.kind} />
                 <div className="p-6">
-                  <p className="text-xs text-muted">{s.tag}</p>
+                  <p className="text-xs font-medium text-orange">{s.tag}</p>
                   <h3 className="mt-2 text-lg font-semibold">{s.title}</h3>
                   <p className="mt-2 text-sm leading-relaxed text-muted">{s.text}</p>
                   <p className="mt-4 text-sm font-semibold text-heading">{s.result}</p>
@@ -397,10 +400,10 @@ export default function HomePage() {
       {/* 9. HOW WE WORK */}
       <section className="mx-auto max-w-6xl px-4 py-20 md:py-28">
         <SectionHeading center eyebrow="How we work" title="A clear process from first call to monthly results" />
-        <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="stagger mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {steps.map((s, i) => (
-            <div key={s.title} className={`reveal rounded-3xl border border-line bg-card p-7 ${cardShadow}`}>
-              <span className="bg-orange-gradient flex h-10 w-10 items-center justify-center rounded-full text-sm font-bold text-navy">{i + 1}</span>
+            <div key={s.title} className={`reveal step-line rounded-3xl border border-line bg-card p-7 ${cardShadow}`}>
+              <span className="bg-orange-gradient shadow-glow flex h-10 w-10 items-center justify-center rounded-full text-sm font-bold text-navy">{i + 1}</span>
               <h3 className="mt-5 text-lg font-semibold">{s.title}</h3>
               <p className="mt-2 text-sm leading-relaxed text-muted">{s.text}</p>
             </div>
@@ -410,10 +413,10 @@ export default function HomePage() {
 
       {/* 10. TESTIMONIALS (hidden until you add real quotes) */}
       {testimonials.length > 0 && (
-        <section className="bg-soft py-20 md:py-28">
+        <section className="dot-grid bg-soft py-20 md:py-28">
           <div className="mx-auto max-w-6xl px-4">
             <SectionHeading center eyebrow="Kind words" title="What clients say" />
-            <div className="mt-12 grid gap-6 md:grid-cols-3">
+            <div className="stagger mt-12 grid gap-6 md:grid-cols-3">
               {testimonials.map((t) => (
                 <figure key={t.name} className={`reveal rounded-3xl border border-line bg-card p-8 ${cardShadow}`}>
                   <blockquote className="text-base leading-relaxed text-fg">“{t.quote}”</blockquote>
@@ -433,13 +436,14 @@ export default function HomePage() {
 
       {/* 12. FINAL CTA */}
       <section className="mx-auto max-w-6xl px-4 pb-8">
-        <div className="reveal bg-orange-gradient relative overflow-hidden rounded-3xl p-10 text-center shadow-[0_30px_80px_rgba(255,122,26,0.35)] md:p-16">
-          <div aria-hidden className="pointer-events-none absolute -right-16 -top-16 h-64 w-64 rounded-full bg-white/20 blur-2xl" />
+        <div className="reveal bg-orange-gradient shimmer relative overflow-hidden rounded-3xl p-10 text-center shadow-[0_30px_80px_rgba(255,122,26,0.35)] md:p-16">
+          <div aria-hidden className="animate-drift pointer-events-none absolute -right-16 -top-16 h-64 w-64 rounded-full bg-white/20 blur-2xl" />
+          <div aria-hidden className="animate-drift-slow pointer-events-none absolute -bottom-20 -left-16 h-64 w-64 rounded-full bg-white/15 blur-2xl" />
           <h2 className="relative mx-auto max-w-2xl text-3xl font-semibold text-navy md:text-5xl">Want to know what is holding your business back online?</h2>
           <p className="relative mx-auto mt-4 max-w-xl text-navy/80">Get a free audit and a clear list of what to fix first. No pressure and no jargon.</p>
           <div className="relative mt-8 flex flex-wrap justify-center gap-3">
             <Button href="/free-audit" variant="dark">Get a free audit</Button>
-            <a href={whatsappHref} target="_blank" rel="noopener noreferrer" className="inline-block rounded-full border border-navy/30 px-7 py-3.5 text-sm font-semibold text-navy transition hover:border-navy">
+            <a href={whatsappHref} target="_blank" rel="noopener noreferrer" className="inline-block rounded-full border border-navy/30 px-7 py-3.5 text-sm font-semibold text-navy transition hover:-translate-y-0.5 hover:border-navy hover:bg-white/20">
               Chat on WhatsApp
             </a>
           </div>
